@@ -108,6 +108,13 @@
   margin-left: 0.5rem;
 }
 
+.arrow{
+  position: sticky;
+  margin-top: 467px;
+  bottom: 10px;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

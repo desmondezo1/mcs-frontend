@@ -12,7 +12,7 @@ export default function footer(){
     const year = new Date("Y");
     return (
         <>
-        <footer className={FooterCss.footerWrapper}>
+        <footer className={FooterCss.footerWrapper} id="footer">
             <div className={`${FooterCss.linksWrapper} ${"mx-auto"}`}>
                 <div className={FooterCss.linkContainer}>
                     <ul>
