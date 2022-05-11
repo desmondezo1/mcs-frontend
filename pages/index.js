@@ -9,6 +9,7 @@ import washingMachine from '../public/images/washingmachine.png'
 import houseImage from '../public/images/house.png'
 import window from '../public/images/window.png'
 import { Icon } from '@iconify/react'
+import CountUp from 'react-countup';
 
 
 export default function Home() {
@@ -122,6 +123,91 @@ export default function Home() {
               Proporsi come un partner affidabile e presente per i propri clienti è la visione che contraddistingue la cultura aziendale di MCS. Acquistare un prodotto MCS non vuol dire soltanto avere un buon rimedio, ma affidarsi soprattutto ad una consulenza professionale e trasparente in qualsiasi momento, contando su soluzioni immediate ed efficaci.
               </div>
             </div>
+        </div>
+
+      </section>
+
+      <section className={styles.statsSection}>
+        <div className={styles.statsSectionWrapper}>
+          <div className={styles.stat} >
+            <span className={styles.statCircle}>
+               <CountUp start={0} end={100} delay={0} />
+            </span>
+            <span className={styles.statLabel}>
+              NUOVI CLIENTI 2021
+            </span>
+          </div>
+
+
+          <div className={styles.stat} >
+            <span className={styles.statCircle}>
+               <CountUp start={0} end={100} delay={0} />
+            </span>
+            <span className={styles.statLabel}>
+              SPEDIZIONI NEL 2021
+            </span>
+          </div>
+
+
+          <div className={styles.stat} >
+            <span className={styles.statCircle}>
+               <CountUp start={0} end={100} delay={0} />
+            </span>
+            <span className={styles.statLabel}>
+            PRODOTTI NEL SHOP
+            </span>
+          </div>
+
+
+          <div className={styles.stat} >
+            <span className={styles.statCircle}>
+               <CountUp start={0} end={100} delay={0} />
+            </span>
+            <span className={styles.statLabel}>
+            BRAND PARTNERS
+            </span>
+          </div>
+
+        </div>
+        <span className={`${styles.statLinkNext} ${styles.link_with_arrow}`}>
+          <Link href="">
+            <a>
+            SCOPRI I NOSTRI PARTNERS
+            <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+            </a>
+          </Link>
+        </span>
+      </section>
+
+      <section className={styles.mapSection}>
+        <div className={`${styles.mapSectionWrapper} ${"row"}`}>
+          <div className={`${styles.mapSectionContactForm} ${"col-6"}`}>
+              <span className={styles.name}>Contattaci</span>
+
+              <form className={styles.contactForm}>      
+                <textarea height="417px" width="425px" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+              </form>
+
+              <span className={styles.link_with_arrow}>
+                INVIA
+                <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+              </span>
+
+          </div>
+
+          <div className={`${styles.mapSectionMap} ${"col-6"}`}>
+            <span>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.768462533129!2d14.673311315293335!3d36.91979997992414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe93ea2e74cec0df!2zMzbCsDU1JzExLjMiTiAxNMKwNDAnMzEuOCJF!5e0!3m2!1sen!2sit!4v1652256563849!5m2!1sen!2sit" width="450" height="300" style={{border:"0"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </span>
+            <span>
+              <ul className={styles.listStye}>
+                <li> Strada Cento Pozzi km 1,2 C.da Buttino s.n.c. 97100, Ragusa (RG), Italia.</li>
+                <li>Email: mcsprogettoigiene@gmail.com</li>
+                <li>Tel: 0932 642711</li>
+                <li>Cell: 3791979665 - 3395354321</li>
+              </ul>
+            </span>
+          </div>
         </div>
 
       </section>
