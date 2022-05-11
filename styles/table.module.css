@@ -1,0 +1,38 @@
+.table_container {
+  height: 400px;
+  width: 700px;
+  background: red;
+  border-radius: 10px;
+  border: 1px solid #999999;
+  background-color: #e6e6e6;
+  padding: 15px;
+}
+
+.table_container_header {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 5px 0px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.table {
+  width: 100%;
+  color: #707070;
+}
+.table thead {
+  border-bottom: 1px solid #999999;
+}
+
+.table thead th,
+.table tbody td {
+  font-weight: normal;
+  font-size: 0.8em;
+  padding: 14px 0;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #cccccc;
+}

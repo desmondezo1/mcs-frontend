@@ -1,0 +1,43 @@
+.button {
+  padding: 5px 20px;
+  border-radius: 30px;
+  width: 230px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.button.primary {
+  background-color: black;
+  color: white;
+}
+
+.button.primary:hover {
+  background-color: gray;
+  color: white;
+}
+
+.button.secondary {
+  background-color: white;
+  color: black;
+}
+
+.button.secondary:hover {
+  background-color: gray;
+  color: white;
+}
+
+.text_input {
+  border: 0;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+.checkbox_container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.checkbox_container input {
+  margin-right: 10px;
+}
