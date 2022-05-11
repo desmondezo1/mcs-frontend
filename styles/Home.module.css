@@ -134,6 +134,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
 .distImageCard span{
@@ -142,6 +143,24 @@
   border-radius: 20px;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.partnersSection{
+ height: 768px;
+ border-top: 1px solid #000 ;
+ border-bottom: 1px solid #000 ;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.partnersSectionWrapper{
+  width: 70%;
+}
+
+.name{
+  padding: 10px 0;
+  border-bottom: 1px solid black;
 }
 
 

@@ -29,7 +29,7 @@ export default function Home() {
     }
     `}</style>
     <main>
-      <div className="d-flex">
+      <section className="d-flex">
         <div className="flex-grow-1">
           <Image src={jumbotron} />
         </div>
@@ -47,8 +47,9 @@ export default function Home() {
           </span>
         </div>
 
-      </div>
-      <div className={styles.distributorsSection}>
+      </section>
+
+      <section className={styles.distributorsSection}>
         <div className={styles.distributorsSectionWrapper}>
 
           <div className={styles.distImageCard}>
@@ -92,7 +93,38 @@ export default function Home() {
           </div>
 
         </div>
-      </div>
+      </section>
+
+      <section className={styles.partnersSection}>
+
+        <div className={styles.partnersSectionWrapper}>
+            <div className="row" style={{marginBottom: 30+"px"}}>
+              <div className={`${"col-4"}`}>
+                <span className={`${styles.name}`}>Chi Siamo</span>
+              </div>
+              <div className="col-8">
+                MCS nasce nel 2004 dal desiderio di offrire soluzioni di qualità per i servizi igienici attraverso distributori ed accessori di ogni tipo. Profumatori ambientali, igienizzanti per i wc, dispenser di asciugamani in cotone e carta, distributori di sapone e carta igienica, sono solo alcune delle proposte confortevoli ed ecologiche che hanno reso oggi MCS un' azienda leader nel territorio siciliano. Dal 2007, dopo essersi affermata con questo servizio, MCS allarga le proprie conoscenze abbracciando così i settori detergenza, attrezzi di pulizia e carta monouso.
+              </div>
+            </div>
+            <div className="row " style={{marginBottom: 30+"px"}}>
+              <div className={`${"col-4"}`}>
+                <span className={`${styles.name}`}>Priorità</span>
+              </div>
+              <div className="col-8">
+              Durante l' evoluzione dell' azienda e delle diverse tecnologie MCS aggiorna di continuo il proprio staff garantendo sempre una qualità impeccabile per il cliente. La nostra priorità è sempre ottimizzare il servizio al cliente.
+              </div>
+            </div>
+            <div className="row" style={{marginBottom: 30+"px"}}>
+              <div className={`${"col-4"}`}>
+                <span className={`${styles.name}`}>Visione</span>
+              </div>
+              <div className="col-8">
+              Proporsi come un partner affidabile e presente per i propri clienti è la visione che contraddistingue la cultura aziendale di MCS. Acquistare un prodotto MCS non vuol dire soltanto avere un buon rimedio, ma affidarsi soprattutto ad una consulenza professionale e trasparente in qualsiasi momento, contando su soluzioni immediate ed efficaci.
+              </div>
+            </div>
+        </div>
+
+      </section>
     </main>
     </>
   )
