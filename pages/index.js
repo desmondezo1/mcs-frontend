@@ -9,10 +9,34 @@ import washingMachine from '../public/images/washingmachine.png'
 import houseImage from '../public/images/house.png'
 import window from '../public/images/window.png'
 import { Icon } from '@iconify/react'
-import CountUp from 'react-countup';
-
+import CountUp  from 'react-countup'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
 
 export default function Home() {
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      name: '',
+      message: '',
+    },
+    onSubmit: () => {
+      setMessage('Form submitted');
+      setSubmitted(true);
+    },
+    validationSchema: yup.object({
+      name: yup.string().trim().required('Name is required'),
+      email: yup
+        .string()
+        .email('Must be a valid email')
+        .required('Email is required'),
+      message: yup.string().trim().required('Message is required'),
+    }),
+  });
+
+
+
   return (<>
     <style jsx>{`
     .jumboText {
@@ -184,7 +208,13 @@ export default function Home() {
           <div className={`${styles.mapSectionContactForm} ${"col-6"}`}>
               <span className={styles.name}>Contattaci</span>
 
-              <form className={styles.contactForm}>      
+              <form className={styles.contactForm}> 
+              <div class="mb-3 row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword" />
+                </div>
+              </div>     
                 <textarea height="417px" width="425px" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
               </form>
 
