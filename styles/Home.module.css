@@ -16,3 +16,26 @@
     flex-direction: column;
   }
 }
+.overview_body_container {
+  width: 80%;
+  background: red;
+}
+
+.overview_body_container .chart_container {
+  height: 60vh;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: green;
+}
+.second_container {
+  height: 30vh;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: orange;
+}
+.table {
+  height: 50vh;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: orange;
+}

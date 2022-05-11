@@ -32,3 +32,16 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
 }
+
+.dashboard_container {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  height: auto;
+  margin-top: 2%;
+  justify-content: space-between;
+}
+
+.nav_container {
+  width: 15%;
+}
