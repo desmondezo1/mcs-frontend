@@ -1,0 +1,41 @@
+import React from "react";
+
+function AddIcon(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="13.771"
+      height="13.771"
+      viewBox="0 0 13.771 13.771"
+    >
+      <g
+        id="Group_2569"
+        data-name="Group 2569"
+        transform="translate(-4290.368 -244.17)"
+      >
+        <line
+          id="Line_1583"
+          data-name="Line 1583"
+          y2="13.771"
+          transform="translate(4297.253 244.17)"
+          fill="#fff"
+          stroke="#000"
+          strokeMiterlimit="10"
+          strokeWidth="1"
+        />
+        <line
+          id="Line_1584"
+          data-name="Line 1584"
+          x1="13.771"
+          transform="translate(4290.368 251.055)"
+          fill="#fff"
+          stroke="#000"
+          strokeMiterlimit="10"
+          strokeWidth="1"
+        />
+      </g>
+    </svg>
+  );
+}
+
+export default AddIcon;

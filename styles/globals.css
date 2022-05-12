@@ -45,3 +45,18 @@ a {
 .nav_container {
   width: 15%;
 }
+
+.overview_body_container {
+}
+
+.green_text {
+  color: #22b573;
+}
+
+.grey_text {
+  color: #999999;
+}
+
+.small_text {
+  font-size: 0.8em;
+}

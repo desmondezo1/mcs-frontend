@@ -5,6 +5,11 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  background-color: none;
+}
+
+.button.small {
+  width: 20px;
 }
 
 .button.primary {
@@ -18,8 +23,29 @@
 }
 
 .button.secondary {
-  background-color: white;
+  background-color: transparent;
   color: black;
+}
+
+.button.Received {
+  background-color: #b7e5bc;
+  color: #006d0e;
+  border: 0;
+}
+.button.Cancelled {
+  background-color: #f4c1c1;
+  border: 0;
+  color: #9b2307;
+}
+.button.Shipped {
+  background-color: #cccccc;
+  border: 0;
+  color: #666666;
+}
+.button.Pending {
+  background-color: #f2d6bb;
+  border: 0;
+  color: #98530c;
 }
 
 .button.secondary:hover {

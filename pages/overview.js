@@ -3,6 +3,10 @@ import Header from "../components/molecules/Header";
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
 
+import Chart from "../components/molecules/Overview/Chart";
+import SecondContainer from "../components/molecules/Overview/SecondContainer";
+import Table from "../components/molecules/Overview/Table";
+
 function overview(props) {
   return (
     <div className={styles.container}>
@@ -19,9 +23,9 @@ function overview(props) {
         <div className="dashboard_container">
           <Nav />
           <div className={styles.overview_body_container}>
-            <div className={styles.chart_container}></div>
-            <div className={styles.second_container}></div>
-            <div className={styles.table}></div>
+            <Chart />
+            <SecondContainer />
+            <Table />
           </div>
         </div>
       </main>
