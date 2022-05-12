@@ -1,6 +1,6 @@
 .table_container {
   height: 400px;
-  width: 700px;
+  width: 100%;
   background: red;
   border-radius: 10px;
   border: 1px solid #999999;
@@ -30,7 +30,7 @@
 .table tbody td {
   font-weight: normal;
   font-size: 0.8em;
-  padding: 14px 0;
+  padding: 16px 0;
 }
 
 .table tbody tr {
