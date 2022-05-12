@@ -19,7 +19,6 @@ function Table({
   selfDisplayComponent,
   displayComponent,
 }) {
-  console.log(selfDisplayComponent);
   const body = tableData.map((data, i) => {
     const keys = headKey;
     return (

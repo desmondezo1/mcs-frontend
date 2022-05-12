@@ -22,7 +22,6 @@ SecondContainerChartCard.defaultProps = {
 };
 
 function SecondContainerChartCard({ header, amount, date, change, chartData }) {
-  console.log("chart data", chartData);
   return (
     <div className="d-flex flex-row align-align-items-center">
       <div className="w-50 d-flex flex-row justify-content-center align-items-center">

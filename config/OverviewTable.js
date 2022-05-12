@@ -33,4 +33,35 @@ const arr = [
   },
 ];
 
+export const adminData = [
+  {
+    name: "Nathan Fichera",
+    roulo: "Admin",
+    date: "10.05.2022",
+    status: "Attivo",
+    down: "",
+  },
+  {
+    name: "Andrea Fichera",
+    roulo: "Admin",
+    date: "10.05.2022",
+    status: "Sospeso",
+    down: "",
+  },
+  {
+    name: "Greta Astorino",
+    roulo: "Creator",
+    date: "05.05.2022",
+    status: "Attivo",
+    down: "",
+  },
+  {
+    name: "Federico Romano",
+    roulo: "Creator",
+    date: "01.05.2022",
+    status: "Attivo",
+    down: "",
+  },
+];
+
 export default arr;
