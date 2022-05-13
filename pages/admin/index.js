@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Header from "../components/molecules/Header";
-import LoginForm from "../components/molecules/Login/LoginForm";
-import styles from "../styles/Home.module.css";
+import Header from "../../components/molecules/Header";
+import LoginForm from "../../components/molecules/Login/LoginForm";
+import styles from "../../styles/Home.module.css";
 
 export default function Home() {
   return (
