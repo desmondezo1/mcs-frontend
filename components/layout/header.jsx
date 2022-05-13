@@ -5,7 +5,7 @@ import HeaderCss from '../../styles/layout/header.module.css'
 import { Icon } from '@iconify/react';
 import { useRouter } from "next/router";
 
-export default function header(){
+export default function Header(){
     
   const router = useRouter();
 return (

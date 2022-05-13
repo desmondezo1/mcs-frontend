@@ -217,7 +217,7 @@ export default function Home() {
 
               <form className={styles.contactForm}> 
               <div className="mb-3 row">
-              <label for="inputPassword" className="col-sm-2 col-form-label">Password</label>
+              <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
                 <div className="col-sm-10">
                   <input type="password" className="form-control" id="inputPassword" />
                 </div>
@@ -234,7 +234,7 @@ export default function Home() {
 
           <div className={`${styles.mapSectionMap} ${"col-6"}`}>
             <span>
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.768462533129!2d14.673311315293335!3d36.91979997992414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe93ea2e74cec0df!2zMzbCsDU1JzExLjMiTiAxNMKwNDAnMzEuOCJF!5e0!3m2!1sen!2sit!4v1652256563849!5m2!1sen!2sit" width="450" height="300" style={{border:"0"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.768462533129!2d14.673311315293335!3d36.91979997992414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe93ea2e74cec0df!2zMzbCsDU1JzExLjMiTiAxNMKwNDAnMzEuOCJF!5e0!3m2!1sen!2sit!4v1652256563849!5m2!1sen!2sit" width="450" height="300" style={{border:"0"}} allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </span>
             <span>
               <ul className={styles.listStye}>
