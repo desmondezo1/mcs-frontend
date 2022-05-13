@@ -1,37 +1,50 @@
 import React from "react";
 import style from "../../styles/table.module.css";
 
-function Table({ table }) {
+Table.defaultProps = {
+  table: "",
+  HeadContainer: "",
+  tableData: [{}],
+  children: "",
+  headKey: [""],
+  displayHeadKey: false,
+  selfDisplayComponent: false,
+};
+
+function Table({
+  tableData,
+  children,
+  headKey,
+  displayHeadKey,
+  selfDisplayComponent,
+  displayComponent,
+}) {
+  const body = tableData.map((data, i) => {
+    const keys = headKey;
+    return (
+      <tr key={i}>
+        {keys.map((key, i) => (
+          <td key={i}>{data[key]}</td>
+        ))}
+      </tr>
+    );
+  });
   return (
     <div className={style.table_container}>
-      <div className={style.table_container_header}>
-        <div>
-          <button>Hello world</button>
-        </div>
-        <div>
-          <button>Div_stuff</button>
-        </div>
-      </div>
+      <div className={style.table_container_header}>{children}</div>
 
       <table className={style.table}>
-        <thead>
-          <tr>
-            <th>NO</th>
-            <th>Prodotto</th>
-            <th>Categoria</th>
-            <th>image.png</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Ken’s Luxury Detergent</td>
-            <td>Interni ed Esterni</td>
-            <td>10.05.2022</td>
-            <td>Active</td>
-          </tr>
-        </tbody>
+        {displayHeadKey && (
+          <thead>
+            <tr>
+              {headKey.map((data, i) => (
+                <th key={i}>{data}</th>
+              ))}
+            </tr>
+          </thead>
+        )}
+
+        <tbody>{selfDisplayComponent ? displayComponent : body}</tbody>
       </table>
     </div>
   );
