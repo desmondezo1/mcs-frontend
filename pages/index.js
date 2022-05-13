@@ -216,13 +216,13 @@ export default function Home() {
               <span className={styles.name}>Contattaci</span>
 
               <form className={styles.contactForm}> 
-              <div class="mb-3 row">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="inputPassword" />
+              <div className="mb-3 row">
+              <label for="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                <div className="col-sm-10">
+                  <input type="password" className="form-control" id="inputPassword" />
                 </div>
               </div>     
-                <textarea height="417px" width="425px" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea height="417px" width="425px" className="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
               </form>
 
               <span className={styles.link_with_arrow}>
