@@ -12,6 +12,143 @@
   width: 100% !important;
 }
 
+.arrow{
+  position: sticky;
+  margin-top: 467px;
+  bottom: 10px;
+  cursor: pointer;
+}
+
+.distributorsSection{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 768px;
+}
+
+.distributorsSectionWrapper{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 20px;
+  height: 431px;
+ 
+}
+
+.distImageCard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.distImageCard span{
+  margin-top: 30px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.link_with_arrow{
+  margin-top: 30px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.partnersSection{
+ height: 768px;
+ border-top: 1px solid #000 ;
+ border-bottom: 1px solid #000 ;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.partnersSectionWrapper{
+  width: 70%;
+}
+
+.name{
+  padding: 10px 0;
+  border-bottom: 1px solid black;
+}
+
+.statsSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 768px;
+}
+
+.statsSection{
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.statsSectionWrapper{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 20px;
+}
+
+.statCircle{
+  padding: 80px;
+  border-radius: 50%;
+  height: 217.82px;
+  width: 217.82px;
+  background-color: #1E3F7F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 65.41px;
+  color: #F0F0F0;
+}
+
+.stat{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statLinkNext{
+  position: absolute;
+  bottom: 40px;
+}
+
+.statLabel{
+  margin-top: 20px;
+}
+
+.mapSection{
+  height: 768px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.mapSectionWrapper{
+  display: flex;
+  width: 75%;
+}
+
+.contactForm{
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.listStye{
+  list-style: none;
+  margin-top: 30px;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

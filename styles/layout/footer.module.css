@@ -1,0 +1,64 @@
+.footerWrapper{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.linksWrapper{
+    display: flex;
+    flex-direction: row;
+    height: 394.84px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    background: #1E3F7F;
+
+}
+
+.linkContainer ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.linkContainer ul li{
+    color: #F0F0F0;
+}
+
+.socialsWrapper{
+    height: 374px;
+    background-color: #F0F0F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.socialsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+
+}
+
+.socialsContainer span{
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.paymentLogo{
+    width: 100%;
+    padding: 20px 0;
+    background-color: #F0F0F0;
+}
+
+.paymentLogoWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
