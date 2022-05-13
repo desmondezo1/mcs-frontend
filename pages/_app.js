@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Script from "next/script"
+import {Provider} from "react-redux";
+import store from "../stores";
 import '../styles/globals.css'
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer"
@@ -29,8 +31,10 @@ function MyApp({ Component, pageProps }) {
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous" 
       />
+      <Provider store={store}>
       <Header />
       <Component {...pageProps} />
+      </Provider>
       <Footer />
     </>
   

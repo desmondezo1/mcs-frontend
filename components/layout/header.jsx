@@ -4,10 +4,13 @@ import Logo from '../../public/images/logo.png'
 import HeaderCss from '../../styles/layout/header.module.css'
 import { Icon } from '@iconify/react';
 import { useRouter } from "next/router";
+import { useSelector } from 'react-redux';
 
 export default function header(){
-    
-  const router = useRouter();
+    const cartList = useSelector(state => state.mySlice.cart);
+  
+  
+    const router = useRouter();
 return (
     <>
     <style jsx>{`
@@ -68,14 +71,23 @@ return (
                 </li>
             </ul>
             <div class={`${"icon-wrapper"} ${HeaderCss.iconWrapper}`}>               
-                <div className={HeaderCss.wishListIcon}>
+               <Link href="/bacheca/desideri/1">
+                    <a>
+                    <div className={HeaderCss.wishListIcon}>
                     <span className={HeaderCss.wishListCount}>5</span>
                     <Icon icon="bi:heart" />
                 </div>
-                <div className={HeaderCss.cartIcon}>
-                    <span className={HeaderCss.cartIconCount}>5</span>
-                    <Icon icon="clarity:shopping-cart-line" />
-                </div>
+                    </a>
+                </Link>
+                
+                <Link href={'/carrello'}>
+                    <a>
+                    <div className={HeaderCss.cartIcon}>
+                        <span className={HeaderCss.cartIconCount}>{cartList.length}</span>
+                        <Icon icon="clarity:shopping-cart-line" />
+                    </div>
+                    </a>
+                </Link>    
             </div>
         </div>
       </div>
