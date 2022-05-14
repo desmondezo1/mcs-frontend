@@ -55,6 +55,12 @@
     background-color: #F0F0F0;
 }
 
+.mcsYear{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .paymentLogoWrapper{
     display: flex;
     flex-direction: row;

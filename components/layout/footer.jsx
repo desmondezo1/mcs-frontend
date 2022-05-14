@@ -65,7 +65,7 @@ export default function footer(){
             </div>
             <div className={FooterCss.paymentLogo}>
                 <div className={FooterCss.paymentLogoWrapper}>
-                    <span>
+                    <span className={FooterCss.mcsYear}>
                         <Icon icon="ph:copyright-light"/>
                         {`${new Date().getFullYear()}
                          MCS Group S.r.l`}
