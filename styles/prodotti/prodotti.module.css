@@ -6,6 +6,8 @@
     border-radius: 12.82px;
     border: 1px solid #999999;
     padding: 20px;
+    flex-direction: column;
+    display: flex;
 }
 
 .formInputSection{
@@ -18,6 +20,8 @@
 
 .formSectionH3{
     flex-grow: 0.5;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .formInputWrapper{
@@ -28,6 +32,24 @@
 .input{
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.submitBtn{
+    background-color: black;
+    color: #F0F0F0;
+    padding: 10px 25px;
+    border-radius: 10px;
+    width: 60%;
+}
+
+.btnWrapper{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
 }
 
 @media only screen and (max-width: 900px) {

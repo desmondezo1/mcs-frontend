@@ -44,22 +44,26 @@ export default function prodotti(){
                     <h3 className={productCss.formSectionH3}>Info Generiche</h3>
                     <div className={productCss.formInputWrapper}>
                         <div className={productCss.input}>
-                            <label htmlFor="email">Email Address</label>
+                            <label htmlFor="title">Titolo del Prodotto</label>
                             <input
-                                id="email"
-                                name="email"
-                                type="email"
+                                id="title"
+                                name="title"
+                                type="text"
                                 className='form-control'
                                 onChange={formik.handleChange}
-                                value={formik.values.email}
+                                value={formik.values.title}
                             />
                         </div>
 
                         <div className={productCss.input}>
-                            <label htmlFor="email">Descrizione</label>
+                            <label htmlFor="decription">Descrizione</label>
                             <textarea
                             row="6"
+                            id="description"
+                            name='description'
                             className='form-control'
+                            onChange={formik.handleChange}
+                            value={formik.values.description}
                             >
                             </textarea>
                         </div>
@@ -67,7 +71,7 @@ export default function prodotti(){
                         <div className={productCss.input}>
                             
                             <label htmlFor="email">Brand (Marca)</label>
-                                <select className='custom-select form-control' id="inputGroupSelect01">
+                                <select name='brand' className='custom-select form-control' id="inputGroupSelect01">
                                     <option selected>Choose...</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -80,17 +84,17 @@ export default function prodotti(){
                 </div>
 
                 <div className={productCss.formInputSection}>
-                <h3 className={productCss.formSectionH3}>Info Generiche</h3>
+                <h3 className={productCss.formSectionH3}>Pezzi e Prezzi</h3>
                     <div className={productCss.formInputWrapper}>
                         <div className={productCss.input}>
-                            <label htmlFor="email">Email Address</label>
+                            <label htmlFor="product">Pezzo 1</label>
                             <input
-                                id="email"
-                                name="email"
-                                type="email"
+                                id="product"
+                                name="product"
+                                type="text"
                                 className='form-control'
                                 onChange={formik.handleChange}
-                                value={formik.values.email}
+                                value={formik.values.product}
                             />
                         </div>
 
@@ -223,20 +227,22 @@ export default function prodotti(){
                 <h3 className={productCss.formSectionH3}>Status</h3>
                     <div className={productCss.formInputWrapper}>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="option1" />
+                            <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="published" />
                             <label class="form-check-label" for="inlineRadio1">Attiva</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="option2" />
+                            <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="unpublished" />
                             <label class="form-check-label" for="inlineRadio2">Bozza</label>
                         </div>                    
                     </div>
                 </div>
 
 
-           
+           <div className={productCss.btnWrapper}>
+                <button  className={productCss.submitBtn} type="submit">Add Product</button>
+           </div>
 
-                <button type="submit">Submit</button>
+
             </form>
             </div>
           </div>
