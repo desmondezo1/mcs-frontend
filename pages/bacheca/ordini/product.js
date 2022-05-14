@@ -2,14 +2,16 @@ import {useState} from 'react';
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import { updateCartList } from '../../../stores/mySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCartList, updateCartVisibility } from '../../../stores/mySlice';
+import Cart from '../../../components/cartList/cart';
 
 const Product = () => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(5);
   const [id, setId] = useState(3);
   const [activeTab, setActiveTab] = useState('tab2');
+  const openCart = useSelector(state => state.mySlice.openCart);
 
 
   const handleTabChange = (tab) => {
@@ -21,10 +23,11 @@ const Product = () => {
   }
 
   return (
-    <div className="py-[5em] w-fit md:w-[90%] lg:w-4/5 xl:w-2/3 m-auto">
+    <div className="py-[5em] w-fit  md:w-[70%]  xl:w-4/5 m-auto ">
+      {openCart && <Cart/>}
       <div className="first my-5 pb-[6em]">
-        <div className="flex flex-wrap justify-between ">
-          <div className="left w-fit">
+        <div className="flex flex-wrap sm:flex-nowrap justify-between ">
+          <div className="left  w-fit sm:w-[250px] xl:w-fit mx-auto sm:mx-0 ">
             <Image
              src={'/images/window.png'}
              alt="product"
@@ -33,7 +36,7 @@ const Product = () => {
              quality = {100}
             /> 
           </div>
-          <div className="right mr-2 w-fit flex flex-col">
+          <div className="right mr-2 w-fit md:w-full lg:w-full xl:w-fit   flex flex-col px-3 sm:px-0">
             <h1 className=" font-medium text-md md:text-lg lg:text-xl xl:text-2xl mt-2 md:mt-0">Sany Mayer 400 ml</h1>
             <p className="max-w-[600px] my-3 text-sm xl:text-md">Hai perso la password, Inserisci l'email cui e stata effettuata la registrazione. Riceveral tramite email un link per generrame una nuova.</p>
             <div className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-3 py-1 cursor-pointer my-3">
@@ -50,30 +53,30 @@ const Product = () => {
               ><Icon icon="carbon:add" width="30" height="30"
               /></span>
             </div>
-            <div className="flex items-center justify-between mt-auto"
+            <div className="flex flex-wrap items-center justify-between mt-auto"
                onClick={() => addToCart(id++)}
             >
-              <Link href={'/carrello'}>
-                <a>
-                <span className="rounded-3xl px-4 py-1 cursor-pointer text-sm bg-black text-white" >AGGIUNGI AL CARRELLO</span>
+                <a className='my-4 sm:my-0'
+                 onClick={() => dispatch(updateCartVisibility(true))}
+                >
+                <span className=" rounded-3xl px-4 py-1 cursor-pointer text-sm bg-black text-white" >AGGIUNGI AL CARRELLO</span>
                 </a>
-              </Link>
               <span className="border-1 border-black border-solid rounded-3xl px-4 py-1 cursor-pointer text-sm"
               >AGGIUNGI ALLA LISTA DEI DESIDERI </span>
             </div>
           </div>
         </div>
       </div>
-      <div className="second my-4">
-        <div className='tab_heading flex items-center justify-between border-t-2 border-t-gray-500 border-t-solid py-2'>
-           <div className= {`cursor-pointer text-sm ${activeTab === 'tab1' ? 'text-gray-400' : 'text-black' }`}
+      <div className="second my-4 px-3">
+        <div className='tab_heading flex flex-wrap  items-center justify-between border-t-2 border-t-gray-500 border-t-solid py-2 '>
+           <div className= {`cursor-pointer text-sm   phone:my-2 sm:my-[0.5px] w-full sm:w-fit ${activeTab === 'tab1' ? 'text-gray-400' : 'text-black' }`}
            onClick={() => handleTabChange('tab1')}
            >DESCRIZIONE</div>
            <div
-           className= {`cursor-pointer text-sm ${activeTab === 'tab2' ? 'text-gray-400' : 'text-black' }`}
+           className= {`cursor-pointer text-sm phone:my-3 sm:my-[0.5px] w-full sm:w-fit ${activeTab === 'tab2' ? 'text-gray-400' : 'text-black' }`}
             onClick={() => handleTabChange('tab2')}>INFORMAZIONE AGGIUTIVE</div>
            <div 
-           className= {`cursor-pointer text-sm ${activeTab === 'tab3' ? 'text-gray-400' : 'text-black' } flex items-center`}
+           className= {`cursor-pointer text-sm w-full sm:w-fit ${activeTab === 'tab3' ? 'text-gray-400' : 'text-black' } flex items-center`}
            onClick={() => handleTabChange('tab3')}><span> SPEDIZIONE E RESO</span>
            <span className='ml-2'> <Icon icon="carbon:arrow-up-right"/></span>
            </div>

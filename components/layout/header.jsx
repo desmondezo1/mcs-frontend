@@ -4,11 +4,14 @@ import Logo from '../../public/images/logo.png'
 import HeaderCss from '../../styles/layout/header.module.css'
 import { Icon } from '@iconify/react';
 import { useRouter } from "next/router";
-import { useSelector } from 'react-redux';
+import { updateCartVisibility } from '../../stores/mySlice';
+import { useSelector, useDispatch } from 'react-redux';
+import Cart from '../cartList/cart';
 
 export default function header(){
+    const dispatch = useDispatch();
     const cartList = useSelector(state => state.mySlice.cart);
-  
+    const openCart = useSelector(state => state.mySlice.openCart);
   
     const router = useRouter();
 return (
@@ -28,6 +31,7 @@ return (
     `}</style>
     <nav className={`${"navbar navbar-light navbar-expand-lg bg-light"} ${HeaderCss.navbar}`}>
     <div class="container">
+        {openCart && <Cart />}
         <Link href="/home">
             <a className={`${"navbar-brand navbarBrand"}`} >
                <Image className={HeaderCss.navbarBrand} src={Logo} alt=""  />
@@ -80,14 +84,17 @@ return (
                     </a>
                 </Link>
                 
-                <Link href={'/carrello'}>
-                    <a>
+                
+                    <a
+                    className='cursor-pointer' 
+                    onClick={ () => dispatch(updateCartVisibility(true))}
+                    >
                     <div className={HeaderCss.cartIcon}>
                         <span className={HeaderCss.cartIconCount}>{cartList.length}</span>
                         <Icon icon="clarity:shopping-cart-line" />
                     </div>
                     </a>
-                </Link>    
+               
             </div>
         </div>
       </div>

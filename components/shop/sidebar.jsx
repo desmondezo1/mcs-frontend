@@ -9,7 +9,7 @@
  const ShopSidebar = () => {
    
   return (
-    <div className='w-fit'>
+    <div className=' w-4/5 sm:w-fit mx-auto sm:mx-0'>
        <h2 className="border-b-[1px] w-fit border-gray-700 border-solid pb-[0.1em]">SHOP</h2>
         <aside className='my-4 text-sm'>
           <div className='py-3'>

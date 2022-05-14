@@ -1,8 +1,17 @@
+import { useState } from "react";
 import Sidebar from "../../../components/sidebar";
 import Link from "next/link";
 
 
 const Fatturazione = () => {
+    const [privateInput, setPrivateInput] = useState(true);
+
+    const handlePrivateInput = (event) => {
+        event.preventDefault();
+        setPrivateInput(!privateInput);
+    }
+
+
   return (
     <div className=" pt-4 pb-[5em] md:px-5 lg:px-[5em]">
       <div className="flex flex-wrap  justify-between  px-4">
@@ -13,12 +22,14 @@ const Fatturazione = () => {
                 <label>TIPO CLIENTE<span className='text-red-600'>*</span></label>
                 <div className="float-right">
                   <input
-                  className='mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3'
+                  onClick={handlePrivateInput}
+                  className={`mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3 ${privateInput && "bg-black text-white"}`}
                   type={'submit'}
                    value = 'PRIVATO'
                   />
                   <input
-                  className='border-2 border-solid border-gray-700 rounded-3xl px-3'
+                  onClick={handlePrivateInput}
+                  className={`mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3 ${!privateInput && "bg-black text-white"}`}
                   type={'submit'}
                    value = 'AZIENDA'
                   />
@@ -59,7 +70,8 @@ const Fatturazione = () => {
                 value = "SSNNNGLKNAHLK32850"
                 />
               </div>
-  
+              {!privateInput && 
+              <div>
               <div className='flex items-center justify-between my-3'>
                 <label>RAGIONE SOCIALE</label>
                 <input
@@ -107,7 +119,8 @@ const Fatturazione = () => {
                 value = "info@diessofficial.com"
                 />
               </div>
-  
+              </div>}
+              
               <div className='flex items-center justify-between my-3'>
                 <label>INDIRIZZO EMAIL<span className='text-red-600'>*</span></label>
                 <input
@@ -120,8 +133,7 @@ const Fatturazione = () => {
                 />
               </div>
   
-  
-              <div className='flex items-center justify-between my-3'>
+               {!privateInput && <div className='flex items-center justify-between my-3'>
                 <label>CODICE DESTINATARIO</label>
                 <input
                 className='w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
@@ -131,8 +143,8 @@ const Fatturazione = () => {
                 }}
                 value = {'0000000000'}
                 />
-              </div>
-  
+              </div>}
+            
               <div className='flex items-center justify-between my-3'>
                 <label>PAESE?REGIONE<span className='text-red-600'>*</span></label>
                 <input
