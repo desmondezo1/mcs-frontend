@@ -3,25 +3,51 @@ import Head from 'next/head'
 import Header from '../../components/molecules/Header'
 import Nav from '../../components/molecules/Nav'
 import productCss from '../../styles/prodotti/prodotti.module.css'
-import { useFormik } from 'formik';
+import { useFormik, Field,FormikProvider } from 'formik';
+import { useState } from 'react'
 // import { Formik, Form, useField } from 'formik';
 // import TextArea from '../../components/atoms/form/formElements'
 
 export default function prodotti(){
 
+    const [productOptions, setProductOptions] = useState([{product: ""}])
    
         const formik = useFormik({
           initialValues: {
-            email: '',
+            brand: '',
+            description: '',
+            title: '',
+            pieces: [{ price: [0,0], discount: [0,0]}]
           },
+         
           onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+              console.log(values);
+            // alert(JSON.stringify(values, null, 2));
           },
+          enableReinitialize: true
         });
+
+        const handleProductAdd = () => {
+            setProductOptions([...productOptions, {product : ""}]);
+        }
+
+  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps,handleChange } = formik;
 
 
     return(
         <>
+
+        <style jsx>{
+            `
+            .productListWrapper{
+                padding-bottom: 20px;
+                margin-bottom: 10px;
+                border-bottom: 1px solid #999999;
+            }
+            `
+        }
+
+        </style>
     <div className={styles.container}>
       <Head>
         <title>MCP- Application</title>
@@ -39,7 +65,8 @@ export default function prodotti(){
             <h2>Aggiungi Prodotto</h2>
             <div className={productCss.formWrapper}>
                 
-            <form onSubmit={formik.handleSubmit}>
+            <FormikProvider value={formik}>
+            <form onSubmit={handleSubmit}>
                 <div className={productCss.formInputSection}>
                     <h3 className={productCss.formSectionH3}>Info Generiche</h3>
                     <div className={productCss.formInputWrapper}>
@@ -50,8 +77,8 @@ export default function prodotti(){
                                 name="title"
                                 type="text"
                                 className='form-control'
-                                onChange={formik.handleChange}
-                                value={formik.values.title}
+                                onChange={handleChange}
+                                value={values.title}
                             />
                         </div>
 
@@ -70,9 +97,15 @@ export default function prodotti(){
 
                         <div className={productCss.input}>
                             
-                            <label htmlFor="email">Brand (Marca)</label>
-                                <select name='brand' className='custom-select form-control' id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
+                            <label htmlFor="brand">Brand (Marca)</label>
+                            <select 
+                                name='brand' 
+                                className='custom-select form-control'
+                                onChange={formik.handleChange}
+                                value={formik.values.brand}
+                                id="brand"
+                                >
+                                    <option selected >Brand..</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -82,49 +115,118 @@ export default function prodotti(){
                     </div>
 
                 </div>
-
+{/* --------------------------------------------------------------------------------------------- */}
+                {/* dynamic products  */}
                 <div className={productCss.formInputSection}>
                 <h3 className={productCss.formSectionH3}>Pezzi e Prezzi</h3>
-                    <div className={productCss.formInputWrapper}>
-                        <div className={productCss.input}>
-                            <label htmlFor="product">Pezzo 1</label>
-                            <input
-                                id="product"
-                                name="product"
-                                type="text"
-                                className='form-control'
-                                onChange={formik.handleChange}
-                                value={formik.values.product}
-                            />
-                        </div>
+                <div className={productCss.dynamicListcontainer}>
+                { productOptions.map((singleProduct, index) => {
+                   return ( <div className={`${productCss.formInputWrapper} productListWrapper`}>
+                        
+                            <label htmlFor="piece">Pezzo {index + 1}</label>
+                            <div className={productCss.categoryTypeWrapper}>
+                                <div className={productCss.input}>
+                                <label htmlFor="packaging">Confezione</label>
+                                    <Field
+                                        id="packaging"
+                                        name={`pieces[${index}].packaging`}
+                                        type="text"
+                                        className='form-control'
+                                        onChange={formik.handleChange}
+                                        // value={values?.pieces[index]?.packaging}
+                                    />
+                                </div>
+                                <div className={productCss.input}>
+                                <label htmlFor="weight">Peso (kg)</label>
+                                    <Field
+                                        id="weight"
+                                        name={`pieces[${index}].weight`}
+                                        type="text"
+                                        className='form-control'
+                                        onChange={handleChange}
+                                        // value={values?.pieces[index]?.weight}
+                                    />
+                                </div>
+                                <div className={productCss.input}>
+                                <label htmlFor="quantity">Quantità</label>
+                                    <Field
+                                        id="quantity"
+                                        name={`pieces[${index}].quantity`}
+                                        type="text"
+                                        className='form-control'
+                                        onChange={handleChange}
+                                        // value={values?.pieces[index]?.quantity}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className={productCss.discountPriceWrapper}>
+                                <div className={productCss.input}>
+                                    <label htmlFor="price1">Prezzo (€) - Cat 1</label>
+                                        <Field
+                                            id="price1"
+                                            name={`pieces[${index}].price[0]`}
+                                            type="text"
+                                            className='form-control'
+                                            onChange={handleChange}
+                                            // value={values?.pieces[index]?.price[0]}
+                                        />
+                                    </div>
+                                    <div className={productCss.input}>
+                                    <label htmlFor="price2">Prezzo (€) - Cat 2</label>
+                                        <Field
+                                            id="price2"
+                                            name={`pieces[${index}].price[1]`}
+                                            type="text"
+                                            className='form-control'
+                                            onChange={formik.handleChange}
+                                            // value={values?.pieces[index]?.price[1]
+                                            // }
+                                        />
+                                    </div>
+                                    <div className={productCss.input}>
+                                    <label htmlFor="discount1">Sconto (%) - Cat 1</label>
+                                        <Field
+                                            id="discount1"
+                                            name={`pieces[${index}].discount[0]`}
+                                            type="text"
+                                            className='form-control'
+                                            onChange={formik.handleChange}
+                                            // value={values?.pieces[index]?.discount[0]}
+                                        />
+                                    </div>
+                                    <div className={productCss.input}>
+                                    <label htmlFor="discount2">Sconto (%) - Cat 2</label>
+                                        <Field
+                                            id="discount2"
+                                            name={`pieces[${index}].discount[1]`}
+                                            type="text"
+                                            className='form-control'
+                                            onChange={formik.handleChange}
+                                            // value={formik.values?.pieces[index]?.discount[1]}
+                                        />
+                                    </div>
+                            </div>
 
                         <div className={productCss.input}>
-                            <label htmlFor="email">Descrizione</label>
-                            <textarea
-                            row="6"
-                            className='form-control'
-                            >
-                            </textarea>
-                        </div>
+                            { productOptions.length - 1 == index &&
 
-                        <div className={productCss.input}>
-                            
-                            <label htmlFor="email">Brand (Marca)</label>
-                                <select className='custom-select form-control' id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                            <button onClick={handleProductAdd}>
+                                + 
+                                 AGGIUNGI PEZZO
+                            </button>                            
+                            }
                         </div>
                     </div>
+                )})}
+                </div>
                 </div>
 
                 <div className={productCss.formInputSection}>
-                <h3 className={productCss.formSectionH3}>Info Generiche</h3>
-                    <div className={productCss.formInputWrapper}>
+                <h3 className={productCss.formSectionH3}>Informazione Aggiuntive</h3>
+                    <div className={`${productCss.formInputWrapper}`}>
                         <div className={productCss.input}>
-                            <label htmlFor="email">Email Address</label>
+                            <label htmlFor="email">Usi</label>
                             <input
                                 id="email"
                                 name="email"
@@ -134,31 +236,33 @@ export default function prodotti(){
                                 value={formik.values.email}
                             />
                         </div>
-
                         <div className={productCss.input}>
-                            <label htmlFor="email">Descrizione</label>
-                            <textarea
-                            row="6"
-                            className='form-control'
-                            >
-                            </textarea>
+                            <label htmlFor="email">Superficie da Trattare</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                className='form-control'
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                            />
                         </div>
-
                         <div className={productCss.input}>
-                            
-                            <label htmlFor="email">Brand (Marca)</label>
-                                <select className='custom-select form-control' id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                            <label htmlFor="email">Volume</label>
+                            <input
+                                id="volume"
+                                name="volume"
+                                type="text"
+                                className='form-control'
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                            />
                         </div>
                     </div>
                 </div>
 
                 <div className={productCss.formInputSection}>
-                <h3 className={productCss.formSectionH3}>Info Generiche</h3>
+                <h3 className={productCss.formSectionH3}>Info Scheda Tecnica</h3>
                     <div className={productCss.formInputWrapper}>
                         <div className={productCss.input}>
                             <label htmlFor="pdf">PDF</label>
@@ -175,7 +279,7 @@ export default function prodotti(){
                 </div>
 
                 <div className={productCss.formInputSection}>
-                <h3 className={productCss.formSectionH3}>Info Generiche</h3>
+                <h3 className={productCss.formSectionH3}>Media</h3>
                     <div className={productCss.formInputWrapper}>
                         <div className={productCss.input}>
                             <label htmlFor="image">Immagine</label>
@@ -185,7 +289,7 @@ export default function prodotti(){
                                 type="file"
                                 className='form-control'
                                 onChange={formik.handleChange}
-                                value={formik.values.email}
+                                value={values.image}
                             />
                         </div>
                     </div>
@@ -244,6 +348,7 @@ export default function prodotti(){
 
 
             </form>
+            </FormikProvider>
             </div>
           </div>
         </div>
