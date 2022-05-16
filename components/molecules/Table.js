@@ -33,7 +33,6 @@ function Table({
   selfDisplayComponent,
   children,
 }) {
-  console.log(headKeys);
   const tableHead = headKeys.map((keyValue, i) => <th key={i}>{keyValue}</th>);
   const tableBody = tableData.map((data, i) => {
     const mapKeys = headKeys.map(({ headKeyValue }, j) => (

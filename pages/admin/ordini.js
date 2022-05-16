@@ -1,18 +1,18 @@
 import React from "react";
 import Head from "next/head";
-import Header from "../../../components/molecules/Header";
-import Nav from "../../../components/molecules/Nav";
-import styles from "../../../styles/Home.module.css";
-import Table from "../../../components/molecules/Table";
-import ClientList from "../../../config/ClientList";
-import Button from "../../../components/atoms/Buttons";
-import TableMenuIcon from "../../../images/icons/TableMenuIcon";
-import ProfilePicture from "../../../images/icons/ProfilePicture";
-import SearchIcon from "../../../images/icons/SearchIcon";
+import Header from "../../components/molecules/Header";
+import Nav from "../../components/molecules/Nav";
+import styles from "../../styles/Home.module.css";
+import Table from "../../components/molecules/Table";
+import ClientList from "../../config/ClientList";
+import Button from "../../components/atoms/Buttons";
+import TableMenuIcon from "../../images/icons/TableMenuIcon";
+import ProfilePicture from "../../images/icons/ProfilePicture";
+import SearchIcon from "../../images/icons/SearchIcon";
 import {
   RadioButtonContainer,
   RoundedInputWithIcon,
-} from "../../../components/atoms/Input";
+} from "../../components/atoms/Input";
 
 function index(props) {
   return (
