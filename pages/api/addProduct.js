@@ -1,4 +1,4 @@
-export default async function Login(req, res){
+export default async function addProduct(req, res){
     if (req.method !== 'POST' ) {
         res.status(400).json({msg : 'invalid-method'})
     }
@@ -7,7 +7,9 @@ export default async function Login(req, res){
         res.status(400).json({msg : 'Values empty'})
     }
 
-    const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/login`,{
+    const token = localStorage.getItem('token');
+
+    const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/products/create`,{
         body: JSON.stringify(req.body.values),
         method: 'POST',
         headers: {

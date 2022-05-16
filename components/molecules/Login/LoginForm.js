@@ -5,6 +5,7 @@ import style from "../../../styles/molecule.module.css";
 import Button from "../../atoms/Buttons";
 import Checkbox from "../../atoms/Checkbox";
 import { useState } from "react";
+import { useRouter } from 'next/router'
 import { useFormik, Field,FormikProvider } from 'formik';
 
 
@@ -13,9 +14,20 @@ function LoginForm(props) {
   // let [email, setEmail] = useState('');
   // let [password, setPassword] = useState('');
 
+  const router = useRouter()
 
+  function handleLogin(resp) {
 
+    if(!resp.access_token){
+      return;
+    }
+    router.push('/admin/overview');
+    localStorage.setItem("token", resp.access_token);
+
+  }
   
+
+
     const formik = useFormik({
       initialValues: {
         email: '',
@@ -31,13 +43,10 @@ function LoginForm(props) {
           headers: {
             'content-Type': 'application/json'
           }
-        })
+        }).then(r => r.json()).then(resp =>  handleLogin(resp));
 
-
-
-
-        const data = await resp.json();
-        console.log(resp);
+        // const data = await resp.json();
+        // console.log({data});
         
 
       },

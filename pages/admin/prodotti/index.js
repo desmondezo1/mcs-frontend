@@ -11,6 +11,10 @@ import { useState } from 'react'
 export default function prodotti(){
 
     const [productOptions, setProductOptions] = useState([{product: ""}])
+
+    const handleResp = (resp)=>{
+        console.log(resp)
+    }
    
         const formik = useFormik({
           initialValues: {
@@ -34,8 +38,11 @@ export default function prodotti(){
             // alert(JSON.stringify(values, null, 2));
             const res = await  fetch('/api/addProduct',{
                 method: "POST",
-                body: values
-            });
+                body: JSON.stringify({values}),
+                headers: {
+                  'content-Type': 'application/json'
+                }
+              }).then(r => r.json()).then(resp =>  handleResp(resp));
             
           },
           enableReinitialize: true
