@@ -35,10 +35,11 @@ export default function prodotti(){
          
           onSubmit: async values => {
               console.log(values);
+              const token = window.localStorage.getItem('token');
             // alert(JSON.stringify(values, null, 2));
             const res = await  fetch('/api/addProduct',{
                 method: "POST",
-                body: JSON.stringify({values}),
+                body: JSON.stringify({values, token}),
                 headers: {
                   'content-Type': 'application/json'
                 }

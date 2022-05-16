@@ -7,16 +7,18 @@ export default async function addProduct(req, res){
         res.status(400).json({msg : 'Values empty'})
     }
 
-    const token = localStorage.getItem('token');
 
-    const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/products/create`,{
+    const respData = await fetch(process.env.BACKEND_API_BASE_URL+"/products/create",{
         body: JSON.stringify(req.body.values),
         method: 'POST',
         headers: {
-            'content-Type': 'application/json'
+            'content-Type': 'application/json',
+            'Authorization': 'Bearer '+req.body.token
         }
     });
+
     let dataApi = await respData.json();
+    console.log(respData);
     res.status(200).json(dataApi);
 
     
