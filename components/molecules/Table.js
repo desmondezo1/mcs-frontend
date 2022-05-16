@@ -8,13 +8,15 @@ Table.defaultProps = {
   displayHead: false,
   displayComponent: false,
   selfDisplayComponent: false,
+  showTableContainerHeader: false,
 };
 Table.propTypes = {
   headKeys: PropTypes.array,
   tableData: PropTypes.array.isRequired,
   displayHead: PropTypes.arrayOf(PropTypes.object),
   displayComponent: PropTypes.string,
-  selfDisplayComponent: false,
+  showTableContainerHeader: PropTypes.bool,
+  showTableContainerHeader: false,
 };
 
 /**
@@ -29,31 +31,28 @@ function Table({
   displayHead,
   displayComponent,
   selfDisplayComponent,
+  children,
 }) {
-  const tableHead = headKeys.map(({ keyValue }, i) => (
-    <th key={`${keyValue}${i}`}>{keyValue}</th>
-  ));
+  console.log(headKeys);
+  const tableHead = headKeys.map((keyValue, i) => <th key={i}>{keyValue}</th>);
   const tableBody = tableData.map((data, i) => {
-    const mapKeys = headKeys.map(({ headKeyValue }, i) => (
+    const mapKeys = headKeys.map(({ headKeyValue }, j) => (
       <td key={j}>{data[headKeyValue]}</td>
     ));
     return <tr key={i}>{mapKeys}</tr>;
   });
   return (
     <div className={style.table_container}>
-      <div className={style.table_container_header}>
-        <div>
-          <button>Hello world</button>
-        </div>
-        <div>
-          <button>Div_stuff</button>
-        </div>
-      </div>
+      {children && (
+        <div className={style.table_container_header}>{children}</div>
+      )}
 
       <table className={style.table}>
-        <thead>
-          <tr>{displayHead === false && tableHead}</tr>
-        </thead>
+        {displayHead && (
+          <thead>
+            <tr>{tableHead}</tr>
+          </thead>
+        )}
         <tbody>{selfDisplayComponent ? displayComponent : tableBody}</tbody>
       </table>
     </div>

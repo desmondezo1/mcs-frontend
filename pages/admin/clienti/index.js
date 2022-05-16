@@ -29,7 +29,7 @@ function index(props) {
               <h4>Lista Clienti</h4>
               <br />
               <Table
-                headKey={["No", "Nome", "Email", "Data Creata", "Status", ""]}
+                headKeys={["No", "Nome", "Email", "Data Creata", "Status", ""]}
                 tableData={ClientList}
                 displayHead={true}
                 selfDisplayComponent={true}

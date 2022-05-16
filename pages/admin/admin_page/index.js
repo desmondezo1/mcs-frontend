@@ -31,7 +31,7 @@ function index(props) {
             <br />
             <br />
             <Table
-              headKey={[
+              headKeys={[
                 "Name",
                 "Roulo",
                 "Data Creata",
@@ -39,7 +39,7 @@ function index(props) {
                 () => <AddIcon />,
               ]}
               tableData={adminData}
-              displayHeadKey={true}
+              displayHead={true}
               selfDisplayComponent={true}
               displayComponent={adminData.map(
                 ({ name, roulo, date, status }, i) => (
