@@ -5,7 +5,7 @@ import style from "../../../styles/molecule.module.css";
 import Button from "../../atoms/Buttons";
 import Checkbox from "../../atoms/Checkbox";
 import { useState } from "react";
-import { useFormik } from 'formik';
+import { useFormik, Field,FormikProvider } from 'formik';
 
 
 function LoginForm(props) {
@@ -23,28 +23,40 @@ function LoginForm(props) {
       },
       onSubmit: async values => {
 
-        const res = await fetch("/api/login",{
-          method: "POST",
-          body: JSON.stringify(values)
-        }).then(r => r.json()).then(r => console.log(r));
+        console.log({values});
 
-        // resp = await res.json();
-        // console.log(res);
+        const resp = await fetch("/api/login",{
+          method: "POST",
+          body: JSON.stringify({values}),
+          headers: {
+            'content-Type': 'application/json'
+          }
+        })
+
+
+
+
+        const data = await resp.json();
+        console.log(resp);
+        
 
       },
     });
+
+  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps,handleChange } = formik;
 
 
   return (
     <div className={style.login_form}>
       <h4 className="underlined_text">ACCEDI</h4>
-      <form onSubmit={formik.handleSubmit} >
+      <FormikProvider value={formik}>
+      <form onSubmit={handleSubmit} >
         <input
          id="email"
          name="email"
          type="email"
-         onChange={formik.handleChange}
-         value={formik.values.email}
+         onChange={handleChange}
+         value={values.email}
          placeholder="E-MAIL*" 
         />
 
@@ -52,8 +64,8 @@ function LoginForm(props) {
          id="password"
          name="password"
          type="password"
-         onChange={formik.handleChange}
-         value={formik.values.password}
+         onChange={handleChange}
+         value={values.password}
          placeholder="PASSWORD*" />
 
         <Button
@@ -78,6 +90,7 @@ function LoginForm(props) {
         PASSWORD DIMENTICATA?
       </Button>
       <Checkbox id={"ricordami"} label="Ricordami" />
+      </FormikProvider>
     </div>
   );
 }
