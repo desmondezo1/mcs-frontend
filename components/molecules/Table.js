@@ -13,10 +13,8 @@ Table.defaultProps = {
 Table.propTypes = {
   headKeys: PropTypes.array,
   tableData: PropTypes.array.isRequired,
-  displayHead: PropTypes.arrayOf(PropTypes.object),
-  displayComponent: PropTypes.string,
+  displayHead: PropTypes.bool,
   showTableContainerHeader: PropTypes.bool,
-  showTableContainerHeader: false,
 };
 
 /**
