@@ -7,19 +7,19 @@ export default async function addProduct(req, res){
         res.status(400).json({msg : 'Values empty'})
     }
 
-
-    const respData = await fetch(process.env.BACKEND_API_BASE_URL+"/products/create",{
-        body: JSON.stringify(req.body.values),
+    const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/admin/products/create`,{
+        body: req.body,
         method: 'POST',
         headers: {
-            'content-Type': 'application/json',
-            'Authorization': 'Bearer '+req.body.token
-        }
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + req.query.v,
+          }
+    }).then(r => {
+        console.log(r);
+        return r.json()
+    }).then(r =>{
+        res.send(r)
     });
 
-    let dataApi = await respData.json();
-    console.log(respData);
-    res.status(200).json(dataApi);
-
-    
 }

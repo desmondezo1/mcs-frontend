@@ -35,15 +35,22 @@ export default function prodotti(){
          
           onSubmit: async values => {
               console.log(values);
+              values = JSON.stringify(values)
               const token = window.localStorage.getItem('token');
+              let form = new FormData();
+              form.append('title',"This title");
+              form.append('token', token);
+            //   console.log(JSON.stringify({values, token}))
             // alert(JSON.stringify(values, null, 2));
-            const res = await  fetch('/api/addProduct',{
+            // const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/products/create`,{
+            // const respData = await fetch(`http://backend-api.mcsgroupsrl.com/api/products/create`,{
+            const respData = await fetch(`/api/addProduct?v=${token}`,{
                 method: "POST",
-                body: JSON.stringify({values, token}),
-                headers: {
-                  'content-Type': 'application/json'
-                }
-              }).then(r => r.json()).then(resp =>  handleResp(resp));
+                body: form,
+              });
+
+              let data = await respData.json();
+              console.log({data});
             
           },
           enableReinitialize: true
@@ -340,7 +347,7 @@ export default function prodotti(){
                             <input
                                 id="tag"
                                 name="tag"
-                                type="file"
+                                type="text"
                                 className='form-control'
                                 onChange={formik.handleChange}
                                 value={values.tag}
