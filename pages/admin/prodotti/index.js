@@ -66,9 +66,13 @@ export default function prodotti(){
             // alert(JSON.stringify(values, null, 2));
             // const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/products/create`,{
             // const respData = await fetch(`http://backend-api.mcsgroupsrl.com/api/admin/products/create`,{
-            const respData = await fetch(`/api/addProduct?v=${token}`,{
+            const respData = await fetch(`http://127.0.0.1:8000/api/admin/products/create`,{
+            // const respData = await fetch(`/api/addProduct?v=${token}`,{
                 method: "POST",
                 body: form,
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                  }
               });
 
               let data = await respData.json();
