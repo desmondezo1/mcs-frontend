@@ -34,16 +34,38 @@ export default function prodotti(){
           },
          
           onSubmit: async values => {
+            //   let pdfInput = document.getElementById('pdf')
+            //   let imageInput = document.getElementById('image');
+            //   console.log(pdfInput);
+
+             
+                // form.append("image", imageInput.files[0]);
+              
+                // form.append("pdf", pdfInput.files[0]);
+               
+
               console.log(values);
               values = JSON.stringify(values)
               const token = window.localStorage.getItem('token');
               let form = new FormData();
-              form.append('title',"This title");
-              form.append('token', token);
+              form.append('title', values.title);
+              form.append('brand', values.brand);
+              form.append('description', values.description);
+            //   form.append('image', image);
+            //   form.append('pdf', pdf);
+              form.append('image', values.image)
+              form.append('pdf', values.pdf)
+              form.append('pieces', JSON.stringify(values.pieces))
+              form.append('surface', values.surface)
+              form.append('tag', values.tag)
+              form.append('uses', values.uses)
+              form.append('volume', values.volume)
+
+             
             //   console.log(JSON.stringify({values, token}))
             // alert(JSON.stringify(values, null, 2));
             // const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/products/create`,{
-            // const respData = await fetch(`http://backend-api.mcsgroupsrl.com/api/products/create`,{
+            // const respData = await fetch(`http://backend-api.mcsgroupsrl.com/api/admin/products/create`,{
             const respData = await fetch(`/api/addProduct?v=${token}`,{
                 method: "POST",
                 body: form,
