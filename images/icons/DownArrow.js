@@ -1,12 +1,18 @@
 import React from "react";
 
-function DownArrow(props) {
+DownArrow.defaultProps = {
+  fill: "none",
+  stroke: "#999",
+};
+
+function DownArrow({ stroke, fill, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="15.175"
       height="14.372"
       viewBox="0 0 15.175 14.372"
+      {...rest}
     >
       <g
         id="Group_2179"
@@ -18,8 +24,8 @@ function DownArrow(props) {
           data-name="Line 1452"
           y2="13.771"
           transform="translate(5959.822 321.418)"
-          fill="none"
-          stroke="#999"
+          fill={fill}
+          stroke={stroke}
           strokeMiterlimit="10"
           strokeWidth="1"
         />
@@ -27,8 +33,8 @@ function DownArrow(props) {
           id="Path_1161"
           data-name="Path 1161"
           d="M5967.056,327.849l-7.234,7.234-7.234-7.234"
-          fill="none"
-          stroke="#999"
+          fill={fill}
+          stroke={stroke}
           strokeMiterlimit="10"
           strokeWidth="1"
         />
