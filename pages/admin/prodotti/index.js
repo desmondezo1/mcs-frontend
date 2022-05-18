@@ -4,18 +4,31 @@ import Header from '../../../components/molecules/Header'
 import Nav from '../../../components/molecules/Nav'
 import productCss from '../../../styles/prodotti/prodotti.module.css'
 import { useFormik, Field,FormikProvider } from 'formik';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import fetchR from '../../../fetchR'
 // import { Formik, Form, useField } from 'formik';
 // import TextArea from '../../components/atoms/form/formElements'
 
 export default function prodotti(){
 
     const [productOptions, setProductOptions] = useState([{product: ""}])
+    const [fromVals, setFormVals] = useState({})
 
-    const handleResp = (resp)=>{
-        console.log(resp)
-    }
-   
+        useEffect(() =>{
+        // const token = window.localStorage.getItem('token');
+        // const axiosConfig = {
+        //     headers: {
+        //         'Content-Type': 'undefined',
+        //         'Authorization': 'Bearer ' + token,
+        //     }
+        //   }
+
+        //   setAxiosConfig(axiosConfig);
+        })
+
+    
+
         const formik = useFormik({
           initialValues: {
             brand: '',
@@ -33,50 +46,40 @@ export default function prodotti(){
             title: ''
           },
          
-          onSubmit: async values => {
-            //   let pdfInput = document.getElementById('pdf')
-            //   let imageInput = document.getElementById('image');
-            //   console.log(pdfInput);
-
-             
-                // form.append("image", imageInput.files[0]);
+          onSubmit: async values => {    
               
-                // form.append("pdf", pdfInput.files[0]);
-               
-
-              console.log(values);
-              values = JSON.stringify(values)
-              const token = window.localStorage.getItem('token');
-              let form = new FormData();
-              form.append('title', values.title);
-              form.append('brand', values.brand);
-              form.append('description', values.description);
-            //   form.append('image', image);
-            //   form.append('pdf', pdf);
-              form.append('image', values.image)
-              form.append('pdf', values.pdf)
-              form.append('pieces', JSON.stringify(values.pieces))
-              form.append('surface', values.surface)
-              form.append('tag', values.tag)
-              form.append('uses', values.uses)
-              form.append('volume', values.volume)
-
-             
-            //   console.log(JSON.stringify({values, token}))
-            // alert(JSON.stringify(values, null, 2));
-            // const respData = await fetch(`${process.env.BACKEND_API_BASE_URL}/products/create`,{
-            // const respData = await fetch(`http://backend-api.mcsgroupsrl.com/api/admin/products/create`,{
-            const respData = await fetch(`http://127.0.0.1:8000/api/admin/products/create`,{
-            // const respData = await fetch(`/api/addProduct?v=${token}`,{
-                method: "POST",
-                body: form,
+            let formD = await values;
+            if (values.pieces) {
+            
+            //  values.pieces = JSON.stringify(values.pieces);
+             setFormVals(formD);
+             console.log({formD});
+            }
+            let formData = new FormData(document.querySelector('form'));
+            const token = window.localStorage.getItem('token');
+            console.log(token);
+            const axiosConfig = {
                 headers: {
+                    'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token,
-                  }
-              });
+                }
+              }
 
-              let data = await respData.json();
-              console.log({data});
+              let ax = await axios.post(
+                  'http://127.0.0.1:8000/api/admin/products/create',
+                  formD,
+                  axiosConfig
+              ).then(result => {console.log(result)})
+            //   let data = await ax.json();
+            //   console.log({data});
+        
+            //   const respData = await fetch(`/api/addProduct?v=${token}`,{
+            //     method: "POST",
+            //     body: formData,
+            //   });
+
+            //   let data = await respData.json();
+            //   console.log({data});
             
           },
           enableReinitialize: true
