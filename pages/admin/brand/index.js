@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Header from '../../../components/molecules/Header'
 import Nav from '../../../components/molecules/Nav'
 import productCss from '../../../styles/prodotti/prodotti.module.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import { useFormik, Field,FormikProvider } from 'formik';
 import axios from 'axios'
 import routeConfig from '../../../config/routeConfig'
@@ -17,7 +19,7 @@ export default function Brand({brands}){
         
     },
 
-    onSubmit: async values => { 
+    onSubmit: async (values, {resetForm}) => { 
         let brandUrl = routeConfig.addBrand; 
         let Val = await values;
         const token = window.localStorage.getItem('token');
@@ -34,7 +36,16 @@ export default function Brand({brands}){
               Val,
               axiosConfig
           ).then(result =>{
+            if(result.status == 200){
+                toast.success("Added")
+              }else{
+                  toast.error("Sorry, I guess something went wrong")
+              }
+              resetForm({values: ''})
               console.log(result);
+          }).catch(function (error) {
+            toast.error("Sorry, I guess something went wrong")
+            console.log(error.response.data)
           });
   
     },
@@ -87,6 +98,7 @@ export default function Brand({brands}){
           <Nav />
         <div className={styles.overview_body_container}>
             <h2>Brand</h2>
+            <ToastContainer />
             <div className={productCss.formWrapper}>
                 
             <FormikProvider value={formik}>
