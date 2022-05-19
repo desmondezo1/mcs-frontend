@@ -11,8 +11,9 @@ import BrandCard from '../../../components/atoms/brandCard'
 export default function Brand(){
     const formik = useFormik({
     initialValues: {
-        photo: '',
         name: '',
+        photo: '',
+        
     },
 
     onSubmit: async values => { 
@@ -127,7 +128,7 @@ export default function Brand(){
                             <label htmlFor="photo">Logo del Brand</label>
                             <input
                                 id="photo"
-                                name="phpto"
+                                name="photo"
                                 type="file"
                                 className='form-control'
                                 onChange={handleChange}
