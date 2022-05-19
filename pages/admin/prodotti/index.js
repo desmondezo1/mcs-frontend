@@ -5,27 +5,18 @@ import Nav from '../../../components/molecules/Nav'
 import productCss from '../../../styles/prodotti/prodotti.module.css'
 import { useFormik, Field,FormikProvider } from 'formik';
 import { useEffect, useState } from 'react'
+// import Cookies from 'js-cookie'
+import Cok from 'cookie'
 import axios from 'axios'
 import routeConfig from '../../../config/routeConfig'
 // import { Formik, Form, useField } from 'formik';
 // import TextArea from '../../components/atoms/form/formElements'
 
-export default function prodotti(){
+export default function prodotti({brands}){
 
     const [productOptions, setProductOptions] = useState([{product: ""}])
     const [fromVals, setFormVals] = useState({})
-
-        useEffect(() =>{
-        // const token = window.localStorage.getItem('token');
-        // const axiosConfig = {
-        //     headers: {
-        //         'Content-Type': 'undefined',
-        //         'Authorization': 'Bearer ' + token,
-        //     }
-        //   }
-
-        //   setAxiosConfig(axiosConfig);
-        })
+    const [allBrands, setBrands] = useState([]);
 
     
 
@@ -105,7 +96,7 @@ export default function prodotti(){
 
       <main className={styles.main}>
         <Header>
-          <p>Dashboard</p>
+          <p>Dashboard </p>
         </Header>
         <div className="dashboard_container">
           <Nav />
@@ -152,11 +143,12 @@ export default function prodotti(){
                                 onChange={formik.handleChange}
                                 value={formik.values.brand}
                                 id="brand"
-                                >
-                                    <option selected >Brand..</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                ><option selected >Brand..</option>
+                                {
+                                    brands.map((brand, index) =>{
+                                        return <option key={index} value={brand.id}>{brand.name}</option>
+                                    })
+                                }
                                 </select>
                         </div>
 
@@ -415,3 +407,39 @@ export default function prodotti(){
         </>
     )
 }
+
+
+export async function getServerSideProps({req, res}) {
+
+    // let token = req.headers.Cookies || '';
+   let cook = Cok.parse( req.headers.cookie )|| '';
+
+   let token = cook.token;
+  
+    const brandUrl = routeConfig.getBrandsAdmin;
+    
+    const axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        }
+      }
+
+      let ax = await axios.get(
+            brandUrl,
+          axiosConfig
+      );
+
+      let result = await ax;
+      console.log(result.data.data);
+      let brands = [];
+
+      if(result.data.data){
+           brands = result.data.data;
+      }
+     
+
+  
+    // Pass data to the page via props
+    return { props: { brands } }
+  }

@@ -7,8 +7,9 @@ import { useFormik, Field,FormikProvider } from 'formik';
 import axios from 'axios'
 import routeConfig from '../../../config/routeConfig'
 import BrandCard from '../../../components/atoms/brandCard'
+import Cok from 'cookie'
 
-export default function Brand(){
+export default function Brand({brands}){
     const formik = useFormik({
     initialValues: {
         name: '',
@@ -95,14 +96,11 @@ export default function Brand(){
                     <div className={`${productCss.formInputWrapper}`}>
                         
                         <div className="brandListWrapper">
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
-                        <BrandCard  name={"Test"} />
+                            {
+                                brands.map((brand , index) => {
+                                    return  <BrandCard key={index} totalProducts={brand.count}  name={brand.name} />
+                                })
+                            }
                         </div>
 
                     </div>
@@ -156,3 +154,38 @@ export default function Brand(){
         </>
     )
 }
+
+export async function getServerSideProps({req, res}) {
+
+    // let token = req.headers.Cookies || '';
+   let cook = Cok.parse( req.headers.cookie )|| '';
+
+   let token = cook.token;
+  
+    const brandUrl = routeConfig.getBrandsAdmin;
+    
+    const axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        }
+      }
+
+      let ax = await axios.get(
+            brandUrl,
+          axiosConfig
+      );
+
+      let result = await ax;
+      console.log(result.data.data);
+      let brands = [];
+
+      if(result.data.data){
+           brands = result.data.data;
+      }
+     
+
+  
+    // Pass data to the page via props
+    return { props: { brands } }
+  }
