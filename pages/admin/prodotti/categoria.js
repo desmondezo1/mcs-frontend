@@ -32,13 +32,15 @@ function categoria(props) {
               <p>Aggiungi Sottocategoria</p>
             </div>
             <div>
-              <RoundedInput
-                id={"Nome"}
-                key={"Nome"}
-                label="Nome"
-                labelAlign={"vertical"}
-              />
-
+              <div className="mb-4">
+                <RoundedInput
+                  id={"Nome"}
+                  key={"Nome"}
+                  label="Nome"
+                  labelAlign={"vertical"}
+                />
+              </div>
+              <p className="small_text grey_text">Categoria</p>
               <div className="border_black p-2 border-radius-15">
                 {Categoria.map(({ name, subList }, i) =>
                   subList.length > 0 ? (

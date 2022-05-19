@@ -23,6 +23,9 @@
   font-size: 0.8em;
 }
 
+.input_container.column input {
+  width: 100%;
+}
 .input_container > label,
 .input_container .label {
   width: 30%;
