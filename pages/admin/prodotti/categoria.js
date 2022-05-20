@@ -24,10 +24,23 @@ function Categoria({categories}) {
 
         const addCategory = routeConfig.addCategory;
         let formD = await values;
+       
+        //grab all selected categories into an array
+        let categories = []
+        let radioBtns = document.querySelectorAll('input[type=radio]:checked')
+        for (var i = 0; i < radioBtns.length; i++) {
+            categories.push(radioBtns[i].value)
+        }
+        console.log({categories});
+
 
      
         formD.status = 'published';
         formD.is_parent = 0;
+        if (categories[0]) {
+           formD.parent_id = categories[0];
+        }
+       
       
 
         const token = window.localStorage.getItem('token');
@@ -40,23 +53,23 @@ function Categoria({categories}) {
             }
           }
 
-          let ax = await axios.post(
-              addCategory,
-              formD,
-              axiosConfig
-          ).then(result => {
-              if(result.status == 200){
-                toast.success("Added")
-              }else{
-                  toast.error("Sorry, I guess something went wrong")
-              }
-              resetForm({values: ''})
-            console.log(result)
+        //   let ax = await axios.post(
+        //       addCategory,
+        //       formD,
+        //       axiosConfig
+        //   ).then(result => {
+        //       if(result.status == 200){
+        //         toast.success("Added")
+        //       }else{
+        //           toast.error("Sorry, I guess something went wrong")
+        //       }
+        //       resetForm({values: ''})
+        //     console.log(result)
         
-        }).catch(function (error) {
-            toast.error("Sorry, I guess something went wrong")
-            console.log(error.response)
-          });
+        // }).catch(function (error) {
+        //     toast.error("Sorry, I guess something went wrong")
+        //     console.log(error.response)
+        //   });
         
     },
       enableReinitialize: true
@@ -75,14 +88,14 @@ function Categoria({categories}) {
             <div className="w-50">
               <p>Lista Categoria</p>
             </div>
-            <div className="border_black p-2 border-radius-15">
-              {CategoriaData.map(({ name, subList }, i) =>
-                subList.length > 0 ? (
-                  <Accordion key={i} name={name} listData={subList} />
+            <div className="border_black p-2 border-radius-15 w-100">
+            {categories.map(({ id, title, children }, i) =>
+                children?.length > 0 ? (
+                    <Accordion inputType="disabled" key={i} name={title} listData={children} />
                 ) : (
-                  <AccordionList key={i} id={`${name}_${i}`} label={name} />
+                    <AccordionList inputType="disabled" key={i} id={`${title}_${i}`} value={id} label={title} />
                 )
-              )}
+            )}
             </div>
           </div>
           <hr className="my-5" />
@@ -90,7 +103,7 @@ function Categoria({categories}) {
             <div className="w-50">
               <p>Aggiungi Sottocategoria</p>
             </div>
-            <div>
+            <div className="w-100">
             <FormikProvider value={formik}>
             <form onSubmit={handleSubmit}>
 
@@ -131,12 +144,12 @@ function Categoria({categories}) {
                                   </select> */}
                   
                 
-                  {CategoriaData.map(({ name, subList }, i) =>
-                    subList.length > 0 ? (
-                      <Accordion key={i} name={name} listData={subList} />
-                    ) : (
-                      <AccordionList key={i} id={`${name}_${i}`} label={name} />
-                    )
+                  {categories.map(({ id, title, children }, i) =>
+                      children?.length > 0 ? (
+                          <Accordion inputType="radio" key={i} name={title} listData={children} />
+                      ) : (
+                          <AccordionList inputType="radio" key={i} id={`${title}_${i}`} value={id} label={title} />
+                      )
                   )}
                 </div>
 
