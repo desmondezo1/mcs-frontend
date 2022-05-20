@@ -108,12 +108,12 @@ function Categoria({categories}) {
               
               <div className="mb-4">
                 <p className="small_text grey_text">Categoria</p>
-                {/* <div className="border_black p-2 border-radius-15"> */}
+                <div className="border_black p-2 border-radius-15">
                   
                   {/* add categories  */}
                 
                     
-                                  <label htmlFor="categoria">Seleziona Categoria</label>
+                                  {/* <label htmlFor="categoria">Seleziona Categoria</label>
                                   <select  
                                       name='parent_id' 
                                       className='custom-select form-control border_black'
@@ -128,17 +128,17 @@ function Categoria({categories}) {
                                       })
                                       }
                                     
-                                  </select>
+                                  </select> */}
                   
                 
-                  {/* {Categoria.map(({ name, subList }, i) =>
+                  {CategoriaData.map(({ name, subList }, i) =>
                     subList.length > 0 ? (
                       <Accordion key={i} name={name} listData={subList} />
                     ) : (
                       <AccordionList key={i} id={`${name}_${i}`} label={name} />
                     )
-                  )} */}
-                {/* </div> */}
+                  )}
+                </div>
 
                 
                 <div className={productCss.btnWrapper}>
