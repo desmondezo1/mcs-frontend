@@ -82,23 +82,23 @@ export default function Prodotti({brands, categories}){
                 }
               }
 
-            //   let ax = await axios.post(
-            //       createProduct,
-            //       frmData,
-            //       axiosConfig
-            //   ).then(result => {
-            //       if(result.status == 200){
-            //         toast.success("Added")
-            //       }else{
-            //           toast.error("Sorry, I guess something went wrong")
-            //       }
-            //     //   resetForm({values: ''})
-            //     console.log(result)
+              let ax = await axios.post(
+                  createProduct,
+                  frmData,
+                  axiosConfig
+              ).then(result => {
+                  if(result.status == 200){
+                    toast.success("Added")
+                  }else{
+                      toast.error("Sorry, I guess something went wrong")
+                  }
+                //   resetForm({values: ''})
+                console.log(result)
             
-            // }).catch(function (error) {
-            //     toast.error("Sorry, I guess something went wrong")
-            //     console.log(error.response)
-            //   });
+            }).catch(function (error) {
+                toast.error("Sorry, I guess something went wrong")
+                console.log(error.response)
+              });
             
           },
           enableReinitialize: true
