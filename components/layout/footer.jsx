@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 import { useRouter } from "next/router";
 import FooterCss from "../../styles/layout/footer.module.css"
 
-export default function footer(){
+export default function Footer(){
     
     const router = useRouter();
     const year = new Date("Y");

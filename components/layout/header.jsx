@@ -38,11 +38,11 @@ return (
             </a> 
         </Link>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
         </button>
-        <div class={`${"collapse navbar-collapse end-0"} ${HeaderCss.navListConatiner}`} id="navbarText">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+        <div className={`${"collapse navbar-collapse end-0"} ${HeaderCss.navListConatiner}`} id="navbarText">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
                 <li className={` ${"nav-item"}`}>
                     <Link href="/shop">
                         <a className={`${router.asPath == "/shop" ? "active" : ""} ${"nav-link"}`} aria-current="page" >SHOP</a>
@@ -50,7 +50,7 @@ return (
                 </li>
                 <li className={`${router.asPath == "/servizi" ? "active" : ""} ${"nav-item"}`}>
                     <Link href="/servizi">
-                        <a class="nav-link" >SERVIZI</a>
+                        <a className="nav-link" >SERVIZI</a>
                     </Link>
                 </li>
                 <li className={`${"nav-item"}`}>
@@ -65,7 +65,7 @@ return (
                 </li>
                 <li className={`${router.asPath == "/contati" ? "active" : ""} ${"nav-item"}`}>
                     <Link href="/contati">
-                        <a class="nav-link" >CONTATTI</a>
+                        <a className="nav-link" >CONTATTI</a>
                     </Link>
                 </li>
                 <li  className={`${"nav-item"}`}>

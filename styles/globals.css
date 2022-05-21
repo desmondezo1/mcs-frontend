@@ -33,3 +33,49 @@ th {
   text-align: center;
   border-bottom: 2px solid #ccc;
 }
+
+.flex {
+  display: flex;
+}
+
+.underlined_text {
+  padding-bottom: 5px;
+  border-bottom: 2px solid black;
+  width: fit-content;
+}
+
+.body_container {
+  height: 90vh;
+  width: 80%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.dashboard_container {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  height: auto;
+  margin-top: 2%;
+  justify-content: space-between;
+}
+
+.nav_container {
+  width: 15%;
+}
+
+.overview_body_container {
+}
+
+.green_text {
+  color: #22b573;
+}
+
+.grey_text {
+  color: #999999;
+}
+
+.small_text {
+  font-size: 0.8em;
+}

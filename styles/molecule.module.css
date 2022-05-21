@@ -1,0 +1,37 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.login_form {
+  display: flex;
+  flex-flow: column nowrap;
+
+  width: 500px;
+  height: 340px;
+  justify-content: space-between;
+}
+
+.recover_password {
+  display: flex;
+  flex-flow: column nowrap;
+
+  width: 500px;
+  height: auto;
+  justify-content: space-between;
+}
+
+.recover_password p {
+  font-size: 0.8em;
+}
+
+.recover_password > * {
+  margin: 20px 0;
+}
+
+.nav_container {
+  display: flex;
+  flex-flow: column nowrap;
+}

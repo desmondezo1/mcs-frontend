@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import jumbotron from'../public/images/jumbotron.png'
+import jumbotron from'../public/images/Jumbotron.png'
 import downArrow from '../public/images/arrowdown.png'
 import toilet from '../public/images/toilet.png'
 import washingMachine from '../public/images/washingmachine.png'
@@ -56,7 +56,7 @@ export default function Home() {
     <main>
       <section className="d-flex">
         <div className="flex-grow-1">
-          <Image src={jumbotron} />
+          <Image alt="jumbotron" src={jumbotron} />
         </div>
 
         <div className="d-flex justify-content-center align-items-center">
@@ -67,7 +67,7 @@ export default function Home() {
           </div>
           <span className={styles.arrow}>
               <Link href="#footer">
-                <Image src={downArrow} />
+                <Image alt="arrow" src={downArrow} />
               </Link>
           </span>
         </div>
@@ -78,7 +78,7 @@ export default function Home() {
         <div className={styles.distributorsSectionWrapper}>
 
           <div className={styles.distImageCard}>
-            <Image src={toilet} />
+            <Image alt="toilet" src={toilet} />
             <div>
               <span>
               WASHROOM
@@ -128,7 +128,14 @@ export default function Home() {
                 <span className={`${styles.name}`}>Chi Siamo</span>
               </div>
               <div className="col-8">
-                MCS nasce nel 2004 dal desiderio di offrire soluzioni di qualità per i servizi igienici attraverso distributori ed accessori di ogni tipo. Profumatori ambientali, igienizzanti per i wc, dispenser di asciugamani in cotone e carta, distributori di sapone e carta igienica, sono solo alcune delle proposte confortevoli ed ecologiche che hanno reso oggi MCS un' azienda leader nel territorio siciliano. Dal 2007, dopo essersi affermata con questo servizio, MCS allarga le proprie conoscenze abbracciando così i settori detergenza, attrezzi di pulizia e carta monouso.
+                MCS nasce nel 2004 dal desiderio di offrire soluzioni di qualità per 
+                i servizi igienici attraverso distributori ed accessori di ogni tipo. 
+                Profumatori ambientali, igienizzanti per i wc, dispenser di asciugamani 
+                in cotone e carta, distributori di sapone e carta igienica, sono solo alcune 
+                delle proposte confortevoli ed ecologiche che hanno reso oggi MCS un' azienda 
+                leader nel territorio siciliano. Dal 2007, dopo essersi affermata con questo 
+                servizio, MCS allarga le proprie conoscenze abbracciando così i settori detergenza, 
+                attrezzi di pulizia e carta monouso.
               </div>
             </div>
             <div className="row " style={{marginBottom: 30+"px"}}>
@@ -209,13 +216,13 @@ export default function Home() {
               <span className={styles.name}>Contattaci</span>
 
               <form className={styles.contactForm}> 
-              <div class="mb-3 row">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="inputPassword" />
+              <div className="mb-3 row">
+              <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                <div className="col-sm-10">
+                  <input type="password" className="form-control" id="inputPassword" />
                 </div>
               </div>     
-                <textarea height="417px" width="425px" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea height="417px" width="425px" className="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
               </form>
 
               <span className={styles.link_with_arrow}>
@@ -227,7 +234,7 @@ export default function Home() {
 
           <div className={`${styles.mapSectionMap} ${"col-6"}`}>
             <span>
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.768462533129!2d14.673311315293335!3d36.91979997992414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe93ea2e74cec0df!2zMzbCsDU1JzExLjMiTiAxNMKwNDAnMzEuOCJF!5e0!3m2!1sen!2sit!4v1652256563849!5m2!1sen!2sit" width="450" height="300" style={{border:"0"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.768462533129!2d14.673311315293335!3d36.91979997992414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe93ea2e74cec0df!2zMzbCsDU1JzExLjMiTiAxNMKwNDAnMzEuOCJF!5e0!3m2!1sen!2sit!4v1652256563849!5m2!1sen!2sit" width="450" height="300" style={{border:"0"}} allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </span>
             <span>
               <ul className={styles.listStye}>
