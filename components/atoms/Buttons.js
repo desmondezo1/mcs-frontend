@@ -8,7 +8,7 @@ Buttons.defaultProps = {
   alignText: "space-between",
 };
 
-Buttons.PropTypes = {
+Buttons.propTypes = {
   color: PropTypes.oneOf([
     "Received",
     "Cancelled",
