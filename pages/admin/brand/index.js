@@ -6,6 +6,7 @@ import productCss from '../../../styles/prodotti/prodotti.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { useFormik, Field,FormikProvider } from 'formik';
+import brandLogo from '../../../images/brandLogo.png'
 import axios from 'axios'
 import routeConfig from '../../../config/routeConfig'
 import BrandCard from '../../../components/atoms/brandCard'
@@ -21,19 +22,21 @@ export default function Brand({brands}){
 
     onSubmit: async (values, {resetForm}) => { 
         let brandUrl = routeConfig.addBrand; 
+        let fTag = document.querySelector('form');
+        let frmData = new FormData(fTag);
         let Val = await values;
         const token = window.localStorage.getItem('token');
         
         const axiosConfig = {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
                 'Authorization': 'Bearer ' + token,
             }
           }
   
           let ax = await axios.post(
               brandUrl,
-              Val,
+              frmData,
               axiosConfig
           ).then(result =>{
             if(result.status == 200){
@@ -110,7 +113,7 @@ export default function Brand({brands}){
                         <div className="brandListWrapper">
                             {
                                 brands.map((brand , index) => {
-                                    return  <BrandCard key={index} totalProducts={brand.count}  name={brand.name} />
+                                    return  <BrandCard key={index} image={brand.photo || brandLogo} totalProducts={brand.count}  name={brand.name} />
                                 })
                             }
                         </div>
