@@ -26,7 +26,7 @@ const Mepa = () => {
            </p>
            
           </div>
-          <a href="https://www.acquistinretepa.it/opencms/opencms/index.html?force=true&bmctx=5CDA32EAAC544187592B9449D631082E133214C51D1699D897164285A802FDF4&contextType=external&username=string&OverrideRetryLimit=1&contextValue=%2Foam&password=secure_string&challenge_url=https%3A%2F%2Fwww.acquistinretepa.it%2Fopencms%2Fopencms%2Findex.html%3Fforce%3Dtrue&request_id=-5190430132355902309&authn_try_count=0&locale=en_US&resource_url=https%253A%252F%252Fwww.acquistinretepa.it%252Fopencms%252Fopencms%252Frisultati_ricerche.html" target={"_blank"} className="button text-sm border rounded-3xl mt-6  py-1 px-3 flex items-center justify-between hover:text-gray-300">
+          <a href="https://www.acquistinretepa.it/opencms/opencms/index.html?force=true&bmctx=5CDA32EAAC544187592B9449D631082E133214C51D1699D897164285A802FDF4&contextType=external&username=string&OverrideRetryLimit=1&contextValue=%2Foam&password=secure_string&challenge_url=https%3A%2F%2Fwww.acquistinretepa.it%2Fopencms%2Fopencms%2Findex.html%3Fforce%3Dtrue&request_id=-5190430132355902309&authn_try_count=0&locale=en_US&resource_url=https%253A%252F%252Fwww.acquistinretepa.it%252Fopencms%252Fopencms%252Frisultati_ricerche.html" target={"_blank"} rel="noreferrer" className="button text-sm border rounded-3xl mt-6  py-1 px-3 flex items-center justify-between hover:text-gray-300">
             <div>
               VISITA IL NOSTRO CATALOGO MEPA
             </div>

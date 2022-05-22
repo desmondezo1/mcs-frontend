@@ -14,7 +14,7 @@ const Desideri = () => {
       <Sidebar />
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5  md:mt-0">
           {orderList.map((order, index) => (
-           <Orders/>
+           <Orders key={index}/>
           ))}
         </div>   
     </div>

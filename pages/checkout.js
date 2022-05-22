@@ -7,7 +7,7 @@ import {updateTotalPrice} from '../stores/mySlice';
 import TableBody from '../components/checkout/table';
 
 
-const checkout = () => {
+const Checkout = () => {
   const dispatch = useDispatch();
   const cartList = useSelector(state => state.mySlice.cart);
   

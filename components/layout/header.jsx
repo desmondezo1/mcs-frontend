@@ -8,7 +8,7 @@ import { updateCartVisibility } from '../../stores/mySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import Cart from '../cartList/cart';
 
-export default function header(){
+export default function Header(){
     const dispatch = useDispatch();
     const cartList = useSelector(state => state.mySlice.cart);
     const openCart = useSelector(state => state.mySlice.openCart);
