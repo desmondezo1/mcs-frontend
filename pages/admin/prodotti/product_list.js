@@ -13,6 +13,7 @@ import routeConfig from '../../../config/routeConfig'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
+import axiosHttp from "../../../utility/httpCalls";
 
 import {
   RadioButtonContainer,
@@ -28,7 +29,7 @@ function product_list({productListData}) {
           width: "78%",
         }}
       >
-        <h4>Lista Clienti</h4>
+        <h4>Lista Prodotti</h4>
 
         <br />
         <br />
@@ -66,7 +67,11 @@ function product_list({productListData}) {
                   {status === "published" ? "Attivo" : "Bozza"}
                 </Buttons>
                 <td>
-                  <TableMenuButton />
+                  <TableMenuButton 
+                  button1={{ text: 'Attivo', method: "patch", url: `${routeConfig.updateProduct}/${id}`, value:{status:"published"}}}
+                  button2={{ text: 'BOZZA',  method: "patch", url: `${routeConfig.updateProduct}/${id}`, value:{status:"unpublished"}}}
+                  
+                  />
                 </td>
               </tr>
             )
@@ -97,35 +102,12 @@ export default product_list;
 
 export async function getServerSideProps({req, res}) {
 
-  // let token = req.headers.Cookies || '';
- let cook = Cok.parse( req.headers.cookie )|| '';
- let token = cook.token;
+  let cook = Cok.parse( req.headers.cookie )|| '';
+  let token = cook.token;
   const productsUrl = routeConfig.getProducts;
+  let productListData = await axiosHttp(productsUrl,null,'GET',token);
   
-  const axiosConfig = {
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token,
-      }
-    }
 
-    let axPrdt = await axios.get(
-      productsUrl,
-        axiosConfig
-    );
-
-   
-
-    let prdtResult = await axPrdt;
-
-    console.log({'cat': prdtResult.data.data});
-    let productListData = [];
-
-    if(prdtResult.data.data){
-      productListData = prdtResult.data.data;
-    }
-  
-  // Pass data to the page via props
   return { props: { productListData } }
 }
 
