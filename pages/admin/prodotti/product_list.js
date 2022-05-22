@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavHeader from "../../../components/molecules/NavHeader";
 import Table from "../../../components/molecules/Table";
 import DownArrow from "../../../images/icons/DownArrow";
@@ -8,11 +8,23 @@ import TableMenuButton from "../../../components/atoms/TableMenuButton";
 import Buttons from "../../../components/atoms/Buttons";
 import SearchIcon from "../../../images/icons/SearchIcon";
 import AddIcon from "../../../images/icons/AddIcon";
+import Cok from 'cookie'
+import routeConfig from '../../../config/routeConfig'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios'
+import axiosHttp from "../../../utility/httpCalls";
+
 import {
   RadioButtonContainer,
   RoundedInputWithIcon,
 } from "../../../components/atoms/Input";
-function product_list(props) {
+
+function Product_list({productListData}) {
+
+  const[searchTerm, setSearchTerm] = useState('');
+  const[tableFilter, settableFilter] = useState('');
+
   return (
     <NavHeader>
       <div
@@ -21,7 +33,7 @@ function product_list(props) {
           width: "78%",
         }}
       >
-        <h4>Lista Clienti</h4>
+        <h4>Lista Prodotti</h4>
 
         <br />
         <br />
@@ -29,37 +41,62 @@ function product_list(props) {
           headKeys={[
             "No",
             "Nome",
-            "Email",
+            // "Email",
             "Data Creata",
             "Status",
             () => <DownArrow />,
           ]}
-          tableData={ProductListData}
+          tableData={productListData}
           displayHead={true}
           selfDisplayComponent={true}
-          displayComponent={ProductListData.map(
-            ({ no, name, status, date }, i) => (
+          displayComponent={productListData.filter(val=>{
+            if (!searchTerm) {
+              return val;
+            } else if(
+              val.title.toLowerCase().includes(searchTerm.toLowerCase())
+            ){
+              return val;
+            }
+          }).filter(val => {
+            if(!tableFilter){
+              return val;
+            } else if(
+              val.status.toLowerCase() === tableFilter.toLowerCase()
+            ){
+              return val;
+            }else if(
+              tableFilter.toLowerCase() === "all"
+            ){
+              return val;
+            }
+
+          }).map(
+            ({ id, title, status, updated_at }, i) => (
               <tr key={i}>
-                <td>{no}</td>
+                <td>{id}</td>
                 <td>
                   <ProfilePicture
                     style={{
                       marginRight: "6px",
                     }}
                   />
-                  {name}
+                  {title}
                 </td>
-                <td>{date}</td>
+                <td>{updated_at}</td>
                 <Buttons
                   size={"auto"}
                   fontSize="0.8em"
-                  color={status === "Attivo" ? "Received" : "Cancelled"}
+                  color={status === "published" ? "Received" : "Cancelled"}
                   margin="16px 0"
                 >
-                  {status}
+                  {status === "published" ? "Attivo" : "Bozza"}
                 </Buttons>
                 <td>
-                  <TableMenuButton />
+                  <TableMenuButton 
+                  button1={{ text: 'Attivo', method: "patch", url: `${routeConfig.updateProduct}/${id}`, value:{status:"published"}}}
+                  button2={{ text: 'BOZZA',  method: "patch", url: `${routeConfig.updateProduct}/${id}`, value:{status:"unpublished"}}}
+                  
+                  />
                 </td>
               </tr>
             )
@@ -67,7 +104,8 @@ function product_list(props) {
         >
           <RoundedInputWithIcon
             Suffix={SearchIcon}
-            placeholder="RICERCA ORDINE"
+            placeholder="RICERCA PRODOTTI"
+            onChange={(e)=>{setSearchTerm(e.target.value)}}
           />
 
           <RadioButtonContainer
@@ -75,10 +113,11 @@ function product_list(props) {
             name="Filter"
             showLabel={false}
             radioButtons={[
-              { label: "TUTTI", value: "TUTTI" },
-              { label: "ATTIVO", value: "ATTIVO" },
-              { label: "BOZZA", value: "BOZZA" },
+              { label: "TUTTI", value: "all" },
+              { label: "ATTIVO", value: "published" },
+              { label: "BOZZA", value: "unpublished" },
             ]}
+            onChange={(e)=>{settableFilter(e.target.value)}}
           />
         </Table>
       </div>
@@ -86,4 +125,15 @@ function product_list(props) {
   );
 }
 
-export default product_list;
+export default Product_list;
+
+export async function getServerSideProps({req, res}) {
+
+  let cook = Cok.parse( req.headers.cookie )|| '';
+  let token = cook.token;
+  const productsUrl = routeConfig.getProducts;
+  let productListData = await axiosHttp(productsUrl,null,'GET',token);
+  console.log({productListData});
+  return { props: { productListData } }
+}
+

@@ -39,10 +39,10 @@ export function RoundedInputWithIcon({ Prefix, Suffix, ...rest }) {
   );
 }
 
-export function RadioButton({ label, name, value }) {
+export function RadioButton({ label, name, value, ...rest }) {
   return (
     <>
-      <input name={name} value={value} type="radio" id={value} />
+      <input name={name} value={value} type="radio" id={value} {...rest}/>
       <label htmlFor={value}>{label}</label>
     </>
   );
@@ -65,7 +65,7 @@ export function RadioButtonContainer({
   ...rest
 }) {
   const radios = radioButtons.map(({ label: inputLabel, value }, i) => (
-    <RadioButton label={inputLabel} value={value} name={name} key={i} />
+    <RadioButton label={inputLabel} value={value} name={name} key={i} {...rest}/>
   ));
   return (
     <div className={`${FormStyle.input_container}  my-3`}>

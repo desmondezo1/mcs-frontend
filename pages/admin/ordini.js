@@ -8,6 +8,13 @@ import Button from "../../components/atoms/Buttons";
 import TableMenuIcon from "../../images/icons/TableMenuIcon";
 import ProfilePicture from "../../images/icons/ProfilePicture";
 import SearchIcon from "../../images/icons/SearchIcon";
+import axiosHttp from "../../utility/httpCalls";
+import Cok from 'cookie'
+// import routeConfig from '../../../config/routeConfig'
+import routeConfig from "../../config/routeConfig"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
 import {
   RadioButtonContainer,
   RoundedInputWithIcon,
@@ -15,7 +22,7 @@ import {
 import OrdiniData from "../../config/OrdiniData";
 import DownArrow from "../../images/icons/DownArrow";
 
-function index(props) {
+function index({ordersData}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -32,7 +39,7 @@ function index(props) {
           <Nav />
           <div className={styles.overview_body_container}>
             <div className={styles.overview_body_container}>
-              <h4>Lista Clienti</h4>
+              <h4>Ordini</h4>
               <br />
               <Table
                 headKeys={[
@@ -44,11 +51,11 @@ function index(props) {
                   "Data Creata",
                   <DownArrow key="arr" />,
                 ]}
-                tableData={OrdiniData}
+                tableData={ordersData}
                 displayHead={true}
                 selfDisplayComponent={true}
                 display
-                displayComponent={OrdiniData.map(
+                displayComponent={ordersData.map(
                   ({ id, name, email, valore, status, date }, i) => (
                     <tr key={i}>
                       <td>{id}</td>
@@ -98,3 +105,14 @@ function index(props) {
 }
 
 export default index;
+
+export async function getServerSideProps({req, res}) {
+
+  let cook = Cok.parse( req.headers.cookie )|| '';
+  let token = cook.token;
+  const ordersUrl = routeConfig.getOrdersAdmin;
+  let ordersData = await axiosHttp(ordersUrl,null,'GET',token);
+  
+
+  return { props: { ordersData } }
+}

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import nextConfig from "../next.config";
 
 console.log(nextConfig.env.BACKEND_API_BASE_URL);
@@ -12,9 +13,12 @@ export default {
   createProduct: baseUrl + "/admin/products/create",
   login: baseUrl + "/login",
   register: baseUrl + "/",
+  getProducts: baseUrl + "/products",
+  updateProduct: baseUrl + "/admin/products",
   addBrand: baseUrl + "/admin/brands/create",
   getBrands: baseUrl + "/brands",
   getBrandsAdmin: baseUrl + "/admin/brands",
   addCategory: baseUrl + "/admin/categories/create",
   getCategories: baseUrl + "/categories",
+  getOrdersAdmin: baseUrl + "/admin/orders",
 };
