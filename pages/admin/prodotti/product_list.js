@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavHeader from "../../../components/molecules/NavHeader";
 import Table from "../../../components/molecules/Table";
 import DownArrow from "../../../images/icons/DownArrow";
@@ -21,6 +21,9 @@ import {
 } from "../../../components/atoms/Input";
 
 function product_list({productListData}) {
+
+  const[searchTerm, setSearchTerm] = useState('');
+
   return (
     <NavHeader>
       <div
@@ -45,7 +48,15 @@ function product_list({productListData}) {
           tableData={productListData}
           displayHead={true}
           selfDisplayComponent={true}
-          displayComponent={productListData.map(
+          displayComponent={productListData.filter(val=>{
+            if (!searchTerm) {
+              return val;
+            } else if(
+              val.title.toLowerCase().includes(searchTerm.toLowerCase())
+            ){
+              return val;
+            }
+          }).map(
             ({ id, title, status, updated_at }, i) => (
               <tr key={i}>
                 <td>{id}</td>
@@ -79,7 +90,8 @@ function product_list({productListData}) {
         >
           <RoundedInputWithIcon
             Suffix={SearchIcon}
-            placeholder="RICERCA ORDINE"
+            placeholder="RICERCA PRODOTTI"
+            onChange={(e)=>{setSearchTerm(e.target.value)}}
           />
 
           <RadioButtonContainer
