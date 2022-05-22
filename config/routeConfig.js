@@ -13,4 +13,5 @@ export default {
     getBrandsAdmin : baseUrl + "/admin/brands",
     addCategory : baseUrl + "/admin/categories/create",
     getCategories : baseUrl + "/categories",
+    getOrdersAdmin : baseUrl + "/admin/orders",
 }
