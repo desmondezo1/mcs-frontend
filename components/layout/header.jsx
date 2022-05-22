@@ -30,7 +30,7 @@ return (
 
     `}</style>
     <nav className={`${"navbar navbar-light navbar-expand-lg bg-light"} ${HeaderCss.navbar}`}>
-    <div class="container">
+    <div className="container">
         {openCart && <Cart />}
         <Link href="/home">
             <a className={`${"navbar-brand navbarBrand"}`} >
@@ -74,7 +74,7 @@ return (
                     </Link>
                 </li>
             </ul>
-            <div class={`${"icon-wrapper"} ${HeaderCss.iconWrapper}`}>               
+            <div className={`${"icon-wrapper"} ${HeaderCss.iconWrapper}`}>               
                <Link href="/bacheca/desideri/1">
                     <a>
                     <div className={HeaderCss.wishListIcon}>
