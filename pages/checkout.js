@@ -32,7 +32,7 @@ const Checkout = () => {
     <div className=' table py-8'>
       {cartList.length > 0 ? <div className="m-auto w-[95%] md:w-[90%] lg:w-2/3">
         <section className='table py-1 '>
-          <table class=" w-full">
+          <table className="w-full">
               <thead className='table_head'>
               <tr>
                 <th> </th>
