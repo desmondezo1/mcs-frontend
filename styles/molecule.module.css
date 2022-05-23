@@ -12,8 +12,18 @@
   max-width: 500px;
   height: 340px;
   justify-content: space-between;
+  width: 500px;
 }
 
+.login_form_child_component {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+.login_form_child_component > * {
+  margin: 15px 0;
+}
 .recover_password {
   display: flex;
   flex-flow: column nowrap;
