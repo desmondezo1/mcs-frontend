@@ -15,6 +15,12 @@
   width: 500px;
 }
 
+@media (max-width: 760px) {
+  .login_form {
+    width: 100%;
+  }
+}
+
 .login_form_child_component {
   width: 100%;
   display: flex;
