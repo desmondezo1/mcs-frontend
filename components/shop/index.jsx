@@ -11,7 +11,7 @@ const ShopList = ({product}) => {
           <div className="w-[250px] sm:w-[200px] cursor-pointer">
           <Image
           alt="orders"
-          src={'/images/window.png'}
+          src={product?.photo}
           width={250}
           height={250}
           quality = {100}
