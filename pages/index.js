@@ -88,7 +88,7 @@ export default function Home() {
           </div>
 
           <div className={styles.distImageCard}>
-            <Image src={washingMachine} />
+            <Image src={washingMachine} alt=""/>
             <div>
               <span>
               MACCHINARI
@@ -98,7 +98,7 @@ export default function Home() {
           </div>
 
           <div className={styles.distImageCard}>
-            <Image src={houseImage} />
+            <Image src={houseImage} alt=""/>
             <div>
               <span>
               TAPPETI ANTISCIVOLO

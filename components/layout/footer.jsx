@@ -70,7 +70,7 @@ export default function Footer(){
                         {`${new Date().getFullYear()}
                          MCS Group S.r.l`}
                     </span>
-                    <Image src={paymentLogos} />
+                    <Image src={paymentLogos} alt=""/>
 
                 </div>
             </div>

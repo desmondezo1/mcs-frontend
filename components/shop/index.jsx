@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 
 import Link from 'next/link';
 import Image from "next/image";
@@ -30,6 +31,7 @@ const ShopList = () => {
                 style={{color: 'black'}}
                 width={18}
                 height={18}
+                alt=""
                 />
                 <Icon icon = 'carbon:heart' color = 'red'/>
               </a>
