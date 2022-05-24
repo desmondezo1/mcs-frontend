@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Icon } from '@iconify/react'
 
 
-const ShopList = () => {
+const ShopList = ({product}) => {
     return(
       <Link href = "/bacheca/ordini/product">
           <div className="w-[250px] sm:w-[200px] cursor-pointer">
@@ -16,8 +16,8 @@ const ShopList = () => {
           height={250}
           quality = {100}
           />
-          <p className="sm:w-[170px] my-2 text-sm">Sany Mayer 400 ml Disinfettante germicide battericida spray.</p>
-          <p className='text-sm text-red-600'>€7,55</p>
+          <p className="sm:w-[170px] my-2 text-sm">{product?.title}</p>
+          <p className='text-sm text-red-600'>€{product?.price}</p>
           <div className='icons flex items-center mt-2'>
             <Link href="#">
               <a>

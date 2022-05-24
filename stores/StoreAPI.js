@@ -15,7 +15,7 @@ const baseQuery = fetchBaseQuery({
 
 const api = createApi({
   baseQuery,
-  tagTypes: ["User", "Auth"],
+  tagTypes: ["User", "Auth", "Shop"],
   refetchOnReconnect: true,
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -29,15 +29,15 @@ const api = createApi({
       providesTags: () => [{ type: "Auth" }],
     }),
     register: builder.mutation({
-        query(body) {
-          return {
-            url: `register`,
-            method: "POST",
-            body,
-          };
-        },
-        providesTags: () => [{ type: "Auth" }],
-      }),
+      query(body) {
+        return {
+          url: `register`,
+          method: "POST",
+          body,
+        };
+      },
+      providesTags: () => [{ type: "Auth" }],
+    }),
   }),
 });
 
