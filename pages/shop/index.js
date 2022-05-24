@@ -1,6 +1,6 @@
-import ShopList from "../components/shop";
-import ShopSideBar from "../components/shop/sidebar";
-import { orderList } from "../const";
+import ShopList from "../../components/shop";
+import ShopSideBar from "../../components/shop/sidebar";
+import { orderList } from "../../const";
 
 const Shop = ({ products }) => {
   return (
