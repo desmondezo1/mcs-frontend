@@ -28,10 +28,19 @@ const Login = () => {
       { setErrors, setSubmitting, resetForm, setFieldTouched }
     ) => {
       try {
-        const data = await login(values).unwrap();
-        localStorage.setItem(process.env.NEXT_PUBLIC_STORAGE_KEY, JSON.stringify(data));
-
-        router.push('bacheca/')
+        await login(values)
+          .unwrap()
+          .then((res) => {
+            localStorage.setItem(
+              process.env.NEXT_PUBLIC_STORAGE_KEY,
+              JSON.stringify(res)
+            );
+            router.push(`bacheca/${res?.user?.id}`);
+          })
+          .catch((err) => {
+            console.log(err);
+            setErrors({ afterSubmit: err?.message || "An error occured" });
+          });
       } catch (error) {
         resetForm({ values: { email: "", password: "" } });
 
