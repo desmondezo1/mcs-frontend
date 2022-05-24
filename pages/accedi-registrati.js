@@ -29,10 +29,9 @@ const Login = () => {
     ) => {
       try {
         const data = await login(values).unwrap();
-        console.log(data)
-        localStorage.setItem(process.env.NEXT_PUBLIC_STORAGE_KEY, JSON.stringify(data?.data?.user));
+        localStorage.setItem(process.env.NEXT_PUBLIC_STORAGE_KEY, JSON.stringify(data));
 
-        router.push('hdfs')
+        router.push('bacheca/')
       } catch (error) {
         resetForm({ values: { email: "", password: "" } });
 

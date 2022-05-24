@@ -4,9 +4,11 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_APP_URL,
   prepareHeaders: (headers) => {
     headers.set("Access-Control-Allow-Origin", "*");
-    
+
     const user = localStorage.getItem(`${process.env.NEXT_PUBLIC_STORAGE_KEY}`);
-    if (user) headers.set("Authorization", `${JSON.parse(user).access_token}`);
+    if (user !== undefined && user !== null && user !== "undefined")
+      headers.set("Authorization", `${JSON.parse(user)?.access_token}`);
+    else localStorage.removeItem(process.env.NEXT_PUBLIC_STORAGE_KEY);
     return headers;
   },
 });
@@ -26,6 +28,16 @@ const api = createApi({
       },
       providesTags: () => [{ type: "Auth" }],
     }),
+    register: builder.mutation({
+        query(body) {
+          return {
+            url: `register`,
+            method: "POST",
+            body,
+          };
+        },
+        providesTags: () => [{ type: "Auth" }],
+      }),
   }),
 });
 
