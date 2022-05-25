@@ -12,8 +12,11 @@ import ProfilePicture from "../../../images/icons/ProfilePicture";
 import TableMenuIcon from "../../../images/icons/TableMenuIcon";
 import MenuButton from "../../../components/atoms/TableMenuButton";
 import TableMenuButton from "../../../components/atoms/TableMenuButton";
+import routeConfig from "../../../config/routeConfig";
+import Cok from 'cookie'
+import axiosHttp from "../../../utility/httpCalls";
 
-function index(props) {
+function index({users}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -40,11 +43,11 @@ function index(props) {
                 "Status",
                 () => <AddIcon />,
               ]}
-              tableData={adminData}
+              tableData={users}
               displayHead={true}
               selfDisplayComponent={true}
-              displayComponent={adminData.map(
-                ({ name, roulo, date, status }, i) => (
+              displayComponent={u(sers).map(
+                ({ first_name, role, created_at, status }, i) => (
                   <tr key={i}>
                     <td>
                       <ProfilePicture
@@ -52,10 +55,10 @@ function index(props) {
                           marginRight: "6px",
                         }}
                       />
-                      {name}
+                      {first_name}
                     </td>
-                    <td>{roulo}</td>
-                    <td>{date}</td>
+                    <td>{role}</td>
+                    <td>{created_at}</td>
                     <Button
                       size={"auto"}
                       fontSize="0.8em"
@@ -104,3 +107,14 @@ function index(props) {
 }
 
 export default index;
+
+
+export async function getServerSideProps({req, res}) {
+
+  let cook = Cok.parse( req.headers.cookie )|| '';
+  let token = cook.token;
+  const usersUrl = routeConfig.getAdminUsers;
+  let users = await axiosHttp(usersUrl,null,'GET',token);
+  console.log({users});
+  return { props: { users } }
+}

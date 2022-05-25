@@ -7,8 +7,11 @@ import Table from "../../../components/molecules/Table";
 import ClientList from "../../../config/ClientList";
 import Button from "../../../components/atoms/Buttons";
 import TableMenuIcon from "../../../images/icons/TableMenuIcon";
+import Cok from 'cookie'
 import ProfilePicture from "../../../images/icons/ProfilePicture";
 import SearchIcon from "../../../images/icons/SearchIcon";
+import routeConfig from "../../../config/routeConfig";
+import axiosHttp from "../../../utility/httpCalls";
 import {
   RadioButtonContainer,
   RoundedInputWithIcon,
@@ -16,7 +19,7 @@ import {
 import TableMenuButton from "../../../components/atoms/TableMenuButton";
 import NavHeader from "../../../components/molecules/NavHeader";
 
-function Index(props) {
+function Index({users}) {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -41,24 +44,24 @@ function Index(props) {
           <br />
           <Table
             headKeys={["No", "Nome", "Email", "Data Creata", "Status", ""]}
-            tableData={data}
+            tableData={users}
             displayHead={true}
-            selfDisplayComponent={true}
+            selfDisplayComponent={users}
             display
-            displayComponent={data.map(
-              ({ no, name, email, status, date }, i) => (
+            displayComponent={users.map(
+              ({ id, first_name, email, status, created_at }, i) => (
                 <tr key={i}>
-                  <td>{no}</td>
+                  <td>{id}</td>
                   <td>
                     <ProfilePicture
                       style={{
                         marginRight: "6px",
                       }}
                     />
-                    {name}
+                    {first_name}
                   </td>
                   <td>{email}</td>
-                  <td>{date}</td>
+                  <td>{created_at}</td>
 
                   <Button
                     size={"auto"}
@@ -99,3 +102,14 @@ function Index(props) {
 }
 
 export default Index;
+
+
+export async function getServerSideProps({req, res}) {
+
+  let cook = Cok.parse( req.headers.cookie )|| '';
+  let token = cook.token;
+  const usersUrl = routeConfig.getUsers;
+  let users = await axiosHttp(usersUrl,null,'GET',token);
+  console.log({users});
+  return { props: { users } }
+}
