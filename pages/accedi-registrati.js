@@ -39,7 +39,7 @@ const Login = () => {
           })
           .catch((err) => {
             console.log(err);
-            setErrors({ afterSubmit: err?.message || "An error occured" });
+            setErrors({ afterSubmit: err?.data?.message || "An error occured" });
           });
       } catch (error) {
         resetForm({ values: { email: "", password: "" } });

@@ -36,7 +36,7 @@ const Ordini = ({ orders }) => {
       <div className="flex flex-wrap  justify-between  px-4">
         <Sidebar />
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5  md:mt-0">
-          {orders.length > 0
+          {orders?.data?.length > 0
             ? orders?.data?.map((order, index) => (
                 <Orders order={order} key={index} />
               ))
@@ -53,7 +53,7 @@ export async function getServerSideProps({ params }) {
   );
   const orders = await res.json();
 
-  return { props: { orders } };
+  return { props: { orders,params } };
 }
 
 export default Ordini;
