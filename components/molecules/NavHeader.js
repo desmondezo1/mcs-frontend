@@ -25,7 +25,13 @@ function NavHeader({ title, children, page }) {
 
       <main className={styles.main}>
         <Header>
-          <p>{title}</p>
+          <p
+            style={{
+              margin: "0px",
+            }}
+          >
+            {title}
+          </p>
         </Header>
         <div className="dashboard_container">
           <Nav />

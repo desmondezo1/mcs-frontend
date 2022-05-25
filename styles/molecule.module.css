@@ -39,6 +39,11 @@
   justify-content: space-between;
 }
 
+@media (max-width: 760px) {
+  .recover_password {
+    width: 100%;
+  }
+}
 .recover_password p {
   font-size: 0.8em;
 }

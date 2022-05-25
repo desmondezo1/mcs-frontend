@@ -8,6 +8,7 @@ import Checkbox from "../../atoms/Checkbox";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import routeConfig from "../../../config/routeConfig";
+import { CircleSpinner } from "react-spinners-kit";
 import { useFormik, Field, FormikProvider } from "formik";
 import axios from "axios";
 
@@ -77,6 +78,7 @@ function LoginForm(props) {
             onChange={handleChange}
             value={values.email}
             placeholder="E-MAIL*"
+            disabled={isSubmitting}
           />
 
           <Input
@@ -86,6 +88,7 @@ function LoginForm(props) {
             onChange={handleChange}
             value={values.password}
             placeholder="PASSWORD*"
+            disabled={isSubmitting}
           />
 
           <Button
@@ -98,7 +101,7 @@ function LoginForm(props) {
             alignText="center"
             color={"primary"}
           >
-            LOG IN
+            {isSubmitting ? <CircleSpinner /> : "LOG IN"}
           </Button>
         </form>
         <Button
