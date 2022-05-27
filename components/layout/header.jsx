@@ -32,7 +32,7 @@ return (
     <nav className={`${"navbar navbar-light navbar-expand-lg bg-light"} ${HeaderCss.navbar}`}>
     <div className="container">
         {openCart && <Cart />}
-        <Link href="/home">
+        <Link href="/">
             <a className={`${"navbar-brand navbarBrand"}`} >
                <Image className={HeaderCss.navbarBrand} src={Logo} alt=""  />
             </a> 
