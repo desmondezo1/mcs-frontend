@@ -7,7 +7,7 @@ import Table from "../../../components/molecules/Table";
 import ClientList from "../../../config/ClientList";
 import Button from "../../../components/atoms/Buttons";
 import TableMenuIcon from "../../../images/icons/TableMenuIcon";
-import Cok from 'cookie'
+import Cok, { serialize } from 'cookie'
 import ProfilePicture from "../../../images/icons/ProfilePicture";
 import SearchIcon from "../../../images/icons/SearchIcon";
 import routeConfig from "../../../config/routeConfig";
@@ -23,6 +23,7 @@ import NavHeader from "../../../components/molecules/NavHeader";
 
 function Index({users}) {
   const [filter, setFilter] = useState("");
+  const[searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState(0);
   useEffect(() => {
@@ -69,6 +70,16 @@ function Index({users}) {
               }
 
               // return val;
+            }).filter(val => {
+              if(!searchTerm){
+                return val;
+              }else if(
+                  val.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  val.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  val.email.toLowerCase().includes(searchTerm.toLowerCase())
+                ){
+                  return val;
+                } 
             }).map(
               ({ id, first_name, email, status, role, created_at }, i) => (
                 <tr key={i}>
@@ -106,6 +117,7 @@ function Index({users}) {
             <RoundedInputWithIcon
               Suffix={SearchIcon}
               placeholder="RICERCA CLIENTI"
+              onChange={(e)=>{setSearchTerm(e.target.value)}}
             />
 
             <RadioButtonContainer
