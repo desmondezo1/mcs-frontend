@@ -44,7 +44,7 @@ function Index({users}) {
     <NavHeader>
       <div className={styles.overview_body_container}>
         <div className={styles.overview_body_container}>
-          <h4>Lista Clienti = {categoryFilter}</h4>
+          <h4>Lista Clienti</h4>
           <br />
           <Table
             headKeys={["No", "Nome", "Email", "Data Creata", "Status", ""]}
