@@ -24,7 +24,7 @@ import NavHeader from "../../../components/molecules/NavHeader";
 function Index({users}) {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState(0);
   useEffect(() => {
     setData(users);
     console.log(users);
@@ -43,7 +43,7 @@ function Index({users}) {
     <NavHeader>
       <div className={styles.overview_body_container}>
         <div className={styles.overview_body_container}>
-          <h4>Lista Clienti </h4>
+          <h4>Lista Clienti = {categoryFilter}</h4>
           <br />
           <Table
             headKeys={["No", "Nome", "Email", "Data Creata", "Status", ""]}
@@ -54,13 +54,21 @@ function Index({users}) {
             displayComponent={data.filter(val => {
               if (!categoryFilter) {
                 return val;
-              } else if(
-                val.role == categoryFilter
+              }
+              
+              if(
+                categoryFilter === val.role
               ){
                 return val;
               }
 
-              return val;
+              if(
+                categoryFilter === 0
+              ){
+                return val;
+              }
+
+              // return val;
             }).map(
               ({ id, first_name, email, status, role, created_at }, i) => (
                 <tr key={i}>

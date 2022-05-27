@@ -25,11 +25,7 @@ function TableMenuButton({ iconContent, button1, button2, ...rest }) {
 
   let deleteItem = async (url, data, method) => {
     const token = window.localStorage.getItem('token');    
-    console.log({token});
-
-    // if(!token){
-    //  let token  = Cookies.get("token");
-    // }
+    
     let dataResult = await httpCalls(url, data, method,token);
         dataResult = await dataResult;
         if(dataResult){
