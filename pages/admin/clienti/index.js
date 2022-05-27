@@ -11,7 +11,9 @@ import Cok from 'cookie'
 import ProfilePicture from "../../../images/icons/ProfilePicture";
 import SearchIcon from "../../../images/icons/SearchIcon";
 import routeConfig from "../../../config/routeConfig";
+import axios from 'axios'
 import axiosHttp from "../../../utility/httpCalls";
+
 import {
   RadioButtonContainer,
   RoundedInputWithIcon,
@@ -22,34 +24,45 @@ import NavHeader from "../../../components/molecules/NavHeader";
 function Index({users}) {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState("");
   useEffect(() => {
-    setData(ClientList);
-    console.log(ClientList);
+    setData(users);
+    console.log(users);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    const newData = ClientList.filter((item) => {
-      return filter === "none" ? true : item.status === filter;
-    });
-    // setData(newData);
+  // useEffect(() => {
+  //   const newData = ClientList.filter((item) => {
+  //     return filter === "none" ? true : item.status === filter;
+  //   });
+  //   // setData(newData);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
-  console.log(data);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [filter]);
+  console.log({users});
   return (
     <NavHeader>
       <div className={styles.overview_body_container}>
         <div className={styles.overview_body_container}>
-          <h4>Lista Clienti</h4>
+          <h4>Lista Clienti </h4>
           <br />
           <Table
             headKeys={["No", "Nome", "Email", "Data Creata", "Status", ""]}
-            tableData={users}
+            tableData={data}
             displayHead={true}
-            selfDisplayComponent={users}
+            selfDisplayComponent={data}
             display
-            displayComponent={users.map(
-              ({ id, first_name, email, status, created_at }, i) => (
+            displayComponent={data.filter(val => {
+              if (!categoryFilter) {
+                return val;
+              } else if(
+                val.role == categoryFilter
+              ){
+                return val;
+              }
+
+              return val;
+            }).map(
+              ({ id, first_name, email, status, role, created_at }, i) => (
                 <tr key={i}>
                   <td>{id}</td>
                   <td>
@@ -58,7 +71,7 @@ function Index({users}) {
                         marginRight: "6px",
                       }}
                     />
-                    {first_name}
+                    {first_name} 
                   </td>
                   <td>{email}</td>
                   <td>{created_at}</td>
@@ -66,13 +79,16 @@ function Index({users}) {
                   <Button
                     size={"auto"}
                     fontSize="0.8em"
-                    color={status === "Attivo" ? "Received" : "Cancelled"}
+                    color={status === "active" ? "Received" : "Cancelled"}
                     margin="16px 0"
                   >
                     {status}
                   </Button>
                   <td>
-                    <TableMenuButton />
+                    <TableMenuButton 
+                      button1={{ text: 'CATEGORIA 1', method: "patch", url: `${routeConfig.updateUser}/${id}`, value:{role: 1}}}
+                      button2={{ text: 'CATEGORIA 2',  method: "patch", url: `${routeConfig.updateUser}/${id}`, value:{role: 3}}}
+                    />
                   </td>
                 </tr>
               )
@@ -87,12 +103,13 @@ function Index({users}) {
               id={"FIlter"}
               name="Filter"
               showLabel={false}
-              changeState={setFilter}
+              changeState={setCategoryFilter}
               radioButtons={[
-                { label: "TUTTI", value: "TUTTI" },
-                { label: "CATEGORIA 1", value: "CATEGORIA 1" },
-                { label: "CATEGORIA 2", value: "CATEGORIA 2" },
+                { label: "TUTTI", value: 0 },
+                { label: "CATEGORIA 1", value: 1 },
+                { label: "CATEGORIA 2", value: 3 },
               ]}
+              // onChange={(e)=>{setCategoryFilter(e.target.value)}}
             />
           </Table>
         </div>
@@ -106,9 +123,10 @@ export default Index;
 
 export async function getServerSideProps({req, res}) {
 
-  let cook = Cok.parse( req.headers.cookie )|| '';
+  let cook = Cok.parse( req.headers.cookie ) || '';
   let token = cook.token;
   const usersUrl = routeConfig.getUsers;
+
   let users = await axiosHttp(usersUrl,null,'GET',token);
   console.log({users});
   return { props: { users } }

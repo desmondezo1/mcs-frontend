@@ -5,6 +5,8 @@ import Button from "./Buttons";
 import DeleteUserIcon from "../../images/icons/DeleteUserIcon";
 import ModifyUser from "../../images/icons/ModifyUser";
 import httpCalls from "../../utility/httpCalls"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 TableMenuButton.defaultProps = {
   iconContent: <TableMenuIcon />,
@@ -22,6 +24,17 @@ function TableMenuButton({ iconContent, button1, button2 }) {
     const token = window.localStorage.getItem('token');
     let dataResult = await httpCalls(url, data, method,token);
         dataResult = await dataResult;
+        if(dataResult){
+          if(dataResult.role == 1){
+             toast.success("Clienti Added to CATEGORIA 1");
+          }
+          if(dataResult.role == 3){
+            toast.success("Clienti Added to CATEGORIA 2");
+         }
+           
+          } else {
+            toast.error("Sorry, I guess something went wrong");
+          }
         console.log({dataResult});
   }
 

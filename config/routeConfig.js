@@ -15,6 +15,7 @@ export default {
   register: baseUrl + "/",
   getUsers: baseUrl + "/admin/users",
   getAdminUsers: baseUrl + "/admin/admins",
+  updateUser: baseUrl + "/admin/user", //+ user Id
   getProducts: baseUrl + "/products",
   updateProduct: baseUrl + "/admin/products",
   addBrand: baseUrl + "/admin/brands/create",
