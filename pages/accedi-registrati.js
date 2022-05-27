@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import Error from "../components/Error";
 import api from "../stores/StoreAPI";
 import { useRouter } from "next/router";
+import Cookies from 'js-cookie'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -35,6 +36,8 @@ const Login = () => {
               process.env.NEXT_PUBLIC_STORAGE_KEY,
               JSON.stringify(res)
             );
+
+            Cookies.set('token', res.access_token);
             router.push(`bacheca/${res?.user?.id}`);
           })
           .catch((err) => {
