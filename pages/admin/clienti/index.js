@@ -88,6 +88,7 @@ function Index({users}) {
                     <TableMenuButton 
                       button1={{ text: 'CATEGORIA 1', method: "patch", url: `${routeConfig.updateUser}/${id}`, value:{role: 1}}}
                       button2={{ text: 'CATEGORIA 2',  method: "patch", url: `${routeConfig.updateUser}/${id}`, value:{role: 3}}}
+                      delete ={{url:`${routeConfig.deleteUser}/${id}`, data: null, method: 'DELETE' }}
                     />
                   </td>
                 </tr>
@@ -128,6 +129,5 @@ export async function getServerSideProps({req, res}) {
   const usersUrl = routeConfig.getUsers;
 
   let users = await axiosHttp(usersUrl,null,'GET',token);
-  console.log({users});
   return { props: { users } }
 }
