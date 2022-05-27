@@ -8,7 +8,7 @@ const Shop = ({ products }) => {
       <div className="flex flex-wrap  justify-between  px-4">
         <ShopSideBar />
         <div className=" mx-auto sm:mx-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5  md:mt-0">
-          {products.length > 0
+          {products?.data?.length > 0
             ? products?.data?.map((product) => (
                 <ShopList product={product} key={product.id} />
               ))

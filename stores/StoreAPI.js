@@ -8,7 +8,6 @@ const baseQuery = fetchBaseQuery({
     const user = localStorage.getItem(`${process.env.NEXT_PUBLIC_STORAGE_KEY}`);
     if (user !== undefined && user !== null && user !== "undefined")
       headers.set("Authorization", `${JSON.parse(user)?.access_token}`);
-    else localStorage.removeItem(process.env.NEXT_PUBLIC_STORAGE_KEY);
     return headers;
   },
 });
