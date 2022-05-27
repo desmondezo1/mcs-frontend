@@ -15,8 +15,15 @@ import TableMenuButton from "../../../components/atoms/TableMenuButton";
 import routeConfig from "../../../config/routeConfig";
 import Cok from 'cookie'
 import axiosHttp from "../../../utility/httpCalls";
+import { useRouter } from "next/router";
+
 
 function index({users}) {
+  const router = useRouter();
+  let editUser = () => {
+    router.push("admin_page/nuovouser");
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -46,7 +53,7 @@ function index({users}) {
               tableData={users}
               displayHead={true}
               selfDisplayComponent={true}
-              displayComponent={u(sers).map(
+              displayComponent={users.map(
                 ({ first_name, role, created_at, status }, i) => (
                   <tr key={i}>
                     <td>
@@ -57,12 +64,12 @@ function index({users}) {
                       />
                       {first_name}
                     </td>
-                    <td>{role}</td>
+                    <td>{role == 2 ? "CREATOR":"ADMIN"}</td>
                     <td>{created_at}</td>
                     <Button
                       size={"auto"}
                       fontSize="0.8em"
-                      color={status === "Attivo" ? "Received" : "Cancelled"}
+                      color={status === "active" ? "Received" : "Cancelled"}
                       margin="16px 0"
                     >
                       {status}
@@ -86,7 +93,7 @@ function index({users}) {
                 </p>
                 <SearchIcon />
               </Button>
-              <Button color="secondary" size={"auto"}>
+              <Button color="secondary" size={"auto"} onClick={(e)=>{ editUser()}}>
                 <AddIcon />
                 <p
                   style={{
