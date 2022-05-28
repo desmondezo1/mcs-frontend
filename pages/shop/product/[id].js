@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateCartList, updateCartVisibility } from '../../../stores/mySlice';
 import Cart from '../../../components/cartList/cart';
 import Cok from 'cookie'
+import { useRouter } from 'next/router';
 
 
 const Product = ({product}) => {
@@ -15,24 +16,34 @@ const Product = ({product}) => {
   const [activeTab, setActiveTab] = useState('tab2');
   const openCart = useSelector(state => state.mySlice.openCart);
 
-
+  const router = useRouter();
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   }
 
   const downloadPdf = (url) => {
     setActiveTab('pdf');
-    fetch('api/downloadPdf',{
-      method: 'POST',
-      body: JSON.stringify(url)
-    })
+    router.push(url);
+    // console.log(url);
+    // fetch('/api/downloadPdf',{
+    //   method: 'POST',
+    //   body: JSON.stringify(url)
+    // })
   }
 
   const addToCart = (id) => {
     dispatch(updateCartList({id: id, name: 'Sany Mayer 400ml', price: 7.55, quantity: count}));
   }
 
-  return (
+  return (<>
+    <style Jsx>{
+      ` .itemLabel{
+        min-width: 200px;
+      }
+      `
+    }
+   
+    </style>
     <div className="py-[5em] w-fit  md:w-[70%]  xl:w-4/5 m-auto ">
       {openCart && <Cart/>}
       <div className="first my-5 pb-[6em]">
@@ -85,9 +96,11 @@ const Product = ({product}) => {
            <div
            className= {`cursor-pointer text-sm phone:my-3 sm:my-[0.5px] w-full sm:w-fit ${activeTab === 'tab2' ? 'text-gray-400' : 'text-black' }`}
             onClick={() => handleTabChange('tab2')}>INFORMAZIONE AGGIUTIVE</div>
-           <div
+           {!product.pdf ?"" :(
+             <div
            className= {`cursor-pointer text-sm phone:my-3 sm:my-[0.5px] w-full sm:w-fit ${activeTab === 'pdf' ? 'text-gray-400' : 'text-black' }`}
-            onClick={() => downloadPdf("pdfurl")}>SCHEDA TECNICA</div>
+            onClick={() => downloadPdf(product?.pdf)}>SCHEDA TECNICA</div>
+           )}
            <div 
            className= {`cursor-pointer text-sm w-full sm:w-fit ${activeTab === 'tab3' ? 'text-gray-400' : 'text-black' } flex items-center`}
            onClick={() => handleTabChange('tab3')}><span> SPEDIZIONE E RESO</span>
@@ -101,7 +114,36 @@ const Product = ({product}) => {
           </div>}
           {activeTab === 'tab2' &&
           <div className="tab_content_item">
-            INFORMAZIONE AGGIUTIVE content
+  
+            <div className='infoWrapper d-flex w-100'>
+            <div className='itemLabel '>Peso: </div><div className='itemContent'>{product?.weight}</div>
+            </div>
+
+            <div className='infoWrapper d-flex w-100'>
+              <div className='itemLabel'>Pezzi: </div><div className='itemContent'>{product?.variation.map(item =>{
+                return item.packaging +", ";
+              })}</div>
+            </div>
+
+            <div className='infoWrapper d-flex w-100'>
+              <div className='itemLabel'>Marca: </div><div className='itemContent'>{product?.brand}</div>
+            </div>
+            
+            <div className='infoWrapper d-flex w-100'>
+              <div className='itemLabel'>Usi: </div><div className='itemContent'>{product?.uses}</div>
+            </div>
+
+            <div className='infoWrapper d-flex w-100'>
+              <div className='itemLabel'>Superficie da Trattare: </div><div className='itemContent'>{product?.surface}</div>
+            </div>
+            
+            <div className='infoWrapper d-flex w-100'>
+              <div className='itemLabel'>Confezione: </div><div className='itemContent flex-grow-3'>{product?.variation.map(item =>{
+                return item.packaging +", ";
+              })}</div>
+            </div>
+
+
           </div>}
           {activeTab === 'tab3' && <div className="tab_content_item">
           SPEDIZIONE E RESO content
@@ -109,7 +151,7 @@ const Product = ({product}) => {
           </div>
       </div>
     </div>
-  )
+    </>)
 }
 
  export  default Product;
