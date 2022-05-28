@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 
 const ShopList = ({ product }) => {
   return (
-    <Link href="/bacheca/ordini/product">
+    <Link href={`/shop/product/${product?.id}`}>
       <div className="w-[250px] sm:w-[200px] cursor-pointer">
         <Image
           alt="orders"

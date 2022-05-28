@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCartList, updateCartVisibility } from '../../../stores/mySlice';
 import Cart from '../../../components/cartList/cart';
+import Cok from 'cookie'
 
-const Product = () => {
+
+const Product = ({product}) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(5);
   const [id, setId] = useState(3);
@@ -16,6 +18,14 @@ const Product = () => {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+  }
+
+  const downloadPdf = (url) => {
+    setActiveTab('pdf');
+    fetch('api/downloadPdf',{
+      method: 'POST',
+      body: JSON.stringify(url)
+    })
   }
 
   const addToCart = (id) => {
@@ -29,7 +39,7 @@ const Product = () => {
         <div className="flex flex-wrap sm:flex-nowrap justify-between ">
           <div className="left  w-fit sm:w-[250px] xl:w-fit mx-auto sm:mx-0 ">
             <Image
-             src={'/images/window.png'}
+             src={product?.images[0]['image']}
              alt="product"
              width={350}
              height={350}
@@ -37,8 +47,8 @@ const Product = () => {
             /> 
           </div>
           <div className="right mr-2 w-fit md:w-full lg:w-full xl:w-fit   flex flex-col px-3 sm:px-0">
-            <h1 className=" font-medium text-md md:text-lg lg:text-xl xl:text-2xl mt-2 md:mt-0">Sany Mayer 400 ml</h1>
-            <p className="max-w-[600px] my-3 text-sm xl:text-md">Hai perso la password, Inserisci l'email cui e stata effettuata la registrazione. Riceveral tramite email un link per generrame una nuova.</p>
+            <h1 className=" font-medium text-md md:text-lg lg:text-xl xl:text-2xl mt-2 md:mt-0">{product?.title}</h1>
+            <p className="max-w-[600px] my-3 text-sm xl:text-md">{product?.description}</p>
             <div className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-3 py-1 cursor-pointer my-3">
               <span className="text-sm pr-2">SCEGLI UN'OPZIONE</span>
               <span><Icon icon="carbon:arrow-down" width="20" height="20"/></span>
@@ -75,6 +85,9 @@ const Product = () => {
            <div
            className= {`cursor-pointer text-sm phone:my-3 sm:my-[0.5px] w-full sm:w-fit ${activeTab === 'tab2' ? 'text-gray-400' : 'text-black' }`}
             onClick={() => handleTabChange('tab2')}>INFORMAZIONE AGGIUTIVE</div>
+           <div
+           className= {`cursor-pointer text-sm phone:my-3 sm:my-[0.5px] w-full sm:w-fit ${activeTab === 'pdf' ? 'text-gray-400' : 'text-black' }`}
+            onClick={() => downloadPdf("pdfurl")}>SCHEDA TECNICA</div>
            <div 
            className= {`cursor-pointer text-sm w-full sm:w-fit ${activeTab === 'tab3' ? 'text-gray-400' : 'text-black' } flex items-center`}
            onClick={() => handleTabChange('tab3')}><span> SPEDIZIONE E RESO</span>
@@ -100,3 +113,23 @@ const Product = () => {
 }
 
  export  default Product;
+
+ export async function getServerSideProps({req, params }) {
+
+  
+  let cook = Cok.parse( req.headers.cookie ) || '';
+  let token = cook.token;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}product/${params?.id}`,
+    {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json;charset=UTF-8",
+      'Authorization': `Bearer ${token}`,
+      }
+    }   
+  );
+  const product = await res.json();
+    console.log(product.data);
+  return { props: { product:product.data,params } };
+}

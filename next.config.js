@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['via.placeholder.com','mcsgroupsrl.com','backend-api.mcsgroupsrl.com','placeholder.com','127.0.0.1'],
+  },
   reactStrictMode: true,
   async rewrites() {
     return [

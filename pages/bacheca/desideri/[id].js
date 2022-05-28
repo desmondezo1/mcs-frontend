@@ -27,7 +27,7 @@ export async function getServerSideProps({req, params }) {
   let cook = Cok.parse( req.headers.cookie ) || '';
   let token = cook.token;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}user/${params?.id}/wishlist`,
+    `${process.env.NEXT_PUBLIC_API_URL}user/${params?.id}/wishlist`,
     {
     method: "GET",
     headers: {
