@@ -185,29 +185,34 @@ export default function Brand({ brands }) {
 
 export async function getServerSideProps({ req, res }) {
   // let token = req.headers.Cookies || '';
-  let cook = Cok.parse(req.headers.cookie) || "";
 
-  let token = cook.token;
+  try {
+    let cook = Cok.parse(req.headers.cookie) || "";
 
-  const brandUrl = routeConfig.getBrandsAdmin;
+    let token = cook.token;
 
-  const axiosConfig = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  };
+    const brandUrl = routeConfig.getBrandsAdmin;
 
-  let ax = await axios.get(brandUrl, axiosConfig);
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
 
-  let result = await ax;
-  console.log(result.data.data);
-  let brands = [];
+    let ax = await axios.get(brandUrl, axiosConfig);
 
-  if (result.data.data) {
-    brands = result.data.data;
+    let result = await ax;
+    console.log(result.data.data);
+    let brands = [];
+
+    if (result.data.data) {
+      brands = result.data.data;
+    }
+
+    // Pass data to the page via props
+    return { props: { brands } };
+  } catch (error) {
+    return { props: { brands: [{ count: 100, name: "Phil" }] } };
   }
-
-  // Pass data to the page via props
-  return { props: { brands } };
 }
