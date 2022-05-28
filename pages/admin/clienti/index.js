@@ -7,8 +7,13 @@ import Table from "../../../components/molecules/Table";
 import ClientList from "../../../config/ClientList";
 import Button from "../../../components/atoms/Buttons";
 import TableMenuIcon from "../../../images/icons/TableMenuIcon";
+import Cok, { serialize } from 'cookie'
 import ProfilePicture from "../../../images/icons/ProfilePicture";
 import SearchIcon from "../../../images/icons/SearchIcon";
+import routeConfig from "../../../config/routeConfig";
+import axios from 'axios'
+import axiosHttp from "../../../utility/httpCalls";
+
 import {
   RadioButtonContainer,
   RoundedInputWithIcon,
@@ -16,23 +21,25 @@ import {
 import TableMenuButton from "../../../components/atoms/TableMenuButton";
 import NavHeader from "../../../components/molecules/NavHeader";
 
-function Index(props) {
+function Index({users}) {
   const [filter, setFilter] = useState("");
+  const[searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState(0);
   useEffect(() => {
-    setData(ClientList);
-    console.log(ClientList);
+    setData(users);
+    console.log(users);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    const newData = ClientList.filter((item) => {
-      return filter === "none" ? true : item.status === filter;
-    });
-    // setData(newData);
+  // useEffect(() => {
+  //   const newData = ClientList.filter((item) => {
+  //     return filter === "none" ? true : item.status === filter;
+  //   });
+  //   // setData(newData);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
-  console.log(data);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [filter]);
+  console.log({users});
   return (
     <NavHeader>
       <div className={styles.overview_body_container}>
@@ -43,33 +50,65 @@ function Index(props) {
             headKeys={["No", "Nome", "Email", "Data Creata", "Status", ""]}
             tableData={data}
             displayHead={true}
-            selfDisplayComponent={true}
+            selfDisplayComponent={data}
             display
-            displayComponent={data.map(
-              ({ no, name, email, status, date }, i) => (
+            displayComponent={data.filter(val => {
+              if (!categoryFilter) {
+                return val;
+              }
+              
+              if(
+                categoryFilter === val.role
+              ){
+                return val;
+              }
+
+              if(
+                categoryFilter === 0
+              ){
+                return val;
+              }
+
+              // return val;
+            }).filter(val => {
+              if(!searchTerm){
+                return val;
+              }else if(
+                  val.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  val.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  val.email.toLowerCase().includes(searchTerm.toLowerCase())
+                ){
+                  return val;
+                } 
+            }).map(
+              ({ id, first_name, email, status, role, created_at }, i) => (
                 <tr key={i}>
-                  <td>{no}</td>
+                  <td>{id}</td>
                   <td>
                     <ProfilePicture
                       style={{
                         marginRight: "6px",
                       }}
                     />
-                    {name}
+                    {first_name} 
                   </td>
                   <td>{email}</td>
-                  <td>{date}</td>
+                  <td>{created_at}</td>
 
                   <Button
                     size={"auto"}
                     fontSize="0.8em"
-                    color={status === "Attivo" ? "Received" : "Cancelled"}
+                    color={status === "active" ? "Received" : "Cancelled"}
                     margin="16px 0"
                   >
                     {status}
                   </Button>
                   <td>
-                    <TableMenuButton />
+                    <TableMenuButton 
+                      button1={{ text: 'CATEGORIA 1', method: "patch", url: `${routeConfig.updateUser}/${id}`, value:{role: 1}}}
+                      button2={{ text: 'CATEGORIA 2',  method: "patch", url: `${routeConfig.updateUser}/${id}`, value:{role: 3}}}
+                      delete ={{url:`${routeConfig.deleteUser}/${id}`, data: null, method: 'DELETE' }}
+                    />
                   </td>
                 </tr>
               )
@@ -78,18 +117,20 @@ function Index(props) {
             <RoundedInputWithIcon
               Suffix={SearchIcon}
               placeholder="RICERCA CLIENTI"
+              onChange={(e)=>{setSearchTerm(e.target.value)}}
             />
 
             <RadioButtonContainer
               id={"FIlter"}
               name="Filter"
               showLabel={false}
-              changeState={setFilter}
+              changeState={setCategoryFilter}
               radioButtons={[
-                { label: "TUTTI", value: "TUTTI" },
-                { label: "CATEGORIA 1", value: "CATEGORIA 1" },
-                { label: "CATEGORIA 2", value: "CATEGORIA 2" },
+                { label: "TUTTI", value: 0 },
+                { label: "CATEGORIA 1", value: 1 },
+                { label: "CATEGORIA 2", value: 3 },
               ]}
+              // onChange={(e)=>{setCategoryFilter(e.target.value)}}
             />
           </Table>
         </div>
@@ -99,3 +140,14 @@ function Index(props) {
 }
 
 export default Index;
+
+
+export async function getServerSideProps({req, res}) {
+
+  let cook = Cok.parse( req.headers.cookie ) || '';
+  let token = cook.token;
+  const usersUrl = routeConfig.getUsers;
+
+  let users = await axiosHttp(usersUrl,null,'GET',token);
+  return { props: { users } }
+}

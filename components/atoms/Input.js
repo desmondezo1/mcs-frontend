@@ -71,8 +71,8 @@ export function RadioButtonContainer({
       label={inputLabel}
       value={value}
       name={name}
-      key={i}
-      onChange={() => changeState(value)}
+      key={`${i}-${value}_${name}`}
+      onChange={(e) => changeState(value)}
       {...rest}
     />
   ));

@@ -13,6 +13,10 @@ export default {
   createProduct: baseUrl + "/admin/products/create",
   login: baseUrl + "/login",
   register: baseUrl + "/",
+  getUsers: baseUrl + "/admin/users",
+  getAdminUsers: baseUrl + "/admin/admins",
+  updateUser: baseUrl + "/admin/user", //+ user Id
+  deleteUser: baseUrl + "/admin/user", //+ user Id
   getProducts: baseUrl + "/products",
   updateProduct: baseUrl + "/admin/products",
   addBrand: baseUrl + "/admin/brands/create",
