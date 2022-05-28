@@ -26,7 +26,6 @@ import NavHeader from "../../components/molecules/NavHeader";
 function Index({ ordersData }) {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState([]);
-  console.log(filter);
   useEffect(() => {
     setData(ordersData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,7 +35,7 @@ function Index({ ordersData }) {
     const newData = ordersData.filter((item) => {
       return filter === "none" ? true : item.status === filter;
     });
-    setData(newData);
+    // setData(newData);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);

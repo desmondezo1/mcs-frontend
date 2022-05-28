@@ -13,7 +13,7 @@ function nuovouser(props) {
   return (
     <NavHeader>
       <div className={styles.overview_body_container}>
-        <h4>Modifica User</h4>
+        <h4>Nuovo User</h4>
         <br />
 
         <div className="form_container d-flex flex-row justify-content-between primary_background border_primary p-4 align-items-start border-radius-15 position-relative">
@@ -44,19 +44,6 @@ function nuovouser(props) {
               SALVA{" "}
             </Button>
           </div>
-
-          <Button fontSize="0.8em" size="auto">
-            <AddIcon />
-
-            <p
-              className="m-0"
-              style={{
-                marginLeft: "5px",
-              }}
-            >
-              CREA USER
-            </p>
-          </Button>
         </div>
       </div>
     </NavHeader>

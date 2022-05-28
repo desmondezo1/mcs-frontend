@@ -13,16 +13,15 @@ import TableMenuIcon from "../../../images/icons/TableMenuIcon";
 import MenuButton from "../../../components/atoms/TableMenuButton";
 import TableMenuButton from "../../../components/atoms/TableMenuButton";
 import routeConfig from "../../../config/routeConfig";
-import Cok from 'cookie'
+import Cok from "cookie";
 import axiosHttp from "../../../utility/httpCalls";
 import { useRouter } from "next/router";
 
-
-function index({users}) {
+function Index({ users }) {
   const router = useRouter();
   let editUser = () => {
     router.push("admin_page/nuovouser");
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -54,7 +53,7 @@ function index({users}) {
               displayHead={true}
               selfDisplayComponent={true}
               displayComponent={users.map(
-                ({ first_name, role, created_at, status }, i) => (
+                ({ first_name, role, created_at, status, id }, i) => (
                   <tr key={i}>
                     <td>
                       <ProfilePicture
@@ -64,7 +63,7 @@ function index({users}) {
                       />
                       {first_name}
                     </td>
-                    <td>{role == 2 ? "CREATOR":"ADMIN"}</td>
+                    <td>{role == 2 ? "CREATOR" : "ADMIN"}</td>
                     <td>{created_at}</td>
                     <Button
                       size={"auto"}
@@ -75,7 +74,9 @@ function index({users}) {
                       {status}
                     </Button>
                     <td>
-                      <TableMenuButton />
+                      <TableMenuButton
+                        modifica_link={`/admin/admin_page/modifieduser/${id}`}
+                      />
                     </td>
                   </tr>
                 )
@@ -93,7 +94,13 @@ function index({users}) {
                 </p>
                 <SearchIcon />
               </Button>
-              <Button color="secondary" size={"auto"} onClick={(e)=>{ editUser()}}>
+              <Button
+                color="secondary"
+                size={"auto"}
+                onClick={(e) => {
+                  editUser();
+                }}
+              >
                 <AddIcon />
                 <p
                   style={{
@@ -113,15 +120,17 @@ function index({users}) {
   );
 }
 
-export default index;
+export default Index;
 
-
-export async function getServerSideProps({req, res}) {
-
-  let cook = Cok.parse( req.headers.cookie )|| '';
-  let token = cook.token;
-  const usersUrl = routeConfig.getAdminUsers;
-  let users = await axiosHttp(usersUrl,null,'GET',token);
-  console.log({users});
-  return { props: { users } }
+export async function getServerSideProps({ req, res }) {
+  try {
+    let cook = Cok.parse(req.headers.cookie) || "";
+    let token = cook.token;
+    const usersUrl = routeConfig.getAdminUsers;
+    let users = await axiosHttp(usersUrl, null, "GET", token);
+    console.log({ users });
+    return { props: { users } };
+  } catch (error) {
+    return { props: { users: adminData } };
+  }
 }
