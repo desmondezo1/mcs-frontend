@@ -33,7 +33,7 @@ export default function Prodotti({ brands, categories }) {
       title: "",
       pieces: [{ price: [0, 0], discount: [0, 0] }],
       pdf: "",
-      image: "",
+      image: [''],
       tag: "",
       volume: "",
       category: "",
@@ -61,22 +61,12 @@ export default function Prodotti({ brands, categories }) {
       }
 
       let frmData = new FormData(fTag);
-      // frmData.append('brand', formD.brand);
-      // frmData.append('description', formD.description);
-      // frmData.append('title',formD.title);
       frmData.append("pieces", JSON.stringify(formD.pieces));
       frmData.append("category", JSON.stringify(categories));
-      // frmData.append('pdf', formD.pdf);
-      // frmData.append('image', formD.image);
       frmData.append("tag", JSON.stringify(formD.tag));
-      // frmData.append('volume', formD.volume);
-      // frmData.append('category', formD.category);
-      // frmData.append('status', formD.status);
-      // frmData.append('surface', formD.surface);
-      // frmData.append('uses', formD.uses);
-      console.log({ categories });
+      // console.log({ categories });
       const token = window.localStorage.getItem("token");
-      console.log({ formD });
+      // console.log({ formD });
       const axiosConfig = {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -388,11 +378,13 @@ export default function Prodotti({ brands, categories }) {
                           <label htmlFor="image">Immagine</label>
                           <input
                             id="image"
-                            name="image"
+                            name="image[]"
                             type="file"
                             className="form-control"
                             onChange={formik.handleChange}
-                            value={values.image}
+                            value={values.image['']}
+                            accept={"image/*"}
+                            multiple
                           />
                         </div>
                       </div>

@@ -21,8 +21,8 @@ export default function Brand({ brands }) {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      //   let brandUrl = routeConfig.addBrand;
-      let brandUrl = "";
+        let brandUrl = routeConfig.addBrand;
+      // let brandUrl = "";
       let fTag = document.querySelector("form");
       let frmData = new FormData(fTag);
       let Val = await values;
