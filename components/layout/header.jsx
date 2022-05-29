@@ -1,22 +1,56 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../public/images/logo.png'
+import LogoWhite from '../../public/images/logoWhite.svg'
 import HeaderCss from '../../styles/layout/header.module.css'
 import { Icon } from '@iconify/react';
 import { useRouter } from "next/router";
 import { updateCartVisibility } from '../../stores/mySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import Cart from '../cartList/cart';
+import { useEffect, useState } from 'react';
 
 export default function Header(){
     const dispatch = useDispatch();
     const cartList = useSelector(state => state.mySlice.cart);
     const openCart = useSelector(state => state.mySlice.openCart);
+    const [bgColor, setBgColor] = useState({
+        background_color: "#F0F0F0!important",
+        color: "#000"
+    })
   
     const router = useRouter();
+
+    useEffect(()=>{
+        if (router.asPath == "/mepa") {
+            setBgColor({
+                background_color: "#1E3F7F!Important",
+                color: "#F0F0F0!important",
+                headerBottomMargin: "0px"
+            })
+        }
+    })
 return (
     <>
     <style jsx>{`
+        .navbar{
+            margin-bottom: ${bgColor.headerBottomMargin};
+            color: ${bgColor.color}!important;
+        }
+
+        .navListConatiner .active .nav-link{
+            color: ${bgColor.background_color}!important; 
+            background:  ${bgColor.color}!important;
+        }
+        body{
+            background-color: ${bgColor.background_color};   
+        }
+
+        .navbar{
+            background-color: ${bgColor.background_color};
+            color: ${bgColor.color};
+        }
+
       .nav-item .nav-link {
         text-decoration: none;
         color: #000000;
@@ -49,8 +83,10 @@ return (
     <div className="container">
         {openCart && <Cart />}
         <Link href="/">
-            <a className={`${"navbar-brand navbarBrand"}`} >
-               <Image className={HeaderCss.navbarBrand} src={Logo} alt="" height={"36.57px"} />
+            <a className={`${"navbar-brand navbarBrand"}`} >{(router.asPath == "/mepa")?
+             ( <Image className={HeaderCss.navbarBrand} src={LogoWhite} alt="" height={"36.57px"} />) : (
+                <Image className={HeaderCss.navbarBrand} src={Logo} alt="" height={"36.57px"} />
+             )}
             </a> 
         </Link>
 
@@ -64,14 +100,14 @@ return (
                         <a className={`${router.asPath == "/shop" ? "active" : ""} ${"nav-link"}`} aria-current="page" >SHOP</a>
                     </Link>
                 </li>
-                <li className={`${router.asPath == "/servizi" ? "active" : ""} ${"nav-item"}`}>
-                    <Link href="/servizi">
-                        <a className="nav-link" >SERVIZI</a>
+                <li className={`${"nav-item"}`}>
+                    <Link href="/#sect1">
+                        <a className={`${router.asPath == "/#sect1" ? "active" : ""} ${"nav-link"}`} >SERVIZI</a>
                     </Link>
                 </li>
                 <li className={`${"nav-item"}`}>
-                    <Link href="/chi-siamo">
-                        <a className={`${router.asPath == "/chi-siamo" ? "active" : ""} ${"nav-link"}`} >CHI SIAMO</a>
+                    <Link href="/#sect2">
+                        <a className={`${router.asPath == "/#sect2" ? "active" : ""} ${"nav-link"}`} >CHI SIAMO</a>
                     </Link>
                 </li>
                 <li className={`${"nav-item"}`}>
@@ -79,9 +115,9 @@ return (
                         <a className={`${router.asPath == "/mepa" ? "active" : ""} ${"nav-link"}`}>MEPA</a>
                     </Link>
                 </li>
-                <li className={`${router.asPath == "/contati" ? "active" : ""} ${"nav-item"}`}>
-                    <Link href="/contati">
-                        <a className="nav-link" >CONTATTI</a>
+                <li className={`${"nav-item"}`}>
+                    <Link href="/#sect4">
+                        <a  className={`${router.asPath == "/#sect4" ? "active" : ""} ${"nav-link"}`} >CONTATTI</a>
                     </Link>
                 </li>
                 <li  className={`${"nav-item"}`}>

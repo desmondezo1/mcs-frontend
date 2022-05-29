@@ -34,23 +34,24 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
           </div>
           
           <h2 className='py-3'>CATEGORIE</h2>
-          {categories.map(({ id, title, children }, i) =>
-                children?.length > 0 ? (
-                  <Accordion
-                    key={i}
-                    name={title}
-                    listData={children}
-                  />
-                ) : (
-                  <AccordionList
-                    key={i}
-                    id={`${title}_${i}`}
-                    value={id}
-                    label={title}
-                  />
-                )
-            )}
-
+          <div className='text-sm'>
+              {categories.map(({ id, title, children }, i) =>
+                    children?.length > 0 ? (
+                      <Accordion
+                        key={i}
+                        name={title}
+                        listData={children}
+                      />
+                    ) : (
+                      <AccordionList
+                        key={i}
+                        id={`${title}_${i}`}
+                        value={id}
+                        label={title}
+                      />
+                    )
+                )}
+            </div>
 
           {/* <ul className='text-sm'>
             <li className='my-1'>
