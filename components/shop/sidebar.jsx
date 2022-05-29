@@ -4,15 +4,18 @@
  import { useRouter } from 'next/router'
  import { Icon } from '@iconify/react'
  //import {v4 as uuidv4} from 'uuid'
-import Accordion from '../atoms/Accordion'
+import Accordion, { AccordionList } from "../atoms/Accordion";
  
- const ShopSidebar = ({searchValue}) => {
+ const ShopSidebar = ({searchValue, categories}) => {
+
    const [searchTerm, setSearchTerm] = useState('');
+
    useEffect(()=>{
      if(searchValue){
        setSearchTerm(searchValue);
      }
-   })
+   });
+
   return (
     <div className=' w-4/5 sm:w-fit mx-auto sm:mx-0'>
        <h2 className="border-b-[1px] w-fit border-gray-700 border-solid pb-[0.1em]">SHOP</h2>
@@ -31,7 +34,24 @@ import Accordion from '../atoms/Accordion'
           </div>
           
           <h2 className='py-3'>CATEGORIE</h2>
-          <Accordion />
+          {categories.map(({ id, title, children }, i) =>
+                children?.length > 0 ? (
+                  <Accordion
+                    key={i}
+                    name={title}
+                    listData={children}
+                  />
+                ) : (
+                  <AccordionList
+                    key={i}
+                    id={`${title}_${i}`}
+                    value={id}
+                    label={title}
+                  />
+                )
+            )}
+
+
           {/* <ul className='text-sm'>
             <li className='my-1'>
               <Link href='/shop'>
@@ -145,3 +165,12 @@ import Accordion from '../atoms/Accordion'
  }
 
  export default React.memo(ShopSidebar);
+
+//  export async function getServerSideProps() {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}categories`);
+//   const categories = await res.json();
+
+//   console.log({categories});
+
+//   return { props: { categories } };
+// }
