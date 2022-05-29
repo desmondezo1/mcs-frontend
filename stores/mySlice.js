@@ -13,7 +13,26 @@ const mySlice = createSlice({
    initialState,
    reducers : {
       updateCartList: (state, action) => {
-        state.cart.push(action.payload)
+            if ( state.cart.length == 0) {
+              state.cart.push(action.payload)
+            }else{
+              state.cart.filter(val => {
+                if(val.id !== action.payload.id){
+                  return state.cart.push(action.payload);
+                }else if(val.id == action.payload.id){
+                  return val.quantity++
+                }
+
+              });
+              // state.cart.forEach((item) => {
+              //   if (item.id === action.payload.id) {
+              //     item.quantity++;
+              //   }else{
+              //     state.cart.push(action.payload)
+              //   }
+              // });
+            }
+           
       },
       increaseQuantity: (state, action) => {
         state.cart.forEach((item) => {

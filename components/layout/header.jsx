@@ -20,13 +20,29 @@ return (
       .nav-item .nav-link {
         text-decoration: none;
         color: #000000;
-      }
+        font-size: 0.8rem;
+        }
+
+      .nav-item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        }
+
       .active {
         background: #1E3F7F;
         color: #E6E6E6!important;
-        border-radius: 8.19px;
+        padding: 1px 8px;
+        border-radius: 12.19px;
       }
 
+      .container{
+        padding: 0 5%;
+      }
+      .icon-wrapper{
+          margin-left: 5%;
+      }
 
     `}</style>
     <nav className={`${"navbar navbar-light navbar-expand-lg bg-light"} ${HeaderCss.navbar}`}>
@@ -34,7 +50,7 @@ return (
         {openCart && <Cart />}
         <Link href="/">
             <a className={`${"navbar-brand navbarBrand"}`} >
-               <Image className={HeaderCss.navbarBrand} src={Logo} alt=""  />
+               <Image className={HeaderCss.navbarBrand} src={Logo} alt="" height={"36.57px"} />
             </a> 
         </Link>
 
@@ -55,7 +71,7 @@ return (
                 </li>
                 <li className={`${"nav-item"}`}>
                     <Link href="/chi-siamo">
-                        <a className={`${router.asPath == "/servizi" ? "active" : ""} ${"nav-link"}`} >CHI SIAMO</a>
+                        <a className={`${router.asPath == "/chi-siamo" ? "active" : ""} ${"nav-link"}`} >CHI SIAMO</a>
                     </Link>
                 </li>
                 <li className={`${"nav-item"}`}>

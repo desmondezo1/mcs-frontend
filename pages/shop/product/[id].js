@@ -31,14 +31,18 @@ const Product = ({product}) => {
     // })
   }
 
-  const addToCart = (id) => {
-    dispatch(updateCartList({id: id, name: 'Sany Mayer 400ml', price: 7.55, quantity: count}));
+  const addToCart = (product) => {
+    dispatch(updateCartList({id: product.id, name: product.title, price: product.price, quantity: count}));
   }
 
   return (<>
     <style Jsx>{
       ` .itemLabel{
         min-width: 200px;
+      }
+
+      .prodImage{
+        z-index: 1;
       }
       `
     }
@@ -50,6 +54,7 @@ const Product = ({product}) => {
         <div className="flex flex-wrap sm:flex-nowrap justify-between ">
           <div className="left  w-fit sm:w-[250px] xl:w-fit mx-auto sm:mx-0 ">
             <Image
+              className='prodImage'
              src={product?.images[0]['image']}
              alt="product"
              width={350}
@@ -75,7 +80,7 @@ const Product = ({product}) => {
               /></span>
             </div>
             <div className="flex flex-wrap items-center justify-between mt-auto"
-               onClick={() => addToCart(id++)}
+               onClick={() => addToCart(product)}
             >
                 <a className='my-4 sm:my-0'
                  onClick={() => dispatch(updateCartVisibility(true))}
@@ -107,14 +112,15 @@ const Product = ({product}) => {
            <span className='ml-2'> <Icon icon="carbon:arrow-up-right"/></span>
            </div>
         </div>
+
         <div className="tab_content py-9">
           {activeTab === 'tab1' && 
           <div className="tab_content_item">
-            DESCRIZIONE content
+            {product?.description}
           </div>}
+
           {activeTab === 'tab2' &&
           <div className="tab_content_item">
-  
             <div className='infoWrapper d-flex w-100'>
             <div className='itemLabel '>Peso: </div><div className='itemContent'>{product?.weight}</div>
             </div>

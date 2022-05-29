@@ -1,13 +1,18 @@
 
- import React from 'react'
+ import React, { useEffect, useState } from 'react'
  import Link from 'next/link'
  import { useRouter } from 'next/router'
  import { Icon } from '@iconify/react'
  //import {v4 as uuidv4} from 'uuid'
-
+import Accordion from '../atoms/Accordion'
  
- const ShopSidebar = () => {
-   
+ const ShopSidebar = ({searchValue}) => {
+   const [searchTerm, setSearchTerm] = useState('');
+   useEffect(()=>{
+     if(searchValue){
+       setSearchTerm(searchValue);
+     }
+   })
   return (
     <div className=' w-4/5 sm:w-fit mx-auto sm:mx-0'>
        <h2 className="border-b-[1px] w-fit border-gray-700 border-solid pb-[0.1em]">SHOP</h2>
@@ -17,8 +22,8 @@
                 <input
                 className='bg-transparent outline-none text-black'
                 type={'text'}
-                value={'LUCART'}
-                placeholder={'LUCART'}
+                value={searchTerm}
+                placeholder={searchTerm}
                 onChange = {(e) => {}}
                 />
                 <span><Icon icon="carbon:search" width="20" height="20"/></span>
@@ -26,7 +31,8 @@
           </div>
           
           <h2 className='py-3'>CATEGORIE</h2>
-          <ul className='text-sm'>
+          <Accordion />
+          {/* <ul className='text-sm'>
             <li className='my-1'>
               <Link href='/shop'>
                 <a>
@@ -127,7 +133,7 @@
               </Link>
             </li>
             </div> 
-          </ul>
+          </ul> */}
 
           <div className='flex border-1 border-black border-solid rounded-3xl items-center justify-between px-3 py-1'>
             <span>FILTRA PER MARCA</span>

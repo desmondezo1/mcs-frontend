@@ -11,9 +11,16 @@ import window from '../public/images/window.png'
 import { Icon } from '@iconify/react'
 import CountUp  from 'react-countup'
 import { useFormik } from 'formik'
+import VisibilitySensor from 'react-visibility-sensor';
+import arrowRight  from '../public/images/arrow_right.svg'
 import * as yup from 'yup'
+import 'animate.css';
+import { useState } from 'react'
+
 
 export default function Home() {
+
+  const [counterSect, setVisibiltyofSect] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -40,33 +47,72 @@ export default function Home() {
   return (<>
     <style jsx>{`
     .jumboText {
-      width: 70%;
+      width: 50%;
+      // margin-left: 10%;
     }
 
     .h2text{
-      font-size: 22.81px;
+      font-family: 'Almarai', sans-serif;
+      font-size: 14.81px;
       color: #999999;
       font-weight: 400;
+      margin-bottom: 20px;
     }
     .h1text{
-      font-weight: 400;
-      font-size: 46.48px;
+      font-family: 'Almarai', sans-serif;
+      font-weight: 500;
+      font-size: 2.3rem!important;
     }
+
+    #sect2, #sect0, #sect1, #sect3, #sect4{
+      position:relative;
+    }
+
+    .sect1-arrow, .sect3-arrow{
+      margin-top: 467px;
+      bottom: 40px;
+      right: 3%;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    form{
+      height:100%
+    }
+    textarea{
+      height:75%;
+      max-height: 350px;
+      background:transparent;
+      border:1px solid #000;
+      border-radius: 17.5px;
+    }
+    .conttati{
+      position: absolute;
+      top: -70px;
+    }
+
+
+    .invia{
+      bottom:0px;
+      font-size: 0.8rem;
+
+    }
+
     `}</style>
     <main>
-      <section className="d-flex">
+      <section className="d-flex" id={'sect0'}>
         <div className="flex-grow-1">
           <Image alt="jumbotron" src={jumbotron} />
         </div>
 
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center ">
 
-          <div className="d-flex flex-column jumboText text-center justify-content-center align-items-center">
-            <h2 className="fs-4 h2text">BENVENUTO!</h2>
-            <h1 className="fs-3 text-center h1text">SCOPRI I NOSTRI SERVIZI</h1>
+          <div className="d-flex flex-column jumboText text-left mx-auto" >
+            <h4 className="fs-6 h2text">BENVENUTO!</h4>
+            <h1 className="fs-3 h1text">SCOPRI I NOSTRI SERVIZI</h1>
           </div>
-          <span className={styles.arrow}>
-              <Link href="#footer">
+          <span className={`${styles.arrow} ${"sect1-arrow animate__animated animate__bounce animate__delay-5s animate__repeat-3 3	"}`}>
+              <Link href="#sect1">
                 <Image alt="arrow" src={downArrow} />
               </Link>
           </span>
@@ -74,15 +120,16 @@ export default function Home() {
 
       </section>
 
-      <section className={styles.distributorsSection}>
+      <section className={styles.distributorsSection} id={"sect1"}>
         <div className={styles.distributorsSectionWrapper}>
 
           <div className={styles.distImageCard}>
             <Image alt="toilet" src={toilet} />
-            <div>
-              <span>
-              WASHROOM
-                <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+            <div className={'d-flex'}>
+              <span className={'d-flex'}>
+             <p  className='mr-1'> WASHROOM </p> 
+                {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
+                <Image src={arrowRight} height="14.4px" />
               </span>
             </div>
           </div>
@@ -90,9 +137,10 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={washingMachine} alt=""/>
             <div>
-              <span>
-              MACCHINARI
-                <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+              <span className={'d-flex'}>
+              <p className='mr-1'> MACCHINARI  </p>
+                {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
+                <Image src={arrowRight} height="14.4px" />
               </span>
             </div>
           </div>
@@ -100,9 +148,10 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={houseImage} alt=""/>
             <div>
-              <span>
-              TAPPETI ANTISCIVOLO
-                <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+              <span className={'d-flex'}>
+              <p  className='mr-1'>TAPPETI ANTISCIVOLO </p>
+                {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
+                <Image src={arrowRight} height="14.4px" />
               </span>
             </div>
           </div>
@@ -110,9 +159,10 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={window} />
             <div>
-              <span>
-              MONITORAGGIO
-                <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+              <span className={'d-flex'}>
+               <p  className='mr-1'>MONITORAGGIO  </p>
+                {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
+                <Image src={arrowRight} height="14.4px" />
               </span>
             </div>
           </div>
@@ -120,9 +170,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.partnersSection}>
+    <section className={styles.partnersSection} id={'sect2'}>
 
-        <div className={styles.partnersSectionWrapper}>
+          <div className={styles.partnersSectionWrapper}>
             <div className="row" style={{marginBottom: 30+"px"}}>
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Chi Siamo</span>
@@ -154,15 +204,24 @@ export default function Home() {
               Proporsi come un partner affidabile e presente per i propri clienti è la visione che contraddistingue la cultura aziendale di MCS. Acquistare un prodotto MCS non vuol dire soltanto avere un buon rimedio, ma affidarsi soprattutto ad una consulenza professionale e trasparente in qualsiasi momento, contando su soluzioni immediate ed efficaci.
               </div>
             </div>
-        </div>
+          </div>
+          <span className={`${styles.arrow} ${"sect3-arrow animate__animated animate__bounce animate__delay-5s animate__repeat-3 3	"}`}>
+              <Link href="#sect3">
+                <Image alt="arrow" src={downArrow} />
+              </Link>
+          </span>
+    </section>
 
-      </section>
-
-      <section className={styles.statsSection}>
+    <section className={styles.statsSection} id={'sect3'}>
         <div className={styles.statsSectionWrapper}>
+        <VisibilitySensor scrollCheck={true}>
+        {({ isVisible }) => (
+          isVisible ? setVisibiltyofSect(true) : null          
+        )}
+        </VisibilitySensor>
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-               <CountUp start={0} end={100} delay={0} />
+               {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
             </span>
             <span className={styles.statLabel}>
               NUOVI CLIENTI 2021
@@ -172,7 +231,7 @@ export default function Home() {
 
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-               <CountUp start={0} end={100} delay={0} />
+            {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
             </span>
             <span className={styles.statLabel}>
               SPEDIZIONI NEL 2021
@@ -182,7 +241,7 @@ export default function Home() {
 
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-               <CountUp start={0} end={100} delay={0} />
+            {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
             </span>
             <span className={styles.statLabel}>
             PRODOTTI NEL SHOP
@@ -192,7 +251,7 @@ export default function Home() {
 
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-               <CountUp start={0} end={100} delay={0} />
+            {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
             </span>
             <span className={styles.statLabel}>
             BRAND PARTNERS
@@ -201,31 +260,26 @@ export default function Home() {
 
         </div>
         <span className={`${styles.statLinkNext} ${styles.link_with_arrow}`}>
-          <Link href="">
+          <Link href="/partners">
             <a>
             SCOPRI I NOSTRI PARTNERS
-            <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+            {/* <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/> */}
+            <Image src={arrowRight} height="14.4px" />
             </a>
           </Link>
         </span>
       </section>
 
-      <section className={styles.mapSection}>
+      <section className={styles.mapSection} id={"sect4"}>
         <div className={`${styles.mapSectionWrapper} ${"row"}`}>
-          <div className={`${styles.mapSectionContactForm} ${"col-6"}`}>
-              <span className={styles.name}>Contattaci</span>
+          <div className={`${styles.mapSectionContactForm} ${"col-6 position-relative"}`}>
+              <span className={`${styles.name} ${"conttati"}`}>Contattaci</span>
 
-              <form className={styles.contactForm}> 
-              <div className="mb-3 row">
-              <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                <div className="col-sm-10">
-                  <input type="password" className="form-control" id="inputPassword" />
-                </div>
-              </div>     
-                <textarea height="417px" width="425px" className="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+              <form className={`${styles.contactForm} ${"p-0 "}`}>   
+                <textarea height="417px" width="425px" className="form-control" placeholder='Scrivici qui!' id="exampleFormControlTextarea1" rows="10"></textarea>
               </form>
 
-              <span className={styles.link_with_arrow}>
+              <span className={`${styles.link_with_arrow} ${"invia d-flex position-absolute"}`}>
                 INVIA
                 <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
               </span>

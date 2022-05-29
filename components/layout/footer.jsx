@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import paymentLogos from '../../public/images/paymentLogos.png'
+import paymentLogos from '../../public/images/plogos.svg'
 import HeaderCss from '../../styles/layout/header.module.css'
 import { Icon } from '@iconify/react';
 import { useRouter } from "next/router";
@@ -41,22 +41,22 @@ export default function Footer(){
             </div>
             <div className={`${FooterCss.socialsWrapper}`}>
                <div className={FooterCss.socialsContainer}>
-                   <span>
+                   <span style={{ display:"flex" }}>
                          <a >ASSITENZA CLIENTI</a>
                          <Icon icon="carbon:arrow-up-right" style={{ fontSize: '1.5rem' }} />
                    </span>
                   
-                    <span>
+                    <span style={{ display:"flex" }}>
                         <a >WHATSAPP</a>
                         <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
                     </span>
                     
-                    <span>
+                    <span style={{ display:"flex" }}>
                         <a >FACEBOOK</a>
                         <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
                     </span>
                     
-                    <span>
+                    <span style={{ display:"flex" }}>
                         <a >INSTAGRAM</a>
                         <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
                     </span>
