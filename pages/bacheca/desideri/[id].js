@@ -7,6 +7,7 @@ const Desideri = ({ errorCode, wishlists }) => {
   if (errorCode) {
     return <Error statusCode={errorCode} />;
   }
+  
   return (
     <div className=" pt-4 pb-[5em] md:px-5 lg:px-[4em]">
       <div className="flex flex-wrap  justify-between  px-4">

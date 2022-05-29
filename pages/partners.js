@@ -2,14 +2,20 @@
   import { partners } from "../const";
   import Cok from 'cookie'
 import { useRouter } from "next/router";
+import Error from "next/error";
 
 
 
-const Partners = ({brands}) => {
+const Partners = ({brands, errorCode}) => {
   const router = useRouter();
   let showProducts = (id) => {
     router.push('/shop?brand='+id);
   }
+
+  if (errorCode) {
+    return <Error statusCode={errorCode} />;
+  }
+
   return(
     <>
     <style jsx>
@@ -60,6 +66,16 @@ export async function getServerSideProps({req }) {
   
   let cook = Cok.parse( req.headers.cookie ) || '';
   let token = cook.token;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}brands`,
     {
@@ -70,7 +86,10 @@ export async function getServerSideProps({req }) {
       }
     }   
   );
+
+  const errorCode = res.ok ? false : res.statusCode;
+
   const brands = await res.json();
     console.log(brands.data);
-  return { props: { brands:brands.data } };
+  return { props: { brands:brands.data,errorCode } };
 }
