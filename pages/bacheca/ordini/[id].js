@@ -54,7 +54,7 @@ const Ordini = ({ errorCode, orders }) => {
 };
 
 export async function getServerSideProps({ req, params }) {
-  let cook = Cok.parse(req.headers.cookie) || "";
+  let cook = Cok.parse(req.headers.cookie || "");
   let token = cook.token;
 
   if (!token) {

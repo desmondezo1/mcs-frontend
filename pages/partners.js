@@ -64,7 +64,7 @@ export default Partners;
 export async function getServerSideProps({req }) {
 
   
-  let cook = Cok.parse( req.headers.cookie ) || '';
+  let cook = Cok.parse(req.headers.cookie || "");
   let token = cook.token;
 
   if (!token) {
@@ -87,7 +87,7 @@ export async function getServerSideProps({req }) {
     }   
   );
 
-  const errorCode = res.ok ? false : res.statusCode;
+  const errorCode = res.ok ? false : res.status;
 
   const brands = await res.json();
     console.log(brands.data);

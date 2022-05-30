@@ -27,7 +27,7 @@ const Desideri = ({ errorCode, wishlists }) => {
 export default Desideri;
 
 export async function getServerSideProps({ req, params }) {
-  let cook = Cok.parse(req.headers.cookie) || "";
+  let cook = Cok.parse(req.headers.cookie || "");
   let token = cook.token;
 
   if (!token) {
@@ -49,7 +49,7 @@ export async function getServerSideProps({ req, params }) {
       },
     }
   );
-  const errorCode = res.ok ? false : res.statusCode;
+  const errorCode = res.ok ? false : res.status;
   
   const orders = await res.json();
 

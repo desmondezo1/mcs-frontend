@@ -34,9 +34,9 @@ const Product = ({ errorCode, product }) => {
   const addToCart = (product) => {
     dispatch(
       updateCartList({
-        id: product.id,
-        name: product.title,
-        price: product.price,
+        id: product?.id,
+        name: product?.title,
+        price: product?.price,
         quantity: count,
       })
     );
@@ -226,7 +226,7 @@ const Product = ({ errorCode, product }) => {
 export default Product;
 
 export async function getServerSideProps({ req, params }) {
-  let cook = Cok.parse(req.headers.cookie) || "";
+  let cook = Cok.parse(req.headers.cookie || "");
   let token = cook.token;
 
   if (!token) {
@@ -249,7 +249,7 @@ export async function getServerSideProps({ req, params }) {
     }
   );
 
-  const errorCode = res.ok ? false : res.statusCode;
+  const errorCode = res.ok ? false : res.status;
 
   const product = await res.json();
   console.log(product.data);
