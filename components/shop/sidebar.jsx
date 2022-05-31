@@ -3,18 +3,48 @@
  import Link from 'next/link'
  import { useRouter } from 'next/router'
  import { Icon } from '@iconify/react'
+ import { useFormik, Field, FormikProvider } from "formik";
+
  //import {v4 as uuidv4} from 'uuid'
 import Accordion, { AccordionList } from "../atoms/Accordion";
  
+// const router = useRouter()
  const ShopSidebar = ({searchValue, categories}) => {
 
    const [searchTerm, setSearchTerm] = useState('');
+  //  const searchFilter = () =>{
+  //     router.push(`?searchV=${searchTerm}`)
+  //  }
 
    useEffect(()=>{
      if(searchValue){
        setSearchTerm(searchValue);
      }
    });
+
+
+   
+  // const formik = useFormik({
+  //   initialValues: {
+  //     searchV: ""
+  //   },
+
+  //   onSubmit: async (values, { resetForm }) => {
+  //     router.push(`?searchV=${values.searchV}`)
+  //   }
+  
+  // });
+
+  
+  // const {
+  //   errors,
+  //   touched,
+  //   values,
+  //   isSubmitting,
+  //   handleSubmit,
+  //   getFieldProps,
+  //   handleChange,
+  // } = formik;
 
   return (<>
   <style jsx>{
@@ -38,14 +68,13 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
     max-width: 70%;
   }
 
-  aside input,{
+  aside input{
     width: 100%;
     font-size: 0.7rem!important;
   }
 
   aside span{
     font-size: 0.7rem!important;
-
   }
 
 `
@@ -56,14 +85,19 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
     <div className=' w-4/5 sm:w-fit mx-auto sm:mx-0'>
        <h2 className="border-b-[1px] w-fit border-gray-700 border-solid pb-[0.1em]">SHOP</h2>
         <aside className='my-4 text-sm'>
+        {/* <FormikProvider value={formik}>
+          <form  onSubmit={handleSubmit} > */}
           <div className='py-3'>
+            
             <div className='search border-1 border-black border-solid rounded-3xl px-3 py-1 flex '>
                 <input
                 className='bg-transparent outline-none text-black'
-                type={'text'}
+                type={'search'}
                 value={searchTerm}
                 placeholder={searchTerm}
-                onChange = {(e) => {}}
+                name="searchV"
+                onChange = {(e) => {setSearchTerm(e.target.value)}}
+                // onChange = {handleChange}
                 />
                 <span><Icon icon="carbon:search" width="20" height="20"/></span>
             </div>
@@ -75,11 +109,13 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
                     children?.length > 0 ? (
                       <Accordion
                         key={i}
+                        inputType={'radio'}
                         name={title}
                         listData={children}
                       />
                     ) : (
                       <AccordionList
+                        inputType={'radio'}
                         key={i}
                         id={`${title}_${i}`}
                         value={id}
@@ -196,6 +232,8 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
             <span>FILTRA PER MARCA</span>
             <span><Icon icon="carbon:arrow-down" width="20" height="20"/></span>
           </div>
+          {/* </form>
+          </FormikProvider> */}
         </aside>
     </div>
   </>)
