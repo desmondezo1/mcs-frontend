@@ -16,7 +16,43 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
      }
    });
 
-  return (
+  return (<>
+  <style jsx>{
+`
+.sideBarWrapper{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 51px 40px 0px;
+    font-size: 0.7rem !important;
+    text-align: left;
+  }
+
+  .sideBarWrapper p{
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  aside > div{
+    max-width: 70%;
+  }
+
+  aside input,{
+    width: 100%;
+    font-size: 0.7rem!important;
+  }
+
+  aside span{
+    font-size: 0.7rem!important;
+
+  }
+
+`
+
+  }
+
+  </style>
     <div className=' w-4/5 sm:w-fit mx-auto sm:mx-0'>
        <h2 className="border-b-[1px] w-fit border-gray-700 border-solid pb-[0.1em]">SHOP</h2>
         <aside className='my-4 text-sm'>
@@ -33,8 +69,8 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
             </div>
           </div>
           
-          <h2 className='py-3'>CATEGORIE</h2>
-          <div className='text-sm'>
+          <h2 className='py-3' style={{ fontSize: 0.7+"rem"}}>CATEGORIE</h2>
+          <div className='text-sm sideBarWrapper'>
               {categories.map(({ id, title, children }, i) =>
                     children?.length > 0 ? (
                       <Accordion
@@ -162,7 +198,7 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
           </div>
         </aside>
     </div>
-  )
+  </>)
  }
 
  export default React.memo(ShopSidebar);
