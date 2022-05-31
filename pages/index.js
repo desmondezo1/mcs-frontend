@@ -16,10 +16,11 @@ import arrowRight  from '../public/images/arrow_right.svg'
 import * as yup from 'yup'
 import 'animate.css';
 import { useState } from 'react'
+import { Router, useRouter } from 'next/router'
 
 
 export default function Home() {
-
+  const router = useRouter();
   const [counterSect, setVisibiltyofSect] = useState(false);
 
   const formik = useFormik({
@@ -126,11 +127,13 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image alt="toilet" src={toilet} />
             <div className={'d-flex'}>
+              <Link href={"/categories/washroom"}>
               <span className={'d-flex'}>
              <p  className='mr-1'> WASHROOM </p> 
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
                 <Image src={arrowRight} height="14.4px" />
               </span>
+              </Link>
             </div>
           </div>
 

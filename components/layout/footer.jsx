@@ -12,6 +12,16 @@ export default function Footer(){
     const year = new Date("Y");
     return (
         <>
+        <style jsx>{
+            `
+            *{
+                font-size: 0.7rem;
+            }
+            `
+
+        }
+
+        </style>
         <footer className={FooterCss.footerWrapper} id="footer">
             <div className={`${FooterCss.linksWrapper} ${"mx-auto"}`}>
                 <div className={FooterCss.linkContainer}>
@@ -43,22 +53,22 @@ export default function Footer(){
                <div className={FooterCss.socialsContainer}>
                    <span style={{ display:"flex" }}>
                          <a >ASSITENZA CLIENTI</a>
-                         <Icon icon="carbon:arrow-up-right" style={{ fontSize: '1.5rem' }} />
+                         <Icon icon="carbon:arrow-up-right" style={{ fontSize: '1rem' }} />
                    </span>
                   
                     <span style={{ display:"flex" }}>
                         <a >WHATSAPP</a>
-                        <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+                        <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1rem' }}/>
                     </span>
                     
                     <span style={{ display:"flex" }}>
                         <a >FACEBOOK</a>
-                        <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+                        <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1rem' }}/>
                     </span>
                     
                     <span style={{ display:"flex" }}>
                         <a >INSTAGRAM</a>
-                        <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/>
+                        <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1rem' }}/>
                     </span>
                     
                 </div> 
