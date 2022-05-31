@@ -5,7 +5,18 @@
     margin-bottom: 20px;
 }
 
+.MepaNavbar{
+    height: 78.49px!important;
+    background: #18427c;
+
+}
+
 .navbarBrand{
+    height: 36.57px;
+    width: 75.77px;
+}
+
+.MepaNavbarBrand{
     height: 36.57px;
     width: 75.77px;
 }
@@ -14,12 +25,26 @@
     font-size: 0.85rem;
 }
 
+.MepaNavListConatiner{
+    font-size: 0.85rem;
+}
+
+
+
 .navListConatiner .nav-link{
     color: #000000;
 }
 
+.MepaNavListConatiner .nav-link{
+    color: #E6E6E6!important;
+}
+
 .navListConatiner .active .nav-link{
     color:#E6E6E6;
+}
+.MepaNavListConatiner .active .nav-link{
+    color:#000!important;
+    background: #E6E6E6!important;
 }
 
 .iconWrapper{
@@ -29,6 +54,14 @@
     font-size: 1.3rem;
 }
 
+.MepaIconWrapper{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    font-size: 1.3rem;
+}
+
+
 .wishListIcon, .cartIcon{
     display: flex;
     align-items: center;
@@ -36,8 +69,27 @@
     position: relative;
     font-size: 1.3rem;
 }
+.MepaWishListIcon, .cartIcon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 1.3rem;
+}
+
 
 .wishListCount, .cartIconCount{
+    position: absolute;
+    font-size: 0.7rem;
+    background: #18427c;
+    padding: 0 5px;
+    border-radius: 50%;
+    right: -9px;
+    top: -6px;
+    color: #E6E6E6;
+}
+
+.MepaWishListCount, .cartIconCount{
     position: absolute;
     font-size: 0.7rem;
     background: #18427c;

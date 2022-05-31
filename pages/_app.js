@@ -6,9 +6,12 @@ import {Provider} from "react-redux";
 import store from "../stores";
 import '../styles/globals.css'
 import Header from "../components/layout/header";
+import MepaHeader from "../components/layout/mepaHeader";
 import Footer from "../components/layout/footer"
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
   return (
     <>
     <Head>
@@ -37,7 +40,7 @@ function MyApp({ Component, pageProps }) {
       crossorigin="anonymous" 
       />
       <Provider store={store}>
-      <Header />
+        {router.asPath == "/mepa" ? (<MepaHeader/>) :(<Header />)}
       <Component {...pageProps} />
       </Provider>
       <Footer />
