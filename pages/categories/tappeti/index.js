@@ -1,9 +1,10 @@
 import Image from "next/image"
 import styles from '../../../styles/Home.module.css'
-import distributori from '../../../public/images/distributori.png'
+import LAVASCIUGA from '../../../public/images/LAVASCIUGA.png'
 import ACCESSORI from '../../../public/images/ACCESSORI.png'
 import arrowRight  from '../../../public/images/arrow_right.svg'
 import { Icon } from '@iconify/react'
+import Link from "next/link"
 
 export default function Washroom() {
     return (<>
@@ -13,7 +14,7 @@ export default function Washroom() {
             
             .washroomWrapper{
                 display: grid;
-                grid-template-columns: 50% 50%;
+                grid-template-columns: 30% 70%;
                 width: 80%;
                 height: 100vh;
             }
@@ -42,6 +43,8 @@ export default function Washroom() {
             .imageCard{
                 margin-right: 20px;
                 justify-content: unset;
+                align-items: baseline;
+                margin-top: 50px;
             }
             
             `
@@ -51,34 +54,24 @@ export default function Washroom() {
     <div className="washroomWrapper mx-auto my-auto mt-[100px]">
         <div className="washroomText">
             <div className="text-wrapper">
-                <h1 className="title">WASHROOM</h1>
-                <p> Arreda il tuo bagno con soluzioni pratiche ed ecologiche!</p>
+                <h1 className="title">TAPPETI PERSONALIZZATI</h1>
+
+  
+             
             </div>
         </div>
         <div className="washroomImages">
-
-            <div className={`${styles.distImageCard} ${"imageCard"}`}>
-                    <Image src={distributori} alt=""/>
-                    <div>
-                    <span className={'d-flex'}>
-                    <p className='mr-1'> DISTRIBUTORI  </p>
-                        {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                    <Image src={arrowRight} height="14.4px" />
-                </span>
-                </div>
-            </div>
-
-
-            <div className={`${styles.distImageCard} ${"imageCard"}`}>
-                    <Image src={ACCESSORI} alt=""/>
-                    <div>
-                    <span className={'d-flex'}>
-                    <p className='mr-1'> ACCESSORI  </p>
-                        {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                    <Image src={arrowRight} height="14.4px" />
-                </span>
-                </div>
-            </div>
+   
+         
+                    
+            <Link href={"../request-quote"}>
+                <span className={'d-flex'}>
+                <p className='mr-1'> RICHIEDI UN PREVENTIVO  </p>
+                    {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
+                <Image src={arrowRight} height="14.4px" />
+            </span>
+            </Link>
+            
 
 
 

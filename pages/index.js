@@ -23,6 +23,12 @@ export default function Home() {
   const router = useRouter();
   const [counterSect, setVisibiltyofSect] = useState(false);
 
+  const visibiltySetter = (isVisible) =>{
+    if(isVisible){
+      setVisibiltyofSect(true)
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -140,22 +146,26 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={washingMachine} alt=""/>
             <div>
+            <Link href={"/categories/macchinari"}>
               <span className={'d-flex'}>
               <p className='mr-1'> MACCHINARI  </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
                 <Image src={arrowRight} height="14.4px" />
               </span>
+              </Link>
             </div>
           </div>
 
           <div className={styles.distImageCard}>
             <Image src={houseImage} alt=""/>
             <div>
+            <Link href={"/categories/tappeti"}>
               <span className={'d-flex'}>
               <p  className='mr-1'>TAPPETI ANTISCIVOLO </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
                 <Image src={arrowRight} height="14.4px" />
               </span>
+              </Link>
             </div>
           </div>
 
@@ -216,15 +226,13 @@ export default function Home() {
     </section>
 
     <section className={styles.statsSection} id={'sect3'}>
-        <div className={styles.statsSectionWrapper}>
-        <VisibilitySensor scrollCheck={true}>
-        {({ isVisible }) => (
-          isVisible ? setVisibiltyofSect(true) : null          
-        )}
-        </VisibilitySensor>
+       <VisibilitySensor onChange={visibiltySetter}>
+        <div className={`${styles.statsSectionWrapper} ${'position-relative'}`}>
+       
+        
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-               {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
+               {counterSect ? <CountUp start={0} end={250} delay={0} /> : null} +
             </span>
             <span className={styles.statLabel}>
               NUOVI CLIENTI 2021
@@ -234,7 +242,7 @@ export default function Home() {
 
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-            {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
+            {counterSect ? <CountUp start={0} end={4500} delay={0} /> : null} +
             </span>
             <span className={styles.statLabel}>
               SPEDIZIONI NEL 2021
@@ -244,17 +252,17 @@ export default function Home() {
 
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-            {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
+            {counterSect ? <CountUp start={0} end={300} delay={0} /> : null} +
             </span>
             <span className={styles.statLabel}>
-            PRODOTTI NEL SHOP
+            PRODOTTI NELLO SHOP
             </span>
           </div>
 
 
           <div className={styles.stat} >
             <span className={styles.statCircle}>
-            {counterSect ? <CountUp start={0} end={100} delay={0} /> : null}
+            {counterSect ? <CountUp start={0} end={40} delay={0} /> : null} +
             </span>
             <span className={styles.statLabel}>
             BRAND PARTNERS
@@ -262,6 +270,7 @@ export default function Home() {
           </div>
 
         </div>
+        </VisibilitySensor>
         <span className={`${styles.statLinkNext} ${styles.link_with_arrow}`}>
           <Link href="/partners">
             <a>
