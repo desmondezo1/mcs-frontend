@@ -48,11 +48,12 @@ const Cart = () => {
              </div>
            </h1>
            {cartList.length > 0 ? (
+             console.log("carts: ",cartList),
              <div>
              {cartList.map((item, index) => (
                <CartList
                  key={index}
-                 id = {item.id}
+                 id = {item.index}
                  name = {item.name}
                  price = {item.price}
                  quantity = {item.quantity} 

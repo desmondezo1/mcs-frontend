@@ -15,7 +15,7 @@ const Mepa = () => {
         font-size: 0.7rem;
       }
 
-      .button{
+      .button{BB
         width: fit-content;
         font-size: 0.7rem;
       }
