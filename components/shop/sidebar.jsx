@@ -9,9 +9,10 @@
 import Accordion, { AccordionList } from "../atoms/Accordion";
  
 // const router = useRouter()
- const ShopSidebar = ({searchValue, categories}) => {
+ const ShopSidebar = ({searchValue, categories, brands}) => {
 
    const [searchTerm, setSearchTerm] = useState('');
+   const [showList, setListState] = useState(false);
   //  const searchFilter = () =>{
   //     router.push(`?searchV=${searchTerm}`)
   //  }
@@ -21,6 +22,17 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
        setSearchTerm(searchValue);
      }
    });
+
+   const toggleBrandList = () => {
+     if(!showList){
+       setListState(true);
+       document.getElementById('branListArrow').style.transform = "rotate(-90deg)";
+       return;
+     }
+     document.getElementById('branListArrow').style.transform = "rotate(0deg)";
+     setListState(false);
+    
+   }
 
 
    
@@ -77,6 +89,10 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
     font-size: 0.7rem!important;
   }
 
+  .BrandList{
+    margin: 10px 5px;
+  }
+
 `
 
   }
@@ -94,7 +110,7 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
                 className='bg-transparent outline-none text-black'
                 type={'search'}
                 value={searchTerm}
-                placeholder={searchTerm}
+                placeholder={!searchTerm ? "RICERCA PRODOTTI": searchTerm}
                 name="searchV"
                 onChange = {(e) => {setSearchTerm(e.target.value)}}
                 // onChange = {handleChange}
@@ -105,7 +121,7 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
           
           <h2 className='py-3' style={{ fontSize: 0.7+"rem"}}>CATEGORIE</h2>
           <div className='text-sm sideBarWrapper'>
-              {categories.map(({ id, title, children }, i) =>
+              {categories?.map(({ id, title, children }, i) =>
                     children?.length > 0 ? (
                       <Accordion
                         key={i}
@@ -228,9 +244,22 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
             </div> 
           </ul> */}
 
-          <div className='flex border-1 border-black border-solid rounded-3xl items-center justify-between px-3 py-1'>
-            <span>FILTRA PER MARCA</span>
-            <span><Icon icon="carbon:arrow-down" width="20" height="20"/></span>
+          <div className='flex flex-column align-items-baseline border-1 border-black border-solid rounded-3xl items-center justify-between px-3 py-1'>
+            <span className='d-flex flex-row justify-between w-100' onClick={toggleBrandList}>
+                <span >FILTRA PER MARCA</span>
+                <span className='' id="branListArrow"><Icon icon="carbon:arrow-down" width="20" height="20"/></span>
+            </span>
+
+            { !showList? "" : (
+                <span className='BrandList' id="brandList">{
+                  brands.map(({id, name}, index) => {
+                    return  <span key={index} className='BrandItem'> {name}</span>
+                  })
+                }
+                
+                </span>
+            )}
+        
           </div>
           {/* </form>
           </FormikProvider> */}

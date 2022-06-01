@@ -9,10 +9,10 @@ AccordionList.defaultProps = {
 };
 export function AccordionList({inputType="checkbox" , id, name, label, value}) {
   return (
-    <div className={`${style.check_list} d-flex flex-row align-items-center`}>
+    <div className={`${style.check_list} mb-[10px!important] mt-0 d-flex flex-row align-items-center`}>
       <input type={inputType} id={id + Date.now()} value={value} name={name} />
       <label htmlFor={id + Date.now()}></label>
-      <p>{label}</p>
+      <p>{label.substring(0, 25)}</p>
     </div>
   );
 }
@@ -40,7 +40,7 @@ function Accordion({ inputType="checkbox", name, listData, children }) {
             marginLeft: "20px",
           }}
         >
-          {name}
+          {name.substring(0,20)}
         </p>
       </button>
       <div
@@ -52,7 +52,7 @@ function Accordion({ inputType="checkbox", name, listData, children }) {
           children?.length > 0 ? (
             <Accordion key={i} name={title} listData={children} />
           ) : (
-            <AccordionList  inputType={inputType} key={i} id={`${title}_${i}`} value={id} label={title} />
+            <AccordionList  inputType={inputType} key={i} id={`${title}_${i}`} value={id} label={title.substring(0,25)} />
           )
         )}
       </div>

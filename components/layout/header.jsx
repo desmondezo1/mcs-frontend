@@ -139,7 +139,8 @@ return (
                 
                     <a
                     className='cursor-pointer' 
-                    onClick={ () => dispatch(updateCartVisibility(true))}
+                    // onClick={ () => dispatch(updateCartVisibility(true))}
+                    onClick={ () => router.push('/checkout')}
                     >
                     <div className={HeaderCss.cartIcon}>
                         <span className={HeaderCss.cartIconCount}>{cartList.length}</span>
