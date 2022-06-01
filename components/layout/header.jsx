@@ -67,7 +67,7 @@ return (
       .active {
         background: #1E3F7F;
         color: #E6E6E6!important;
-        padding: 1px 8px;
+        padding: 2px 8px 1px 8px;
         border-radius: 12.19px;
       }
 
@@ -140,7 +140,7 @@ return (
                     <a
                     className='cursor-pointer' 
                     // onClick={ () => dispatch(updateCartVisibility(true))}
-                    onClick={ () => router.push('/checkout')}
+                    onClick={ () => router.push('/shop/cart')}
                     >
                     <div className={HeaderCss.cartIcon}>
                         <span className={HeaderCss.cartIconCount}>{cartList.length}</span>
