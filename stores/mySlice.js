@@ -40,7 +40,8 @@ const mySlice = createSlice({
 
     // the correct code that works
     closeCart: (state, action)=>{
-      state.openCart = action.payload.false
+      state.openCart = action.payload
+      // state.openCart = false
     },
     updateCartList: (state, action) => {
       // update cart list

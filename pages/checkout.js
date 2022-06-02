@@ -5,9 +5,11 @@ import {Icon} from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateTotalPrice} from '../stores/mySlice';
 import TableBody from '../components/checkout/table';
+import { useRouter } from 'next/router';
 
 
 const Checkout = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const cartList = useSelector(state => state.mySlice.cart);
   
@@ -98,7 +100,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          <div className=' py-4 text-sm text-right'>
+          <div className=' py-4 text-sm text-right' onClick={(e) =>router.push('/shop/orders')}>
             <span className='bg-black text-white
             px-3 py-1 rounded-3xl'>PROCEDI CON L'ORDINE</span>
           </div>
