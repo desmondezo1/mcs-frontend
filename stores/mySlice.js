@@ -39,6 +39,9 @@ const mySlice = createSlice({
     // },
 
     // the correct code that works
+    closeCart: (state, action)=>{
+      state.openCart = action.payload.false
+    },
     updateCartList: (state, action) => {
       // update cart list
       
@@ -90,7 +93,7 @@ const mySlice = createSlice({
 })
 
 
-export const { updateCartList, increaseQuantity, decreaseQuantity, removeCartList, updateCheckoutList, updateTotalPrice, updateCartVisibility } = mySlice.actions
+export const { updateCartList, increaseQuantity,closeCart, decreaseQuantity, removeCartList, updateCheckoutList, updateTotalPrice, updateCartVisibility } = mySlice.actions
 
 
 export default mySlice.reducer;

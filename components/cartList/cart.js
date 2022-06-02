@@ -9,7 +9,7 @@ import CartList from './index'
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartList = useSelector(state => state.mySlice.cart);
+  let cartList = useSelector(state => state.mySlice.cart);
   const totalPrice = useSelector(state => state.mySlice.totalCartPrice);
   const openCart = useSelector(state => state.mySlice.openCart);
   //const  [removeCart, setRemoveCart] = useState(false);
@@ -77,9 +77,9 @@ const Cart = () => {
           </div>
           <div className='buttons text-sm'>
             <Link href = "/checkout">
-              <p className='border-1 border-black border-solid rounded-3xl px-2 text-center py-1 my-2 cursor-pointer'>VISUALIZZA CARELLO</p>
+              <p className='border-1 border-black border-solid rounded-3xl px-2 text-center py-1 my-2 cursor-pointer' onClick={() => dispatch(updateCartVisibility(false))}>VISUALIZZA CARELLO</p>
             </Link>
-            <Link href= '#'>
+            <Link href= '#' onclick={openCart = false}>
             <p className=' bg-black text-white rounded-3xl px-2 text-center py-1 my-1'>PAGAMENTO</p>
             </Link>
           </div>
