@@ -59,7 +59,7 @@ export default function Orders(){
                             onChange = {(e) => {
                                 console.log(e.target.value);
                             }}
-                            value = " "
+                            
                             />
                         </div>
 
