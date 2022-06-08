@@ -3,8 +3,10 @@ import styles from '../../styles/Home.module.css'
 import arrowRight  from '../../public/images/arrow_right.svg'
 import { Icon } from '@iconify/react'
 import Link from "next/link"
+import {useRouter} from 'next/router'
 
 export default function Washroom() {
+    const router = useRouter();
     return (<>
     <style jsx>
         {
@@ -181,11 +183,12 @@ export default function Washroom() {
         </span> */}
     </div>
 
-    <span className={'d-flex align-item-center'} style={{
+    <span onClick={()=>{router.back()}} className={'d-flex align-item-center'} style={{
                alignItems: "center",
                position: "absolute",
                bottom: "-170px",
                left: "20px",
+               cursor: 'pointer',
         }} >
             
             {/* <Icon icon="cil:arrow-left"  style={{ fontSize: '1rem', marginRight: "10px" }}/> */}

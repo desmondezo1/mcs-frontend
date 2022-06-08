@@ -133,7 +133,7 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image alt="toilet" src={toilet} />
             <div className={'d-flex'}>
-              <Link href={"/categories/washroom"}>
+              <Link href={"/category/washroom"}>
               <span className={'d-flex'}>
              <p  className='mr-1'> WASHROOM </p> 
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
@@ -146,7 +146,7 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={washingMachine} alt=""/>
             <div>
-            <Link href={"/categories/macchinari"}>
+            <Link href={"/category/macchinari"}>
               <span className={'d-flex'}>
               <p className='mr-1'> MACCHINARI  </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
@@ -159,7 +159,7 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={houseImage} alt=""/>
             <div>
-            <Link href={"/categories/tappeti"}>
+            <Link href={"/category/TAPPETI ANTISCIVOLO"}>
               <span className={'d-flex'}>
               <p  className='mr-1'>TAPPETI ANTISCIVOLO </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
@@ -172,11 +172,13 @@ export default function Home() {
           <div className={styles.distImageCard}>
             <Image src={window} />
             <div>
+            <Link href={"/category/MONITORAGGIO"}>
               <span className={'d-flex'}>
                <p  className='mr-1'>MONITORAGGIO  </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
                 <Image src={arrowRight} height="14.4px" />
               </span>
+              </Link>
             </div>
           </div>
 

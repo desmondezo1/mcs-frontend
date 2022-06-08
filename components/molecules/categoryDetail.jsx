@@ -1,14 +1,11 @@
 import Image from "next/image"
-import styles from '../../../styles/Home.module.css'
-import LAVASCIUGA from '../../../public/images/LAVASCIUGA.png'
-import ACCESSORI from '../../../public/images/ACCESSORI.png'
-import arrowRight  from '../../../public/images/arrow_right.svg'
-import { Icon } from '@iconify/react'
-import Link from "next/link"
+import LAVASCIUGA from '../../public/images/LAVASCIUGA.png'
+import arrowRight  from '../../public/images/arrow_right.svg'
+import Link from 'next/link'
 
-export default function Washroom() {
-    return (<>
-    <style jsx>
+export default function CategoryDetail({category}){
+    return(<>
+        <style jsx>
         {
             `
             
@@ -56,11 +53,10 @@ export default function Washroom() {
         }
 
     </style>
-    <div className="container mx-auto my-auto mt-[100px]">
-
        
-        <div className="washroomWrapper mx-auto my-auto">
-            <div className="washroomText">   <h1 className="title">TAPPETI PERSONALIZZATI</h1>
+    <div className="washroomWrapper mx-auto my-auto">
+            <div className="washroomText">   
+            <h1 className="title">{!category?.category_name ? "TAPPETI PERSONALIZZATI": category?.category_name}</h1>
                 <div className="text-wrapper">
                     <div className="washroomImages">
                     <Image src={LAVASCIUGA} alt=""/>
@@ -71,7 +67,8 @@ export default function Washroom() {
             <div className="washroomText mt-[50px]">
             
             <p>
-            I nostri tappeti personalizzabili sono particolarmente apprezzati per l’elevata resistenza e soprattutto per la forte capacità comunicativa e pubblicitaria. Un benvenuto al vostro nuovo locale con un tappeto che parla di Voi. Misure e colori totalmente personalizzabili, questo è un tappeto con potere assorbente pari a 5 Lt d’acqua e 4 Kg di polvere. Il tessuto realizzato in poliammide-nylon è ignifugo, antiscivolo e funge da barriera antipolvere. Un operatore MCS sostituirà regolarmente il vostro tappeto consegnandone uno pulito.
+                {category?.category_description ? category.category_description : 
+            "I nostri tappeti personalizzabili sono particolarmente apprezzati per l’elevata resistenza e soprattutto per la forte capacità comunicativa e pubblicitaria. Un benvenuto al vostro nuovo locale con un tappeto che parla di Voi. Misure e colori totalmente personalizzabili, questo è un tappeto con potere assorbente pari a 5 Lt d’acqua e 4 Kg di polvere. Il tessuto realizzato in poliammide-nylon è ignifugo, antiscivolo e funge da barriera antipolvere. Un operatore MCS sostituirà regolarmente il vostro tappeto consegnandone uno pulito."}
             </p>
     
  
@@ -87,7 +84,7 @@ export default function Washroom() {
                     width: "fit-content",
                     fontSize: "0.7rem",
                 }}>
-                <Link href={"/categories/washroom"}>
+                <Link href={"/request-quote"}>
                 <span className={'d-flex'}>
                 <p  className='mr-1'> RICHIEDI UN PREVENTIVO </p> &nbsp;&nbsp;
                     <Image src={arrowRight} height="14.4px" />
@@ -100,20 +97,5 @@ export default function Washroom() {
 
             </div>
         </div>
-
-        <span className={'d-flex align-item-center'} style={{
-            alignItems: "center",
-            position: "absolute",
-            bottom: "-80px",
-            left: "20px"
-        }} >
-            
-            {/* <Icon icon="cil:arrow-left"  style={{ fontSize: '1rem', marginRight: "10px" }}/> */}
-            <Image src={arrowRight} height="14.4px" style={{ fontSize: '0.7rem', transform: "rotate(180deg)"}} />
-            <p className='ml-1' style={{ fontSize: '0.7rem'}}> Back  </p>
-        </span>
-    </div>
-    
-    
     </>)
 }

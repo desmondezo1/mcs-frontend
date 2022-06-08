@@ -4,8 +4,11 @@ import distributori from '../../../public/images/distributori.png'
 import ACCESSORI from '../../../public/images/ACCESSORI.png'
 import arrowRight  from '../../../public/images/arrow_right.svg'
 import { Icon } from '@iconify/react'
+import useRouter from 'next/router'
+
 
 export default function Washroom() {
+    const router = useRouter;
     return (<>
     <style jsx>
         {
@@ -84,11 +87,12 @@ export default function Washroom() {
 
         </div>
 
-        <span className={'d-flex align-item-center'} style={{
+        <span onClick={()=>{ router.back()}} className={'d-flex align-item-center'} style={{
             alignItems: "center",
             position: "absolute",
             bottom: "-80px",
-            left: "20px"
+            left: "20px",
+            cursor: "pointer"
         }} >
             
             {/* <Icon icon="cil:arrow-left"  style={{ fontSize: '1rem', marginRight: "10px" }}/> */}
