@@ -67,8 +67,7 @@ export default function CategoryDetail({category}){
             <div className="washroomText mt-[50px]">
             
             <p>
-                {category?.category_description ? category.category_description : 
-            "I nostri tappeti personalizzabili sono particolarmente apprezzati per l’elevata resistenza e soprattutto per la forte capacità comunicativa e pubblicitaria. Un benvenuto al vostro nuovo locale con un tappeto che parla di Voi. Misure e colori totalmente personalizzabili, questo è un tappeto con potere assorbente pari a 5 Lt d’acqua e 4 Kg di polvere. Il tessuto realizzato in poliammide-nylon è ignifugo, antiscivolo e funge da barriera antipolvere. Un operatore MCS sostituirà regolarmente il vostro tappeto consegnandone uno pulito."}
+                {category?.category_description ? category.category_description : ""}
             </p>
     
  
