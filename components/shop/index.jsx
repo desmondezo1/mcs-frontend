@@ -44,7 +44,6 @@ const ShopList = ( {product} ) => {
       }
     </style>
 
-    
       <div className="w-[250px] sm:w-[200px] cursor-pointer prod-wrapper">
         <Link href={`/shop/product/${product?.id}`}>
         <Image

@@ -77,10 +77,10 @@ const Cart = () => {
             <span className='text-red-500'>€{totalCartPrice()}</span>
           </div>
           <div className='buttons text-sm'>
-            <Link href = "/checkout">
+            <Link href = "/shop/cart">
               <p className='border-1 border-black border-solid rounded-3xl px-2 text-center py-1 my-2 cursor-pointer' onClick={() => dispatch(updateCartVisibility(false))}>VISUALIZZA CARELLO</p>
             </Link>
-            <Link href= '#' >
+            <Link href= '/shop/cart' >
             <p className=' bg-black text-white rounded-3xl px-2 text-center py-1 my-1'>PAGAMENTO</p>
             </Link>
           </div>

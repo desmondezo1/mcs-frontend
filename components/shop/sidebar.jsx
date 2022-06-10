@@ -4,6 +4,7 @@
  import { useRouter } from 'next/router'
  import { Icon } from '@iconify/react'
  import { useFormik, Field, FormikProvider } from "formik";
+ import useStore from '../../stores/zustandStore';
 
  //import {v4 as uuidv4} from 'uuid'
 import Accordion, { AccordionList } from "../atoms/Accordion";
@@ -12,14 +13,20 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
  const ShopSidebar = ({searchValue, categories, brands}) => {
 
    const [searchTerm, setSearchTerm] = useState('');
+   const setSearchFilterValue = useStore(state =>  state.setSearchFilterValue);
+   const searchFilterValue = useStore(state =>  state.searchFilter);
    const [showList, setListState] = useState(false);
-  //  const searchFilter = () =>{
-  //     router.push(`?searchV=${searchTerm}`)
-  //  }
+
+   const setSearchVal = (val) => {
+    setSearchFilterValue(val);
+   }
+   const searchFilter = (val) =>{
+      setSearchFilterValue(val);
+   }
 
    useEffect(()=>{
      if(searchValue){
-       setSearchTerm(searchValue);
+      setSearchFilterValue(searchValue);
      }
    });
 
@@ -109,10 +116,10 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
                 <input
                 className='bg-transparent outline-none text-black'
                 type={'search'}
-                value={searchTerm}
+                value={searchFilterValue}
                 placeholder={!searchTerm ? "RICERCA PRODOTTI": searchTerm}
                 name="searchV"
-                onChange = {(e) => {setSearchTerm(e.target.value)}}
+                onChange = {(e) => {searchFilter(e.target.value)}}
                 // onChange = {handleChange}
                 />
                 <span><Icon icon="carbon:search" width="20" height="20"/></span>
@@ -141,109 +148,6 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
                 )}
             </div>
 
-          {/* <ul className='text-sm'>
-            <li className='my-1'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Distributori</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-3'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Sapone</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-3'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Ascuigamano</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Paper</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Eco</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Electric</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Duo</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-3'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Carta Igeienica</span>
-                </a>
-              </Link>
-            </li>
-            <div className='my-6'>
-            <li className='my-1'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Accessori</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Deoderanti Ambiente</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Ignienzzantee WC</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Copri Water</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Contenitori Assorbenti</span>
-                </a>
-              </Link>
-            </li>
-            <li className='my-1 ml-8'>
-              <Link href='/shop'>
-                <a>
-                  <span className='text-sm'>Salviente Umidificate</span>
-                </a>
-              </Link>
-            </li>
-            </div> 
-          </ul> */}
-
           <div className='flex flex-column align-items-baseline border-1 border-black border-solid rounded-3xl items-center justify-between px-3 py-1'>
             <span className='d-flex flex-row justify-between w-100' onClick={toggleBrandList}>
                 <span >FILTRA PER MARCA</span>
@@ -253,7 +157,9 @@ import Accordion, { AccordionList } from "../atoms/Accordion";
             { !showList? "" : (
                 <span className='BrandList' id="brandList">{
                   brands.map(({id, name}, index) => {
-                    return  <span key={index} className='BrandItem'> {name}</span>
+                    return  <span key={index} className='BrandItem' style={{
+                      cursor: "pointer"
+                    }} onClick={()=>{setSearchVal(name)}} > {name}</span>
                   })
                 }
                 

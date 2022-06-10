@@ -9,7 +9,7 @@ body {
   font-family:  'Almarai', sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: #f0f0f0;
-  //overflow-x: auto;
+  /* //overflow-x: auto; */
 }
 
 a {
@@ -19,7 +19,7 @@ a {
 
 * {
   box-sizing: border-box;
-  //outline: 1px solid black;
+  /* //outline: 1px solid black; */
 }
 
 th {

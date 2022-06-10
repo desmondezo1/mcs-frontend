@@ -10,6 +10,8 @@ import Cok from 'cookie'
 import Cookies from 'js-cookie'
 import SpedizioneForm from '../../components/molecules/forms/spedizione';
 import useStore from '../../stores/zustandStore';
+import Privato from '../../components/molecules/forms/privato';
+import Azienda from '../../components/molecules/forms/azienda';
 
 export default function Orders(){
 
@@ -26,8 +28,7 @@ export default function Orders(){
     const handleProceedToOrders = () => {
         let doc = document.getElementById('shippingDetails');
         let formD = new FormData(doc);
-
-        router.push('/shop/orders2');
+        router.push('/orders2');
     }
     const totalCartPrice = () => {
         let total = 0;
@@ -103,32 +104,24 @@ export default function Orders(){
                             onClick={handlePrivateInput}
                             className={`mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3 ${privateInput && "bg-black text-white"}`}
                             type={'submit'}
-                            value = 'CORRIERE ESPRESSO'
+                            value = 'PRIVATO'
                         />
                         <input
                             onClick={handlePrivateInput}
                             className={`mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3 ${!privateInput && "bg-black text-white"}`}
                             type={'submit'}
-                            value = 'RITIRO IN SEDE'
+                            value = 'AZIENDA'
                         />
                 </div> 
                     { privateInput ? (
                     
-                    <form id="shippingDetails">
-                        <SpedizioneForm user={userData} />
-                    </form>
-                    
+                    // <form id="shippingDetails">
+                        
+                    // </form>
+                    <Privato user={userData} />
                     
                     ) :(
-                        <div style={{
-                            display: "grid",
-                            gridTemplateColumns: "50% 50%",
-                            width: "80%",
-                            marginTop: "30px"
-                        }}>
-                            <span>Ririto in sede a:</span>
-                            <span>MCS Group S.r.l Strada Cento Pozzi km 1,2 C.da Buttino s.n.c. 97100, Ragusa (RG), Italia.</span>
-                        </div>
+                        <Azienda user={userData} />
                     )}
                     
                     </div>

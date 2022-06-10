@@ -9,8 +9,11 @@ import { updateCartVisibility } from '../../stores/mySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import Cart from '../cartList/cart';
 import { useEffect, useState } from 'react';
+import useStore from '../../stores/zustandStore'
 
 export default function Header(){
+    const loggedIn = useStore(state => state.loggedIn);
+    const userId = useStore(state => state.userId);
     const dispatch = useDispatch();
     const cartList = useSelector(state => state.mySlice.cart);
     const openCart = useSelector(state => state.mySlice.openCart);
@@ -120,10 +123,14 @@ return (
                         <a  className={`${router.asPath == "/#sect4" ? "active" : ""} ${"nav-link"}`} >CONTATTI</a>
                     </Link>
                 </li>
-                <li  className={`${"nav-item"}`}>
-                    <Link href="/accedi-registrati">
+                <li  className={`${"nav-item"}`}>{!loggedIn ? 
+                (<Link href="/accedi-registrati">
                         <a className={`${router.asPath == "/accedi-registrati" ? "active" : ""} ${"nav-link"}`} >ACCEDI/REGISTRATI</a>
-                    </Link>
+                    </Link>) : 
+                (<Link href={`/bacheca/${userId}`}>
+                <a className={`${router.asPath == "/bacheca" ? "active" : ""} ${"nav-link"}`} >BACHECA</a>
+            </Link>)}
+                    
                 </li>
             </ul>
             <div className={`${"icon-wrapper"} ${HeaderCss.iconWrapper}`}>               

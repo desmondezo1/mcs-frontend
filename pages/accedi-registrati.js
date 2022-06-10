@@ -6,6 +6,7 @@ import Error from "../components/Error";
 import api from "../stores/StoreAPI";
 import { useRouter } from "next/router";
 import Cookies from 'js-cookie'
+import useStore from "../stores/zustandStore";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -15,6 +16,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const setLoginState = useStore( state => state.setLoggedInState);
+  const setUserId = useStore( state => state.setUserId);
   const [login] = api.useLoginMutation();
   const router = useRouter();
 
@@ -38,7 +41,12 @@ const Login = () => {
             );
 
             Cookies.set('token', res.access_token);
+            Cookies.set('user', res?.user);
+            setLoginState(true);
+            setUserId(res?.user?.id)
             router.push(`bacheca/${res?.user?.id}`);
+
+            
           })
           .catch((err) => {
             console.log(err);

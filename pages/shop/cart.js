@@ -6,16 +6,40 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateTotalPrice } from '../../stores/mySlice';
 import TableBody from '../../components/checkout/table';
 import { useRouter } from 'next/router';
+import useStore from '../../stores/zustandStore';
 
 
 const Cart = () => {
+  const userId = useStore( state => state.userId );
   const dispatch = useDispatch();
   const router = useRouter();
   const cartList = useSelector(state => state.mySlice.cart);
 
   const totalPrice = useSelector(state => state.mySlice.totalCartPrice);
 
+  const processCart = async () => {
+    let list = [];
+    cartList.forEach(item => {
+        list.push({...item });
+      })
 
+      list.forEach(item => {
+        item.user_id = userId;
+        item.product_id = item.id;
+      });
+    
+    console.log({list});
+      await fetch('/api/addToCart',{
+        method: "POST",
+        body: JSON.stringify(list)
+      }).then( val => val.json()).then(val => {
+        // if(val){
+          // router.push('/shop/orders');
+        // }
+        console.log({val})
+      }).then(val =>  router.push('/shop/orders')).catch(error => console.log({error}));
+    
+  }
 
   const totalCartPrice = () => {
     let total = 0;
@@ -28,6 +52,12 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(updateTotalPrice(totalCartPrice()))
+  })
+
+  useEffect(()=>{
+    if(!userId){
+      router.push('/accedi-registrati')
+    }
   })
 
   return (
@@ -100,8 +130,10 @@ const Cart = () => {
             </div>
           </div>
 
-          <div className=' py-4 text-sm text-right' onClick={(e) => {console.log("pushing"), router.push('/shop/orders') }}>
-            <span className='bg-black text-white
+          <div className=' py-4 text-sm text-right' onClick={(e) => {console.log("pushing"), processCart() }}>
+            <span style={{
+              cursor: "pointer"
+            }} className='bg-black text-white
             px-3 py-1 rounded-3xl'>PROCEDI CON L'</span>
           </div>
         </section>

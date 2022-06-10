@@ -274,13 +274,13 @@ export default function Home() {
         </div>
         </VisibilitySensor>
         <span className={`${styles.statLinkNext} ${styles.link_with_arrow}`}>
-          <Link href="/partners">
-            <a>
+          {/* <Link href={"partners"}> */}
+            <a href="/partners">
             SCOPRI I NOSTRI PARTNERS
             {/* <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/> */}
             <Image src={arrowRight} height="14.4px" />
             </a>
-          </Link>
+          {/* </Link> */}
         </span>
       </section>
 

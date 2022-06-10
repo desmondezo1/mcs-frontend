@@ -1,11 +1,20 @@
  import React from 'react'
  import Link from 'next/link'
  import { useRouter } from 'next/router'
+ import useStore from '../stores/zustandStore'
  //import {v4 as uuidv4} from 'uuid'
 
  
  const Sidebar = () => {
    const router = useRouter()
+
+   const setLogginState = useStore( state => state.setLoggedInState);
+   const logOutUser = () => {
+     setLogginState(false);
+     router.push('/')
+   }
+
+
     const { asPath } = router
     const isActive = (path) => {
       if (asPath === path) {
@@ -43,9 +52,11 @@
               </Link>
             </li>
              <li className='my-1'>
-              <Link href="/">
-                <a className={`hover:text-gray-400 ${isActive('/ordini')}`}>LogOut</a>
-              </Link>
+              {/* <Link href="/"> */}
+                <a style={{
+                  cursor: "pointer"
+                }} onClick={logOutUser} className={`hover:text-gray-400 ${isActive('/ordini')}`}>LogOut</a>
+              {/* </Link> */}
             </li>
           </ul>
         </aside>

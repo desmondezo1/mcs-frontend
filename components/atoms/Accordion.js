@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from "../../styles/atoms.module.css";
 import DownArrow from "../../images/icons/DownArrow";
+import useStore from '../../stores/zustandStore'
 
 AccordionList.defaultProps = {
   id: "id",
@@ -8,9 +9,11 @@ AccordionList.defaultProps = {
   label: "List Content",
 };
 export function AccordionList({inputType="checkbox" , id, name, label, value}) {
+  const setSearchFilterValue = useStore(state =>  state.setSearchFilterValue);
+
   return (
     <div className={`${style.check_list} mb-[10px!important] mt-0 d-flex flex-row align-items-center`}>
-      <input type={inputType} id={id + Date.now()} value={value} name={name} />
+      <input type={inputType} id={id + Date.now()} value={value} onChange={(e)=>{setSearchFilterValue(label)}} name={name} />
       <label htmlFor={id + Date.now()}></label>
       <p>{label.substring(0, 25)}</p>
     </div>

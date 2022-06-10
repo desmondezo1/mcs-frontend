@@ -2,8 +2,19 @@ import Sidebar from "../../components/sidebar";
 import Link from "next/link";
 import Error from "next/error";
 import Cok from "cookie";
+import useStore from "../../stores/zustandStore";
+import { useRouter } from "next/router";
 
 const Bacheca = ({ errorCode }) => {
+  const router  = useRouter();
+
+  const setLogginState = useStore( state => state.setLoggedInState);
+  const logOutUser = () => {
+    setLogginState(false);
+    router.push('/')
+  }
+
+
   if (errorCode) {
     return <Error statusCode={errorCode} />;
   }
@@ -41,13 +52,15 @@ const Bacheca = ({ errorCode }) => {
               </div>
             </a>
           </Link>
-          <Link href="/">
-            <a className=" w-[180px]  border-1 border-solid border-black py-[5em] px-12 rounded-lg relative">
-              <div className="text-center absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
+          {/* <Link href="/"> */}
+            <span onClick={logOutUser} style={{
+              cursor: "pointer"
+            }} className=" w-[180px]  border-1 border-solid border-black py-[5em] px-12 rounded-lg relative">
+              <div  className="text-center absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
                 LOG OUT
               </div>
-            </a>
-          </Link>
+            </span>
+          {/* </Link> */}
         </div>
       </div>
     </div>
@@ -69,7 +82,7 @@ export async function getServerSideProps({ req, params }) {
     };
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/1`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/${params.id}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json;charset=UTF-8",
@@ -82,13 +95,13 @@ export async function getServerSideProps({ req, params }) {
   // unauthorized
   if (errorCode === 401) {
     // logout user
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}logout`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    // await fetch(`${process.env.NEXT_PUBLIC_API_URL}logout`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-type": "application/json;charset=UTF-8",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // });
     
     return {
       redirect: {
