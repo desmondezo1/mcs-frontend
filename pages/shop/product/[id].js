@@ -63,7 +63,7 @@ const Product = ({ errorCode, product }) => {
         <div className="first my-5 pb-[6em]">
           <div className="flex flex-wrap sm:flex-nowrap justify-between ">
             <div className="left  w-fit sm:w-[250px] xl:w-fit mx-auto sm:mx-0 ">
-              {product?.images[0]["image"] && (
+              {product?.images.legth > 0 && (
                 <Image
                   className="prodImage"
                   src={product?.images[0]["image"]}
