@@ -1,8 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import nextConfig from "../next.config";
 
-console.log(nextConfig.env.BACKEND_API_BASE_URL);
-console.log("I am working");
 const baseUrl =
   nextConfig.env.ENVIROMENT === "local"
     ? "http://127.0.0.1:8000/api"

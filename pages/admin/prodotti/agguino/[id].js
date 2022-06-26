@@ -8,7 +8,9 @@ import productCss from "../../../../styles/prodotti/prodotti.module.css";
 import { useFormik, Field, FormikProvider } from "formik";
 import { useEffect, useState } from "react";
 import { CategoriaData } from "../../../../config/CategoriesData";
-import Accordion, { AccordionList } from "../../../../components/atoms/Accordion";
+import Accordion, {
+  AccordionList,
+} from "../../../../components/atoms/Accordion";
 import { TagsInput } from "react-tag-input-component";
 // import Cookies from 'js-cookie'
 import Cok from "cookie";
@@ -18,11 +20,14 @@ import {
 } from "../../../../config/prodotti";
 import axios from "axios";
 import routeConfig from "../../../../config/routeConfig";
+import Image from "next/image";
 // import { Formik, Form, useField } from 'formik';
 // import TextArea from '../../components/atoms/form/formElements'
 
 export default function Prodotti({ brands, categories, product }) {
-  const [productOptions, setProductOptions] = useState( product?.variation );
+  const [productOptions, setProductOptions] = useState(
+    product?.variation || []
+  );
   const [allBrands, setBrands] = useState([]);
   const [selectedTag, setSelectedTag] = useState([]);
 
@@ -30,17 +35,78 @@ export default function Prodotti({ brands, categories, product }) {
   const [description, setDescription] = useState(product?.description);
   const [uses, setUses] = useState(product?.category_id);
   const [category, setCategory] = useState(product?.title);
+
   const [surface, setSurface] = useState(product?.surface);
-  const [tag, setTag] = useState(product?.tag);
+  const [published, setPublished] = useState(product.status === "published");
+
+  // instock_quantity;
+  const [tag, setTag] = useState("");
   const [images, setImages] = useState(product?.images);
-  const [selectedBrand, setBrand] = useState(product?.brand);
+  const [tags, setTags] = useState(JSON.parse(product?.tag || []));
+
+  const [brand, setBrand] = useState(product?.brand);
   const [volume, setVolume] = useState(product?.volume);
-  const [variation, setVariation] = useState(product?.variation);
+  console.log(product);
 
   // addBrand
-  useEffect(()=>{
-    console.log({product})
-  })
+  useEffect(() => {});
+  const handleVariation = (e, field, index) => {
+    let pk = e.target.value;
+    let newOption = {
+      ...productOptions[index],
+    };
+
+    let newOptions = [...productOptions];
+    newOption[field] = pk;
+    newOptions.splice(index, 1, newOption);
+    setProductOptions(newOptions);
+  };
+
+  const updateProduct = async () => {
+    const updateProduct = `${routeConfig.updateProduct}/update/${product?.id}`;
+
+    //grab all selected categories into an array
+    let categories = [];
+    let checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+    for (var i = 0; i < checkboxes.length; i++) {
+      categories.push(checkboxes[i].value);
+    }
+
+    let frmData = new FormData();
+    frmData.append("pieces", JSON.stringify(productOptions));
+    frmData.append("category", JSON.stringify(categories));
+    frmData.append("tag", JSON.stringify(formD.tag));
+    frmData.append("brand", JSON.stringify(brand));
+    frmData.append("description", JSON.stringify(description));
+    frmData.append("title", JSON.stringify(title));
+
+    // console.log({ categories });
+    const token = window.localStorage.getItem("token");
+    // console.log({ formD });
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    let ax = await axios
+      .post(updateProduct, frmData, axiosConfig)
+      .then((result) => {
+        if (result.status == 200) {
+          toast.success("Updated");
+          console.log(result);
+        } else {
+          toast.error("Sorry, I guess something went wrong");
+        }
+        //   resetForm({values: ''})
+        console.log(result);
+      })
+      .catch(function (error) {
+        toast.error("Sorry, I guess something went wrong");
+        console.log(error.response);
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +115,7 @@ export default function Prodotti({ brands, categories, product }) {
       title: "",
       pieces: [{ price: [0, 0], discount: [0, 0], weight: "", packaging: "" }],
       pdf: "",
-      image: [''],
+      image: [""],
       tag: "",
       volume: "",
       category: "",
@@ -76,7 +142,7 @@ export default function Prodotti({ brands, categories, product }) {
       let frmData = new FormData(fTag);
       frmData.append("pieces", JSON.stringify(formD.pieces));
       frmData.append("category", JSON.stringify(categories));
-      frmData.append("tag", JSON.stringify(formD.tag));
+      frmData.append("tag", JSON.stringify(tags));
       // console.log({ categories });
       const token = window.localStorage.getItem("token");
       // console.log({ formD });
@@ -163,7 +229,7 @@ export default function Prodotti({ brands, categories, product }) {
                             name="title"
                             type="text"
                             className="form-control"
-                            onChange={(e)=>setTitle(e.target.value)}
+                            onChange={(e) => setTitle(e.target.value)}
                             value={title}
                           />
                         </div>
@@ -175,7 +241,7 @@ export default function Prodotti({ brands, categories, product }) {
                             id="description"
                             name="description"
                             className="form-control"
-                            onChange={(e)=>setDescription(e.target.value)}
+                            onChange={(e) => setDescription(e.target.value)}
                             value={description}
                           ></textarea>
                         </div>
@@ -185,16 +251,17 @@ export default function Prodotti({ brands, categories, product }) {
                           <select
                             name="brand"
                             className="custom-select form-control"
-                            onChange={handleChange}
-                            value={values.brand}
+                            onChange={(e) => setBrand(e.target.value)}
+                            value={brand}
                             id="brand"
                           >
-                            <option id="brand" defaultValue={''}>{ selectedBrand }</option>
+                            {/* <option id="brand" defaultValue={""}>
+                              {brand}
+                            </option> */}
                             {brands.map((brand, index) => {
                               return (
-                                <option
-                                key={index} value={brand.id}>
-                                  {brand.name} 
+                                <option key={index} value={brand.id}>
+                                  {brand.name}
                                 </option>
                               );
                             })}
@@ -209,13 +276,18 @@ export default function Prodotti({ brands, categories, product }) {
                         Pezzi e Prezzi
                       </h3>
                       <div className={productCss.dynamicListcontainer}>
-                        {productOptions.map((singleProduct, index) => {                      
-                          return ( 
+                        {productOptions.map((singleProduct, index) => {
+                          return (
                             <div
                               className={`${productCss.formInputWrapper} productListWrapper`}
                               key={index}
                             >
-                              <label htmlFor="piece">Pezzo {index + 1}</label>
+                              <label
+                                htmlFor="piece"
+                                onClick={() => console.log(index)}
+                              >
+                                Pezzo {index + 1}
+                              </label>
                               <div className={productCss.categoryTypeWrapper}>
                                 <div className={productCss.input}>
                                   <label htmlFor="packaging">Confezione</label>
@@ -224,8 +296,11 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].packaging`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(e, "packaging", index)
+                                    }
                                     value={singleProduct?.packaging}
+                                    placeHolder="Confezione"
                                     // value={values?.pieces[index]?.packaging}
                                   />
                                 </div>
@@ -236,8 +311,11 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].weight`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(e, "weight", index)
+                                    }
                                     value={singleProduct?.weight}
+                                    placeHolder="Peso"
                                     // value={values?.pieces[index]?.weight}
                                   />
                                 </div>
@@ -248,8 +326,15 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].quantity`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(
+                                        e,
+                                        "instock_quantity",
+                                        index
+                                      )
+                                    }
                                     value={singleProduct?.instock_quantity}
+                                    placeHolder="0"
                                     // value={values?.pieces[index]?.quantity}
                                   />
                                 </div>
@@ -265,7 +350,9 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].price[0]`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(e, "price", index)
+                                    }
                                     value={singleProduct?.price}
                                     // value={values?.pieces[index]?.price[0]}
                                   />
@@ -279,7 +366,9 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].price[1]`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(e, "offer_price", index)
+                                    }
                                     value={singleProduct?.offer_price}
                                     // value={values?.pieces[index]?.price[1]
                                     // }
@@ -294,7 +383,9 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].discount[0]`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(e, "discount", index)
+                                    }
                                     value={singleProduct?.discount}
                                     // value={values?.pieces[index]?.discount[0]}
                                   />
@@ -308,7 +399,9 @@ export default function Prodotti({ brands, categories, product }) {
                                     name={`pieces[${index}].discount[1]`}
                                     type="text"
                                     className="form-control"
-                                    onChange={handleChange}
+                                    onChange={(e) =>
+                                      handleVariation(e, "discount2", index)
+                                    }
                                     value={singleProduct?.discount2}
                                     // value={values?.pieces[index]?.discount[1]}
                                   />
@@ -341,7 +434,7 @@ export default function Prodotti({ brands, categories, product }) {
                             name="uses"
                             type="text"
                             className="form-control"
-                            onChange={(e)=>setUses(e.target.value)}
+                            onChange={(e) => setUses(e.target.value)}
                             value={uses}
                           />
                         </div>
@@ -354,7 +447,7 @@ export default function Prodotti({ brands, categories, product }) {
                             name="surface"
                             type="surface"
                             className="form-control"
-                            onChange={(e)=>setSurface(e.target.value)}
+                            onChange={(e) => setSurface(e.target.value)}
                             value={surface}
                           />
                         </div>
@@ -365,7 +458,7 @@ export default function Prodotti({ brands, categories, product }) {
                             name="volume"
                             type="text"
                             className="form-control"
-                            onChange={(e)=>setVolume(e.target.value)}
+                            onChange={(e) => setVolume(e.target.value)}
                             value={volume}
                           />
                         </div>
@@ -404,7 +497,7 @@ export default function Prodotti({ brands, categories, product }) {
                             type="file"
                             className="form-control"
                             onChange={formik.handleChange}
-                            value={formik.values.image['']}
+                            value={formik.values.image[""]}
                             accept={"image/*"}
                             multiple
                           />
@@ -445,14 +538,68 @@ export default function Prodotti({ brands, categories, product }) {
                       <div className={productCss.formInputWrapper}>
                         <div className={productCss.input}>
                           <label htmlFor="tag">Aggiungi Tag (#)</label>
-
-                          <TagsInput
-                            className="form-control"
-                            value={selectedTag}
-                            onChange={setSelectedTag}
-                            name="tags"
-                            placeHolder="tags"
-                          />
+                          <div
+                            className="flex align-center"
+                            style={{
+                              marginTop: 10,
+                              alignItems: "center",
+                            }}
+                          >
+                            <ul
+                              className="flex"
+                              style={{
+                                gap: 10,
+                                marginTop: 20,
+                                marginRight: 10,
+                              }}
+                            >
+                              {tags.map((tag, idx) => (
+                                <li
+                                  key={idx}
+                                  style={{
+                                    backgroundColor: "#000",
+                                    color: "#fff",
+                                    padding: "4px 9px",
+                                    borderRadius: 20,
+                                    fontSize: 12,
+                                    display: "flex",
+                                    columnGap: 5,
+                                    height: "33px",
+                                  }}
+                                  className="align-center"
+                                >
+                                  <span style={{ whiteSpace: "nowrap" }}>
+                                    {tag}
+                                  </span>
+                                  <span
+                                    onClick={() => {
+                                      let tt = [...tags];
+                                      tt.splice(idx, 1);
+                                      setTags(tt);
+                                    }}
+                                    style={{ color: "#fff", fontSize: 15 }}
+                                    className="pointer"
+                                  >
+                                    x
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                            <input
+                              onKeyPress={(ev) => {
+                                if (ev.key === "Enter") {
+                                  ev.preventDefault();
+                                  setTags([...tags, tag]);
+                                  setTag("");
+                                }
+                              }}
+                              className="form-control"
+                              value={tag}
+                              onChange={(e) => setTag(e.target.value)}
+                              name="tags"
+                              placeholder="tags"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -464,11 +611,12 @@ export default function Prodotti({ brands, categories, product }) {
                         <div className="form-check form-check-inline">
                           <input
                             className="form-check-input"
-                            onChange={formik.handleChange}
+                            onChange={() => setPublished(true)}
                             type="radio"
                             name="status"
                             id="inlineRadio1"
                             value="published"
+                            checked={published}
                           />
                           <label
                             className="form-check-label"
@@ -480,11 +628,12 @@ export default function Prodotti({ brands, categories, product }) {
                         <div className="form-check form-check-inline">
                           <input
                             className="form-check-input"
-                            onChange={formik.handleChange}
+                            onChange={() => setPublished(false)}
                             type="radio"
                             name="status"
                             id="inlineRadio2"
                             value="unpublished"
+                            checked={!published}
                           />
                           <label
                             className="form-check-label"
@@ -518,9 +667,9 @@ export async function getServerSideProps({ req, res, params }) {
   try {
     let cook = Cok.parse(req.headers.cookie) || "";
     let token = cook.token;
-    console.log(req.query)
+    console.log(req.query);
     const brandUrl = routeConfig.getBrandsAdmin;
-    const getProduct =`${routeConfig.getSingleProduct}/${params.id}`;
+    const getProduct = `${routeConfig.getSingleProduct}/${params.id}`;
     const getCategories = routeConfig.getCategories;
     console.log(getProduct);
     const axiosConfig = {
@@ -550,15 +699,15 @@ export async function getServerSideProps({ req, res, params }) {
     if (catResult.data.data) {
       categories = catResult.data.data;
     }
-    
-    console.log({product: product.data.data})
+
+    console.log({ product: product.data.data });
 
     if (product.data.data) {
       product = product.data.data;
     }
-  
+
     // Pass data to the page via props
-    return { props: { brands, categories, product} };
+    return { props: { brands, categories, product } };
   } catch (error) {
     return {
       props: {
