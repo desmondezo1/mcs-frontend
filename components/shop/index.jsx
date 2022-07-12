@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartList, updateCartVisibility } from "../../stores/mySlice";
+import Api from "../../stores/StoreAPI";
 import { toast } from "react-toastify";
 
 const ShopList = ({ product }) => {
@@ -30,6 +31,18 @@ const ShopList = ({ product }) => {
     );
 
     dispatch(updateCartVisibility(true));
+    fetch(process.env.NEXT_PUBLIC_APP_URL + "addToCart", {
+      method: "POST",
+      body: JSON.stringify({
+        id,
+        title,
+        price,
+        quantity,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log({ res }));
+
     toast.success("Artículo añadido al carrito");
   };
 

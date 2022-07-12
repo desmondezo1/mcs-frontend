@@ -7,9 +7,12 @@ import { updateTotalPrice } from "../../stores/mySlice";
 import TableBody from "../../components/checkout/table";
 import { useRouter } from "next/router";
 import useStore from "../../stores/zustandStore";
+import Cookies from "js-cookie";
 
 const Cart = () => {
-  const userId = useStore((state) => state.userId);
+  const activeUser = JSON.parse(Cookies.get("user") || "{}");
+  // const userId = useStore((state) => state.userId);
+  const userId = activeUser.id;
   const dispatch = useDispatch();
   const router = useRouter();
   const cartList = useSelector((state) => state.mySlice.cart);
