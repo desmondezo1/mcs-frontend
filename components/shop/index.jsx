@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartList, updateCartVisibility } from "../../stores/mySlice";
+import { toast } from "react-toastify";
 
-const ShopList = ( {product} ) => {
-
+const ShopList = ({ product }) => {
   const dispatch = useDispatch();
   // const addItemToCart = (prod) => {
   //  await fetch('/api/addToCart',{
@@ -16,53 +16,58 @@ const ShopList = ( {product} ) => {
   //  })
   //  .then(res => res.json())
   //  .then(res => console.log({res}));
-   
+
   // };
 
-  const addToCart = ({ id, title, price}, quantity ) => {
+  const addToCart = ({ id, title, price }, quantity) => {
     dispatch(
       updateCartList({
         id,
-        name: title ,
+        name: title,
         price,
         quantity,
       })
     );
 
-    dispatch(updateCartVisibility(true))
+    dispatch(updateCartVisibility(true));
+    toast.success("Artículo añadido al carrito");
   };
 
-  return (<>
-    <style jsx>
-      {
-        `
-        .image, .prod-wrapper > span, .prod-wrapper img{
-          border-radius: 11.38px;
-        }
-        
-        `
-      }
-    </style>
+  return (
+    <>
+      <style jsx>
+        {`
+          .image,
+          .prod-wrapper > span,
+          .prod-wrapper img {
+            border-radius: 11.38px;
+          }
+        `}
+      </style>
 
       <div className="w-[250px] sm:w-[200px] cursor-pointer prod-wrapper">
         <Link href={`/shop/product/${product?.id}`}>
-        <Image
-          alt="orders"
-          className="image"
-          src={product?.photo}
-          width={250}
-          height={250}
-          quality={100}
-        /></Link>
+          <Image
+            alt="orders"
+            className="image"
+            src={product?.photo}
+            width={250}
+            height={250}
+            quality={100}
+          />
+        </Link>
         <p className="sm:w-[170px] my-2 text-sm">{product?.title}</p>
         <p className="text-sm text-red-600">€{product?.price}</p>
-        
+
         <div className="icons flex items-center mt-2">
-         
-            <span onClick={()=>{ addToCart(product, 1)}}>
-              <Icon icon="carbon:shopping-cart" />
-            </span>
-         
+          <span
+            onClick={() => {
+              addToCart(product, 1);
+            }}
+          >
+            <Icon icon="carbon:shopping-cart" />
+          </span>
+
           <Link href="#">
             <a className="ml-2">
               <img
@@ -77,8 +82,9 @@ const ShopList = ( {product} ) => {
           </Link>
         </div>
       </div>
-    {/* </Link> */}
-    </>);
+      {/* </Link> */}
+    </>
+  );
 };
 
 export default ShopList;
