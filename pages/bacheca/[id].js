@@ -2,18 +2,19 @@ import Sidebar from "../../components/sidebar";
 import Link from "next/link";
 import Error from "next/error";
 import Cok from "cookie";
+import Cookies from "js-cookie";
 import useStore from "../../stores/zustandStore";
 import { useRouter } from "next/router";
 
 const Bacheca = ({ errorCode }) => {
-  const router  = useRouter();
+  const router = useRouter();
 
-  const setLogginState = useStore( state => state.setLoggedInState);
+  const setLogginState = useStore((state) => state.setLoggedInState);
   const logOutUser = () => {
     setLogginState(false);
-    router.push('/')
-  }
-
+    Cookies.remove("user");
+    router.push("/accedi-registrati");
+  };
 
   if (errorCode) {
     return <Error statusCode={errorCode} />;
@@ -53,13 +54,17 @@ const Bacheca = ({ errorCode }) => {
             </a>
           </Link>
           {/* <Link href="/"> */}
-            <span onClick={logOutUser} style={{
-              cursor: "pointer"
-            }} className=" w-[180px]  border-1 border-solid border-black py-[5em] px-12 rounded-lg relative">
-              <div  className="text-center absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
-                LOG OUT
-              </div>
-            </span>
+          <span
+            onClick={logOutUser}
+            style={{
+              cursor: "pointer",
+            }}
+            className=" w-[180px]  border-1 border-solid border-black py-[5em] px-12 rounded-lg relative"
+          >
+            <div className="text-center absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%]">
+              LOG OUT
+            </div>
+          </span>
           {/* </Link> */}
         </div>
       </div>
@@ -82,13 +87,16 @@ export async function getServerSideProps({ req, params }) {
     };
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/${params.id}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}user/${params.id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   const errorCode = res.ok ? false : res.status;
 
@@ -102,7 +110,7 @@ export async function getServerSideProps({ req, params }) {
     //     Authorization: `Bearer ${token}`,
     //   },
     // });
-    
+
     return {
       redirect: {
         destination: "/",
