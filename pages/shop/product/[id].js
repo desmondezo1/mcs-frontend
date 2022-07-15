@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,13 +9,20 @@ import Cok from "cookie";
 import { useRouter } from "next/router";
 import Error from "next/error";
 
-const Product = ({ errorCode, product }) => {
+const Product = ({ errorCode, product: originalProductData }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(5);
+
+  const [product, setProduct] = useState({});
   const [id, setId] = useState(3);
   const [activeTab, setActiveTab] = useState("tab2");
   const openCart = useSelector((state) => state.mySlice.openCart);
 
+  const [dropDownOpen, setDropDownOpen] = useState(false);
+
+  useEffect(() => {
+    setProduct(originalProductData);
+  }, []);
   const router = useRouter();
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -46,6 +53,26 @@ const Product = ({ errorCode, product }) => {
     return <Error statusCode={errorCode} />;
   }
 
+  function changeVariation(variant) {
+    console.clear();
+    console.log(variant);
+
+    setProduct({
+      ...originalProductData,
+      ...variant,
+    });
+  }
+  const productionVariation = originalProductData.variation || [];
+
+  const variationList = productionVariation.map((variant) => {
+    return (
+      <button onClick={() => changeVariation(variant)} key={variant.title}>
+        {variant.title}
+      </button>
+    );
+  });
+  console.log(variationList);
+
   return (
     <>
       <style Jsx>
@@ -63,16 +90,19 @@ const Product = ({ errorCode, product }) => {
         <div className="first my-5 pb-[6em]">
           <div className="flex flex-wrap sm:flex-nowrap justify-between ">
             <div className="left  w-fit sm:w-[250px] xl:w-fit mx-auto sm:mx-0 ">
-              {product?.images[0]["image"] && (
-                <Image
-                  className="prodImage"
-                  src={product?.images[0]["image"]}
-                  alt="product"
-                  width={350}
-                  height={350}
-                  quality={100}
-                />
-              )}
+              {product &&
+                product.images &&
+                product?.images[0] &&
+                product?.images[0]["image"] && (
+                  <Image
+                    className="prodImage"
+                    src={product?.images[0]["image"]}
+                    alt="product"
+                    width={350}
+                    height={350}
+                    quality={100}
+                  />
+                )}
             </div>
             <div className="right mr-2 w-fit md:w-full lg:w-full xl:w-fit   flex flex-col px-3 sm:px-0">
               <h1 className=" font-medium text-md md:text-lg lg:text-xl xl:text-2xl mt-2 md:mt-0">
@@ -81,11 +111,33 @@ const Product = ({ errorCode, product }) => {
               <p className="max-w-[600px] my-3 text-sm xl:text-md">
                 {product?.description}
               </p>
-              <div className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-3 py-1 cursor-pointer my-3">
-                <span className="text-sm pr-2">SCEGLI UN'OPZIONE</span>
-                <span>
-                  <Icon icon="carbon:arrow-down" width="20" height="20" />
-                </span>
+
+              <div
+                style={{
+                  position: "relative",
+                }}
+              >
+                <div className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-3 py-1 cursor-pointer my-3">
+                  <button
+                    className="text-sm pr-2"
+                    onClick={() => setDropDownOpen((prev) => !prev)}
+                  >
+                    SCEGLI UN'OPZIONE
+                  </button>
+                  <span>
+                    <Icon icon="carbon:arrow-down" width="20" height="20" />
+                  </span>
+                </div>
+                {dropDownOpen && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexFlow: "column norwap",
+                    }}
+                  >
+                    {variationList}
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-1  my-3">
                 <span className="text-sm cursor-pointer hover:bg-gray-200 rounded-[50%]">
@@ -182,9 +234,11 @@ const Product = ({ errorCode, product }) => {
                 <div className="infoWrapper d-flex w-100">
                   <div className="itemLabel">Pezzi: </div>
                   <div className="itemContent">
-                    {product?.variation.map((item) => {
-                      return item.packaging + ", ";
-                    })}
+                    {product &&
+                      product.variation &&
+                      product?.variation.map((item) => {
+                        return item.packaging + ", ";
+                      })}
                   </div>
                 </div>
 
@@ -206,9 +260,11 @@ const Product = ({ errorCode, product }) => {
                 <div className="infoWrapper d-flex w-100">
                   <div className="itemLabel">Confezione: </div>
                   <div className="itemContent flex-grow-3">
-                    {product?.variation.map((item) => {
-                      return item.packaging + ", ";
-                    })}
+                    {product &&
+                      product.variation &&
+                      product?.variation.map((item) => {
+                        return item.packaging + ", ";
+                      })}
                   </div>
                 </div>
               </div>
