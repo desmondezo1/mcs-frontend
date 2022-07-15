@@ -24,10 +24,24 @@ export default function Orders() {
   const [privateInput, setPrivateInput] = useState(true);
   const [userData, setUserData] = useState("");
 
-  const handleProceedToOrders = () => {
+  const handleProceedToOrders = async () => {
     let doc = document.getElementById("shippingDetails");
     let formD = new FormData(doc);
-    router.push("/orders2");
+    formD.append('user_id', userData.id)
+    formD.append('shipping_type', 1)
+    formD.append('delivery_charge', 0)
+    formD.append('status', 1)
+    formD.append('payment_method', 1)
+
+    let res = await fetch("/api/orders", {
+      method: "POST",
+      body: formD,
+    });
+    res = await res.json();
+    console.log({res})
+    
+    
+    // router.push("/orders2");
   };
   const totalCartPrice = () => {
     let total = 0;
@@ -36,6 +50,10 @@ export default function Orders() {
     });
     return total;
   };
+
+  useEffect(()=>{
+    console.log({cartList})
+  },[])
 
   const getUser = async () => {
     if (userId) {
@@ -114,15 +132,15 @@ export default function Orders() {
                   type={"submit"}
                   value="AZIENDA"
                 />
-              </div>
-              {privateInput ? (
-                // <form id="shippingDetails">
+              </div><form id="shippingDetails">
 
-                // </form>
+              {privateInput ? (
+                
+               
                 <Privato user={userData} />
               ) : (
                 <Azienda user={userData} />
-              )}
+              )}</form>
             </div>
           </div>
 
