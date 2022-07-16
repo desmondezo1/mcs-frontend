@@ -24,7 +24,10 @@ export default function Orders() {
 
   const handleProceedToOrders = () => {
     let doc = document.getElementById("shippingDetails");
-    let formD = new FormData(doc);
+    if(doc){
+      let formD = new FormData(doc);
+    }
+    
 
     router.push("/shop/orders2");
   };
@@ -200,8 +203,8 @@ export default function Orders() {
                         <span className="text-red-500">€0</span>
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
-                        <span>IVA (22%)</span>
-                        <span className="text-red-500">€24.915</span>
+                        <span>IVA (0%)</span>
+                        <span className="text-red-500">€0</span>
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Spedizione</span>

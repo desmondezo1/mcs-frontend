@@ -32,17 +32,26 @@ export default function Orders() {
     formD.append('delivery_charge', 0)
     formD.append('status', 1)
     formD.append('payment_method', 1)
-
+    // await calculateShipping();
     let res = await fetch("/api/orders", {
       method: "POST",
       body: formD,
     });
     res = await res.json();
+
     console.log({res})
     
-    
-    // router.push("/orders2");
   };
+
+  const calculateShipping = async () =>{
+      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}shipping?userId=${userData.id}`
+      ).then( val => {
+        val.json()
+      }).then(val => {
+        console.log({val2:val});
+      })
+  }
+
   const totalCartPrice = () => {
     let total = 0;
     cartList.forEach((item) => {

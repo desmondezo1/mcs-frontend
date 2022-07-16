@@ -42,6 +42,7 @@ export default function SpedizioneForm({user}){
                         <input
                         className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                         type={'text'}
+                        name="first_name"
                         value={firstName}
                         onChange = {(e) => {
                             setFirstName(e.target.value);
@@ -55,6 +56,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="last_name"
                     value={lastName}
                     onChange = {(e) => {
                         setLastName(e.target.value);
@@ -67,6 +69,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="tax_id_code"
                     onChange = {(e) => {
                         setTaxCode(e.target.value);
                     }}
@@ -80,6 +83,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="email"
                     onChange = {(e) => {
                         setEmail(e.target.value);
                     }}
@@ -93,6 +97,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="recipient_code"
                     onChange = {(e) => {
                         setRecipientCode(e.target.value);
                     }}
@@ -105,6 +110,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="country"
                     onChange = {(e) => {
                         setCountry(e.target.value);
                     }}
@@ -117,6 +123,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="state"
                     onChange = {(e) => {
                         setProvince(e.target.value);
                     }}
@@ -129,6 +136,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="city"
                     onChange = {(e) => {
                         setCity(e.target.value);
                     }}
@@ -141,6 +149,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="address1"
                     onChange = {(e) => {
                         setAddress(e.target.value);
                     }}
@@ -153,6 +162,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="suite"
                     onChange = {(e) => {
                         setSuite(e.target.value);
                     }}
@@ -169,6 +179,7 @@ export default function SpedizioneForm({user}){
                     onChange = {(e) => {
                         setHouseNumber(e.target.value);
                     }}
+                    name="house_no"
                     value = {houseNumber}
                     />
                     </div>
@@ -178,6 +189,7 @@ export default function SpedizioneForm({user}){
                     <input
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
+                    name="cap"
                     onChange = {(e) => {
                         console.log(e.target.value);
                     }}
@@ -188,6 +200,7 @@ export default function SpedizioneForm({user}){
                     <div className='flex items-center justify-between my-3'>
                     <label>TELEFONO<span className='text-red-600'>*</span></label>
                     <input
+                    name="phone"
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'text'}
                     onChange = {(e) => {
@@ -200,6 +213,7 @@ export default function SpedizioneForm({user}){
                     <div className='flex items-center justify-between my-3'>
                     <label>FAX</label>
                     <input
+                    name="fax"
                     className='w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3'
                     type={'info@diessofficial.com'}
                     onChange = {(e) => {

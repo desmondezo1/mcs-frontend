@@ -11,6 +11,7 @@ import Footer from "../components/layout/footer";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -73,6 +74,7 @@ function MyApp({ Component, pageProps }) {
       />
       <Provider store={store}>
         {router.asPath == "/mepa" ? <MepaHeader /> : <Header />}
+        <NextNProgress />
         <Component {...pageProps} />
         <ToastContainer />
       </Provider>
