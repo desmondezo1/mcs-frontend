@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { FormikProvider, useFormik } from "formik";
@@ -5,8 +6,9 @@ import * as Yup from "yup";
 import Error from "../components/Error";
 import api from "../stores/StoreAPI";
 import { useRouter } from "next/router";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import useStore from "../stores/zustandStore";
+import { toast } from "react-toastify";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -16,8 +18,15 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const setLoginState = useStore( state => state.setLoggedInState);
-  const setUserId = useStore( state => state.setUserId);
+  const activeUser = Cookies.get("user");
+  useEffect(() => {
+    if (activeUser) {
+      toast.warning("el usuario ya esta conectado");
+      router.push("/bacheca/" + JSON.parse(activeUser).id);
+    }
+  }, []);
+  const setLoginState = useStore((state) => state.setLoggedInState);
+  const setUserId = useStore((state) => state.setUserId);
   const [login] = api.useLoginMutation();
   const router = useRouter();
 
@@ -35,26 +44,29 @@ const Login = () => {
         await login(values)
           .unwrap()
           .then((res) => {
+            if (res.status && res.status.match(/40./)) {
+              return toast.error(res.desc);
+            }
             localStorage.setItem(
               process.env.NEXT_PUBLIC_STORAGE_KEY,
               JSON.stringify(res)
             );
 
-            Cookies.set('token', res.access_token);
-            Cookies.set('user', res?.user);
+            Cookies.set("token", res.access_token);
+            Cookies.set("user", JSON.stringify(res?.user));
             setLoginState(true);
-            setUserId(res?.user?.id)
+            setUserId(res?.user?.id);
+            toast.success("Inicio de sesión exitoso");
             router.push(`bacheca/${res?.user?.id}`);
-
-            
           })
           .catch((err) => {
             console.log(err);
-            setErrors({ afterSubmit: err?.data?.message || "An error occured" });
+            setErrors({
+              afterSubmit: err?.data?.message || "An error occured",
+            });
           });
       } catch (error) {
         resetForm({ values: { email: "", password: "" } });
-
         setSubmitting(false);
         setErrors({ afterSubmit: error.message });
       }

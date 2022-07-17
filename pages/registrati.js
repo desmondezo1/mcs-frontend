@@ -1,9 +1,12 @@
 import { FormikProvider, useFormik } from "formik";
+import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import Error from "../components/Error";
 import api from "../stores/StoreAPI";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const RegisterSchema = Yup.object().shape({
   first_name: Yup.string().required("Firstname is required"),
@@ -26,6 +29,13 @@ const Register = () => {
   const [register] = api.useRegisterMutation();
   const router = useRouter();
 
+  const activeUser = Cookies.get("user");
+  useEffect(() => {
+    if (activeUser) {
+      toast.warning("el usuario ya esta conectado");
+      router.push("/bacheca/" + JSON.parse(activeUser).id);
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
       first_name: "",
@@ -47,14 +57,29 @@ const Register = () => {
           ...{
             address: "n/a",
             photo: "n/a",
-            phone: 0,
             state: "n/a",
             city: "n/a",
             country: "n/a",
           },
         })
           .unwrap()
-          .then(() => router.push("accedi-registrati"))
+          .then((res) => {
+            if (res.status == 200) {
+              toast.success("Successfully Registereds", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+
+              router.push("accedi-registrati");
+            } else {
+              toast.error(res.desc);
+            }
+          })
           .catch((err) => {
             console.log(err);
             setErrors({ afterSubmit: err?.message || "An error occured" });
@@ -99,6 +124,15 @@ const Register = () => {
               {...getFieldProps("email")}
             />
             {touched.email && <Error text={errors.email} />}
+
+            <input
+              className="my-3 w-full border-b-gray-400 border-b-2 boder-b-solid bg-transparent pb-1 outline-none"
+              type={"phone"}
+              placeholder={`+39 XXXXXX*`}
+              {...getFieldProps("phone")}
+            />
+              {touched.phone && <Error text={errors.phone} />}
+
             <input
               className="my-3 w-full border-b-gray-400 border-b-2 boder-b-solid bg-transparent pb-1 outline-none"
               type={"password"}

@@ -45,6 +45,7 @@ export async function getServerSideProps() {
   const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
   const brands = await brandRes.json();
   const products = await res.json();
+
   const categories = await Catres.json();
   console.log({products});
   return { props: { products, categories, brands } };
