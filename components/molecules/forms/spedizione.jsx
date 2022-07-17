@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function SpedizioneForm({user}){
-    console.log({user})
+    // console.log({user})
     const [firstName, setFirstName] = useState(user?.first_name);
     const [lastName, setLastName] = useState(user?.last_name);
     const [taxCode, setTaxCode] = useState();

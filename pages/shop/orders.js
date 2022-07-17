@@ -22,14 +22,31 @@ export default function Orders() {
   const [privateInput, setPrivateInput] = useState(true);
   const [userData, setUserData] = useState("");
 
-  const handleProceedToOrders = () => {
-    let doc = document.getElementById("shippingDetails");
-    if(doc){
-      let formD = new FormData(doc);
+  const handleProceedToOrders = async () => {
+    let token = Cookies.get("token");
+    if(!privateInput){
+      console.log('freeshipping');
+    }else{
+      let doc = document.getElementById("shippingDetails");
+      if(doc){
+        let formD = new FormData(doc);
+        formD.append('is_company', 0);
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,{
+          method:"POST",
+          body: formD,
+          headers: {
+            // "Content-type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`,
+          },
+        }).then(res => res.json()).then(res => {
+          console.log(res);
+        })
+      }
     }
     
+    
 
-    router.push("/shop/orders2");
+    // router.push("/shop/orders2");
   };
   const totalCartPrice = () => {
     let total = 0;

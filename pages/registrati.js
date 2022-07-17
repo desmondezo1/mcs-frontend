@@ -57,7 +57,6 @@ const Register = () => {
           ...{
             address: "n/a",
             photo: "n/a",
-            phone: 0,
             state: "n/a",
             city: "n/a",
             country: "n/a",
@@ -65,7 +64,7 @@ const Register = () => {
         })
           .unwrap()
           .then((res) => {
-            if (res.status.match(/20./)) {
+            if (res.status == 200) {
               toast.success("Successfully Registereds", {
                 position: "top-right",
                 autoClose: 5000,
@@ -125,6 +124,15 @@ const Register = () => {
               {...getFieldProps("email")}
             />
             {touched.email && <Error text={errors.email} />}
+
+            <input
+              className="my-3 w-full border-b-gray-400 border-b-2 boder-b-solid bg-transparent pb-1 outline-none"
+              type={"phone"}
+              placeholder={`+39 XXXXXX*`}
+              {...getFieldProps("phone")}
+            />
+              {touched.phone && <Error text={errors.phone} />}
+
             <input
               className="my-3 w-full border-b-gray-400 border-b-2 boder-b-solid bg-transparent pb-1 outline-none"
               type={"password"}
