@@ -7,6 +7,7 @@ import { updateTotalPrice } from "../../stores/mySlice";
 import TableBody from "../../components/checkout/table";
 import { useRouter } from "next/router";
 import Cok from "cookie";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import SpedizioneForm from "../../components/molecules/forms/spedizione";
 import useStore from "../../stores/zustandStore";
@@ -39,15 +40,18 @@ export default function Orders() {
             Authorization: `Bearer ${token}`,
           },
         }).then(res => res.json()).then(res => {
-          console.log(res);
+          if(res.status == 200){
+            toast.success(res.desc);
+            router.push("/shop/orders2");
+          }else{
+            toast.info(res.desc)
+          }
         })
       }
     }
-    
-    
-
-    // router.push("/shop/orders2");
   };
+
+
   const totalCartPrice = () => {
     let total = 0;
     cartList.forEach((item) => {

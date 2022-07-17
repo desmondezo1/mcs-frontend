@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateTotalPrice } from "../../stores/mySlice";
 import TableBody from "../../components/checkout/table";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import Cok from "cookie";
 import Cookies from "js-cookie";
 import SpedizioneForm from "../../components/molecules/forms/spedizione";
@@ -25,6 +26,7 @@ export default function Orders() {
   const [userData, setUserData] = useState("");
 
   const handleProceedToOrders = async () => {
+    let token = Cookies.get("token");
     let doc = document.getElementById("shippingDetails");
     let formD = new FormData(doc);
     formD.append('user_id', userData.id)
@@ -33,15 +35,45 @@ export default function Orders() {
     formD.append('status', 1)
     formD.append('payment_method', 1)
     // await calculateShipping();
-    let res = await fetch("/api/orders", {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}orders`, {
       method: "POST",
       body: formD,
+      headers: {
+        // "Content-type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(res =>  res.json()).then(async res => {
+      if(res.status == 200){
+        toast.success(res.desc);
+        let paymentlink = await  getPaymentLink(userData.id, res.data.id);
+        console.log(paymentlink);
+      } else {
+        toast.info(res.desc);
+      }
     });
-    res = await res.json();
 
-    console.log({res})
-    
   };
+
+  const getPaymentLink = async (userId, OrderId) =>{
+    let token = Cookies.get("token");
+    let formD = new FormData();
+    formD.append('user_id', userId);
+    formD.append('order_id', OrderId);
+
+    let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}checkout`, {
+      method: "POST",
+      body: formD,
+      headers: {
+        // "Content-type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    let link = await res.json();
+    console.log(link)
+    return link;
+
+  }
 
   const calculateShipping = async () =>{
       await fetch(`${process.env.NEXT_PUBLIC_APP_URL}shipping?userId=${userData.id}`
