@@ -4,18 +4,19 @@ import ShopList from "../../components/shop";
 import ShopSideBar from "../../components/shop/sidebar";
 import { orderList } from "../../const";
 import useStore from "../../stores/zustandStore";
-const Shop = ({ products, categories, brands, m }) => {
+const Shop = ({ products, categories, brands}) => {
   const searchFilter = useStore(state =>  state.searchFilter);
   const router = useRouter();
   const {brand, searchV} = router.query;
   console.log(  {searchFilter})
   useEffect(()=>{
+    const {m} = router.query;
     if (m == 'success') {
       toast.success('Il tuo ordine è stato ricevuto')
     }else if (m == 'failed') {
       toast.error('pagamento fallito')
     }
-  },[m])
+  },[router.query])
   return (
     <div className=" pt-4 pb-[5em] md:px-5 lg:px-[4em]">
       <div className="flex justify-between  px-4" style={{
@@ -47,11 +48,11 @@ const Shop = ({ products, categories, brands, m }) => {
   );
 };
 
-export async function getServerSideProps(req) {
+export async function getServerSideProps() {
 
-  if (req) {
-    const { m } = req.query;
-  }
+  // if (req) {
+  //   const { m } = req.query;
+  // }
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
   const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
@@ -60,7 +61,7 @@ export async function getServerSideProps(req) {
 
   const categories = await Catres.json();
   console.log({products});
-  return { props: { products, categories, brands, m } };
+  return { props: { products, categories, brands } };
 }
 
 export default Shop;
