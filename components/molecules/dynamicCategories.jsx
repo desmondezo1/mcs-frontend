@@ -85,8 +85,8 @@ export default function DynamicCategories({ title }){
         <div className="washroomImages">
             {
                 category?.children?.length > 0 ? (
-                    category?.children.map( child => {
-                   return (<div className={`${styles.distImageCard} ${"imageCard"}`}>
+                    category?.children.map( (child, index) => {
+                   return (<div key={index} className={`${styles.distImageCard} ${"imageCard"}`}>
                         <Image src={distributori} alt=""/>
                         <div>
                             <span className={'d-flex'} onClick={()=>{ router.push(`${child?.category_name}`)}}>
