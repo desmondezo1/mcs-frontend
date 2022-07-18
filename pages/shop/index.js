@@ -15,7 +15,7 @@ const Shop = ({ products, categories, brands, m }) => {
     }else if (m == 'failed') {
       toast.error('pagamento fallito')
     }
-  },[])
+  },[m])
   return (
     <div className=" pt-4 pb-[5em] md:px-5 lg:px-[4em]">
       <div className="flex justify-between  px-4" style={{

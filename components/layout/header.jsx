@@ -32,7 +32,7 @@ export default function Header(){
                 headerBottomMargin: "0px"
             })
         }
-    })
+    },[router.asPath])
 return (
     <>
     <style jsx>{`

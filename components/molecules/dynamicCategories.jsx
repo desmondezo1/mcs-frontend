@@ -91,7 +91,7 @@ export default function DynamicCategories({ title }){
                         <div>
                             <span className={'d-flex'} onClick={()=>{ router.push(`${child?.category_name}`)}}>
                                 <p className='mr-1'> {child?.category_name ? (child?.category_name): "DISTRIBUTORI"}  </p>
-                                <Image src={arrowRight} height="14.4px" />
+                                <Image alt="" src={arrowRight} height="14.4px" />
                             </span>
                         </div>
                     </div>)
@@ -113,7 +113,7 @@ export default function DynamicCategories({ title }){
         }} >
             
             {/* <Icon icon="cil:arrow-left"  style={{ fontSize: '1rem', marginRight: "10px" }}/> */}
-            <Image src={arrowRight} height="14.4px" style={{ fontSize: '0.7rem', transform: "rotate(180deg)"}} />
+            <Image alt="" src={arrowRight} height="14.4px" style={{ fontSize: '0.7rem', transform: "rotate(180deg)"}} />
             <p className='ml-1' style={{ fontSize: '0.7rem'}}> Back  </p>
         </span>
     </div>

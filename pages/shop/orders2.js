@@ -92,10 +92,6 @@ export default function Orders() {
     return total;
   };
 
-  useEffect(()=>{
-    console.log({cartList})
-  },[])
-
   const getUser = async () => {
     if (userId) {
       let token = Cookies.get("token");

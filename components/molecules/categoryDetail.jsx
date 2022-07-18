@@ -86,7 +86,7 @@ export default function CategoryDetail({category}){
                 <Link href={"/request-quote"}>
                 <span className={'d-flex'}>
                 <p  className='mr-1'> RICHIEDI UN PREVENTIVO </p> &nbsp;&nbsp;
-                    <Image src={arrowRight} height="14.4px" />
+                    <Image alt="" src={arrowRight} height="14.4px" />
                 </span>
                 </Link>
                 </div>

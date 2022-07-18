@@ -66,7 +66,7 @@ export default function Washroom() {
                     <span className={'d-flex'}>
                     <p className='mr-1'> DISTRIBUTORI  </p>
                         {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                    <Image src={arrowRight} height="14.4px" />
+                    <Image alt="" src={arrowRight} height="14.4px" />
                 </span>
                 </div>
             </div>
@@ -78,7 +78,7 @@ export default function Washroom() {
                     <span className={'d-flex'}>
                     <p className='mr-1'> ACCESSORI  </p>
                         {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                    <Image src={arrowRight} height="14.4px" />
+                    <Image alt="" src={arrowRight} height="14.4px" />
                 </span>
                 </div>
             </div>
@@ -96,7 +96,7 @@ export default function Washroom() {
         }} >
             
             {/* <Icon icon="cil:arrow-left"  style={{ fontSize: '1rem', marginRight: "10px" }}/> */}
-            <Image src={arrowRight} height="14.4px" style={{ fontSize: '0.7rem', transform: "rotate(180deg)"}} />
+            <Image alt="" src={arrowRight} height="14.4px" style={{ fontSize: '0.7rem', transform: "rotate(180deg)"}} />
             <p className='ml-1' style={{ fontSize: '0.7rem'}}> Back  </p>
         </span>
     </div>

@@ -11,7 +11,7 @@ export default function Category(){
         const { name } = router.query;
         const nameDecoded  = decodeURIComponent(name)
         setTitle(nameDecoded)
-    })
+    },[router.query])
 
     return (<>
         <DynamicCategories title={title} />

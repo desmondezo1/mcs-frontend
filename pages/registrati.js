@@ -35,7 +35,7 @@ const Register = () => {
       toast.warning("el usuario ya esta conectado");
       router.push("/bacheca/" + JSON.parse(activeUser).id);
     }
-  }, []);
+  }, [activeUser, router]);
   const formik = useFormik({
     initialValues: {
       first_name: "",

@@ -29,7 +29,7 @@ export default function MepaHeader(){
                 headerBottomMargin: "0px"
             })
         }
-    })
+    },[router.asPath])
 return (
     <>
     <style jsx>{`

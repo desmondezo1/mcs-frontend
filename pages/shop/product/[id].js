@@ -22,7 +22,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
 
   useEffect(() => {
     setProduct(originalProductData);
-  }, []);
+  }, [originalProductData]);
   const router = useRouter();
   const handleTabChange = (tab) => {
     setActiveTab(tab);

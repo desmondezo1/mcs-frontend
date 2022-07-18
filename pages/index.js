@@ -137,7 +137,7 @@ export default function Home() {
               <span className={'d-flex'}>
              <p  className='mr-1'> WASHROOM </p> 
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                <Image src={arrowRight} height="14.4px" />
+                <Image alt="" src={arrowRight} height="14.4px" />
               </span>
               </Link>
             </div>
@@ -150,7 +150,7 @@ export default function Home() {
               <span className={'d-flex'}>
               <p className='mr-1'> MACCHINARI  </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                <Image src={arrowRight} height="14.4px" />
+                <Image alt="" src={arrowRight} height="14.4px" />
               </span>
               </Link>
             </div>
@@ -163,20 +163,20 @@ export default function Home() {
               <span className={'d-flex'}>
               <p  className='mr-1'>TAPPETI ANTISCIVOLO </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                <Image src={arrowRight} height="14.4px" />
+                <Image alt="" src={arrowRight} height="14.4px" />
               </span>
               </Link>
             </div>
           </div>
 
           <div className={styles.distImageCard}>
-            <Image src={window} />
+            <Image alt="" src={window} />
             <div>
             <Link href={"/category/MONITORAGGIO"}>
               <span className={'d-flex'}>
                <p  className='mr-1'>MONITORAGGIO  </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
-                <Image src={arrowRight} height="14.4px" />
+                <Image alt="" src={arrowRight} height="14.4px" />
               </span>
               </Link>
             </div>
@@ -278,7 +278,7 @@ export default function Home() {
             
             SCOPRI I NOSTRI PARTNERS
             {/* <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/> */}
-            <Image src={arrowRight} height="14.4px" />
+            <Image alt="" src={arrowRight} height="14.4px" />
             
           </Link>
         </span>
