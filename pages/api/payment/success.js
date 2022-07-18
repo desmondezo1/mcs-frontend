@@ -19,6 +19,7 @@ export default async function handler(req, res) {
                 }   
               ).then(re => { re.json()}).then(re => {
                 if (re.status == 200) {
+                  
                   return {
                      redirect: {
                         destination: '/shop?m=success',
