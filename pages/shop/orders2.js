@@ -59,7 +59,7 @@ export default function Orders() {
     let formD = new FormData();
     formD.append('user_id', userId);
     formD.append('order_id', OrderId);
-
+    console.log(`${process.env.NEXT_PUBLIC_API_URL}checkout`)
     let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}checkout`, {
       method: "POST",
       body: formD,

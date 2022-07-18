@@ -122,11 +122,11 @@ export default function Washroom() {
                         <textarea  className="form-control" placeholder='Scrivici qui!' id="exampleFormControlTextarea1" rows="10"></textarea>
                     
                         <div className="input-wrapper">
-                            <label for="email"> INDIRIZZO EMAIL </label>
+                            <label htmlFor="email"> INDIRIZZO EMAIL </label>
                             <input type={"text"} name="email" />
                         </div>
                         <div className="input-wrapper">
-                            <label for="telephone"> TELEFONO </label>
+                            <label htmlFor="telephone"> TELEFONO </label>
                             <input type={"text"} name="telephone" />
                         </div>
                     
