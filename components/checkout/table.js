@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, removeCartList } from "../../stores/mySlice";
 
-  const TableBody = ({id, name, price, quantity, item}) => {
+  const TableBody = ({id, name, price, quantity, item, photo}) => {
      const dispatch = useDispatch();
     return(
       <tr className='overflow-visible'>
@@ -14,7 +14,7 @@ import { increaseQuantity, decreaseQuantity, removeCartList } from "../../stores
         icon="carbon:close"  style={{ fontSize: '1.2rem', margin: 'auto' }}/> 
       </td>
       <td className=''>
-        <Image src={'/images/window.png'}
+        <Image src={!photo ?'/images/window.png': photo}
         alt= 'product'
         width={50}
         height= {50}

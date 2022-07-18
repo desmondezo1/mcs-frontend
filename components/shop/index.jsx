@@ -20,12 +20,13 @@ const ShopList = ({ product }) => {
 
   // };
 
-  const addToCart = ({ id, title, price }, quantity) => {
+  const addToCart = ({ id, title, price, photo }, quantity) => {
     dispatch(
       updateCartList({
         id,
         name: title,
         price,
+        photo,
         quantity,
       })
     );

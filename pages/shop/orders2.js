@@ -45,8 +45,11 @@ export default function Orders() {
     }).then(res =>  res.json()).then(async res => {
       if(res.status == 200){
         toast.success(res.desc);
-        let paymentlink = await  getPaymentLink(userData.id, res.data.id);
-        console.log(paymentlink);
+        let paymentlink = await  getPaymentLink(userData.id, res.data.id); 
+        console.log({paymentlink})
+          if(paymentlink){
+            window.location.href = paymentlink.url;
+          }
       } else {
         toast.info(res.desc);
       }
@@ -67,11 +70,11 @@ export default function Orders() {
         // "Content-type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${token}`,
       },
+    }).then(r => r.json()).then(re => {
+      location.href = re.url;
     });
 
-    let link = await res.json();
-    console.log(link)
-    return link;
+   return;
 
   }
 
