@@ -22,10 +22,12 @@ import axios from "axios";
 import axiosHttp from "../../../../utility/httpCalls";
 import routeConfig from "../../../../config/routeConfig";
 import Image from "next/image";
+import { useRouter } from "next/router";
 // import { Formik, Form, useField } from 'formik';
 // import TextArea from '../../components/atoms/form/formElements'
 
 export default function Prodotti({ brands, categories, product }) {
+  const router = useRouter();
   const [productOptions, setProductOptions] = useState(
     product?.variation || []
   );
@@ -192,6 +194,7 @@ export default function Prodotti({ brands, categories, product }) {
           if (result.status == 200) {
             toast.success("Updated");
             console.log(result);
+            window.location.reload();
           } else {
             toast.error("Sorry, I guess something went wrong");
           }
