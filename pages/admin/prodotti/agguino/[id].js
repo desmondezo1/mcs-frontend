@@ -19,6 +19,7 @@ import {
   categories as globalCategories,
 } from "../../../../config/prodotti";
 import axios from "axios";
+import axiosHttp from "../../../../utility/httpCalls";
 import routeConfig from "../../../../config/routeConfig";
 import Image from "next/image";
 // import { Formik, Form, useField } from 'formik';
@@ -33,7 +34,7 @@ export default function Prodotti({ brands, categories, product }) {
 
   const [title, setTitle] = useState(product?.title);
   const [description, setDescription] = useState(product?.description);
-  const [uses, setUses] = useState(product?.category_id);
+  const [uses, setUses] = useState(product?.uses);
   const [category, setCategory] = useState(product?.title);
 
   const [surface, setSurface] = useState(product?.surface);
@@ -108,12 +109,37 @@ export default function Prodotti({ brands, categories, product }) {
       });
   };
 
+  const deleteImageFunc = async ( imageId, imageIndex ) => {
+    const deleteImage = `${routeConfig.deleteImage}/${imageId}`;
+    const token = window.localStorage.getItem("token");
+
+   let filtrate =  images.filter((val, index) => {
+      if (imageIndex !== index) {
+        return val;
+      }
+    });
+
+    setImages(filtrate);
+
+    let resp = await axiosHttp(deleteImage,'','delete', token).then((res) => {
+      if (res.status == 200) {
+        toast.success("Deleted")
+      }
+      console.log(res);
+    }).catch((error)=>{
+      console.error(error.response);
+    });
+  };
+
+  
+
   const formik = useFormik({
     initialValues: {
       brand: "",
       description: "",
       title: "",
-      pieces: [{ price: [0, 0], discount: [0, 0], weight: "", packaging: "" }],
+      pieces: "",
+      // pieces: [{ price: [0, 0], discount: [0, 0], weight: "", packaging: "" }],
       pdf: "",
       image: [""],
       tag: "",
@@ -140,8 +166,15 @@ export default function Prodotti({ brands, categories, product }) {
       }
 
       let frmData = new FormData(fTag);
-      frmData.append("pieces", JSON.stringify(formD.pieces));
+     
+      frmData.append("pieces", JSON.stringify(productOptions));
       frmData.append("category", JSON.stringify(categories));
+      // frmData.append("tag", JSON.stringify(formD.tag));
+      // frmData.append("brand", JSON.stringify(brand));
+      // frmData.append("description", JSON.stringify(description));
+      // frmData.append("title", JSON.stringify(title));
+      // frmData.append("pieces", JSON.stringify(formD.pieces));
+      // frmData.append("category", JSON.stringify(categories));
       frmData.append("tag", JSON.stringify(tags));
       // console.log({ categories });
       const token = window.localStorage.getItem("token");
@@ -293,7 +326,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   <label htmlFor="packaging">Confezione</label>
                                   <Field
                                     id="packaging"
-                                    name={`pieces[${index}].packaging`}
+                                    // name={`pieces[${index}].packaging`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -308,7 +341,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   <label htmlFor="weight">Peso (kg)</label>
                                   <Field
                                     id="weight"
-                                    name={`pieces[${index}].weight`}
+                                    // name={`pieces[${index}].weight`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -323,7 +356,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   <label htmlFor="quantity">Quantità</label>
                                   <Field
                                     id="quantity"
-                                    name={`pieces[${index}].quantity`}
+                                    // name={`pieces[${index}].quantity`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -347,7 +380,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   </label>
                                   <Field
                                     id="price1"
-                                    name={`pieces[${index}].price[0]`}
+                                    // name={`pieces[${index}].price[0]`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -363,7 +396,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   </label>
                                   <Field
                                     id="price2"
-                                    name={`pieces[${index}].price[1]`}
+                                    // name={`pieces[${index}].price[1]`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -380,7 +413,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   </label>
                                   <Field
                                     id="discount1"
-                                    name={`pieces[${index}].discount[0]`}
+                                    // name={`pieces[${index}].discount[0]`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -396,7 +429,7 @@ export default function Prodotti({ brands, categories, product }) {
                                   </label>
                                   <Field
                                     id="discount2"
-                                    name={`pieces[${index}].discount[1]`}
+                                    // name={`pieces[${index}].discount[1]`}
                                     type="text"
                                     className="form-control"
                                     onChange={(e) =>
@@ -502,7 +535,31 @@ export default function Prodotti({ brands, categories, product }) {
                             multiple
                           />
                         </div>
+                      
+                        <div className="Image-gallery-wrapper d-flex">
+                          {images.map( (img, index) => {
+                            return(
+                              <div key={index} className="Images-image " style={{height: "100px", maxWidth: "100px", borderRadius: "100px", position: "relative"}} >
+                                <span className="" style={{
+                                  position: "absolute", 
+                                  top: "0", 
+                                  right: "0",
+                                  background: "red",
+                                  borderRadius: "18px",
+                                  color: "#fff",
+                                  fontSize: "0.7rem",
+                                  zIndex: "9",
+                                  padding: "3px 9px",
+                                  cursor: "pointer"                              
+                              }} onClick={(e) => { deleteImageFunc(img?.id, index ) }}> X </span>
+                                <Image src={!img?.image ? "https://picsum.photos/200/300.jpg" : img.image} height="100%" style={{maxHeight: "100px", borderRadius: "5px"}} width={'100%'} alt=""/>
+                              </div>
+                            )
+                          })}
+                        </div>
+
                       </div>
+ 
                     </div>
 
                     {/* add categories  */}
@@ -596,7 +653,7 @@ export default function Prodotti({ brands, categories, product }) {
                               className="form-control"
                               value={tag}
                               onChange={(e) => setTag(e.target.value)}
-                              name="tags"
+                              // name="tags"
                               placeholder="tags"
                             />
                           </div>

@@ -12,6 +12,7 @@ export default {
   updateProduct: baseUrl + "/admin/products", // + product id
   login: baseUrl + "/login",
   register: baseUrl + "/",
+  deleteImage: baseUrl + "/admin/products/image", //+ imageId
   getUsers: baseUrl + "/admin/users",
   getAdminUsers: baseUrl + "/admin/admins",
   updateUser: baseUrl + "/admin/user", //+ user Id
