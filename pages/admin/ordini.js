@@ -75,12 +75,11 @@ function Index({ ordersData }) {
               if (searchFilter == "none"|| searchFilter == "") {
                 return item;
               }else if (
-                item.email.toLowerCase() == searchFilter.toLowerCase() || 
-                item.first_name.toLowerCase() == searchFilter.toLowerCase() || 
-                item.last_name.toLowerCase() == searchFilter.toLowerCase() ||
-                item.id == searchFilter
+                item.id == searchFilter||
+                item.first_name.toLowerCase().startsWith(searchFilter.toLowerCase()) ||
+                item.last_name.toLowerCase().startsWith(searchFilter.toLowerCase()) ||
+                item.email.toLowerCase().startsWith(searchFilter.toLowerCase())
                 ) {
-                  console.log({itemf:item})
                 return item;
               }
             }).map(

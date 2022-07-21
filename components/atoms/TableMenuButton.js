@@ -57,14 +57,18 @@ function TableMenuButton({
       console.log({dataResult})
       if (dataResult.status == 1) {
         toast.success("Updated!");
+        window.location.reload();
       }
       if (dataResult.role == 3) {
         toast.success("updated!");
+        window.location.reload();
       }
       if (dataResult.status == 200) {
         toast.success(dataResult.desc);
+        window.location.reload();
       }else if (dataResult) {
         toast.success("Updated");
+        window.location.reload();
       }
     } else {
       toast.error("Sorry, I guess something went wrong");
