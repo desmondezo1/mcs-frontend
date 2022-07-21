@@ -54,11 +54,17 @@ function TableMenuButton({
     let dataResult = await httpCalls(url, data, method, token);
     dataResult = await dataResult;
     if (dataResult) {
-      if (dataResult.role == 1) {
+      console.log({dataResult})
+      if (dataResult.status == 1) {
         toast.success("Updated!");
       }
       if (dataResult.role == 3) {
         toast.success("updated!");
+      }
+      if (dataResult.status == 200) {
+        toast.success(dataResult.desc);
+      }else if (dataResult) {
+        toast.success("Updated");
       }
     } else {
       toast.error("Sorry, I guess something went wrong");
