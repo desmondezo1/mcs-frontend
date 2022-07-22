@@ -14,8 +14,10 @@ export default {
   register: baseUrl + "/",
   deleteImage: baseUrl + "/admin/products/image", //+ imageId
   getUsers: baseUrl + "/admin/users",
+  getUser: baseUrl + "/admin/user", // +userID
   getAdminUsers: baseUrl + "/admin/admins",
   updateUser: baseUrl + "/admin/user", //+ user Id
+  updateNonAdminUser: baseUrl + "/user", //+ user Id
   updateUserStatus: baseUrl + "/admin/user", //+ {user_id}/status
   deleteUser: baseUrl + "/admin/user", //+ user Id
   updateOrder: baseUrl + "/admin/order", //+ order Id
