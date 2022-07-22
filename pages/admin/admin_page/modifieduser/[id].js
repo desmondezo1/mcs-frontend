@@ -16,8 +16,10 @@ import {
   RoundedInput,
   RadioButtonContainer,
 } from "../../../../components/atoms/Input";
+import { useRouter } from "next/router";
 
 export default function modifieduser({user}) {
+  const router  = useRouter();
   const [userData, setUserData] = useState(user || {});
   const [firstName, setFirstName] = useState(user?.first_name || "");
   const [lastName, setLastName] = useState(user?.last_name || "");
@@ -32,14 +34,8 @@ export default function modifieduser({user}) {
   }
 
   const updateUser = async () => {
-    let formD = new FormData();
     const token = window.localStorage.getItem("token");
-    formD.append('first_name', firstName);
-    formD.append('last_name', lastName);
-    formD.append('email', email);
-    formD.append('password', password);
-    formD.append('phone', phone);
-    formD.append('role', `${userRole}`);
+
     if(userData.id){
       let updateUser = `${routeConfig.updateNonAdminUser}/${userData.id}`;
       const axiosConfig = {
@@ -122,7 +118,7 @@ export default function modifieduser({user}) {
               <Button
                 fontSize="0.8em"
                 size="auto"
-                onClick={() => router.push("admin_page/nuovouser")}
+                onClick={() => router.push("/admin/admin_page/nuovouser")}
               >
                 <AddIcon />
 
