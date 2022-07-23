@@ -2,6 +2,7 @@
  import Link from 'next/link'
  import { useRouter } from 'next/router'
  import useStore from '../stores/zustandStore'
+ import Cookies from "js-cookie";
  //import {v4 as uuidv4} from 'uuid'
 
  
@@ -11,6 +12,7 @@
    const setLogginState = useStore( state => state.setLoggedInState);
    const logOutUser = () => {
      setLogginState(false);
+     Cookies.remove('user', { path: ''})
      router.push('/')
    }
 

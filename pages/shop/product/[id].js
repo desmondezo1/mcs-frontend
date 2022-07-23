@@ -22,8 +22,12 @@ const Product = ({ errorCode, product: originalProductData }) => {
 
   useEffect(() => {
     setProduct(originalProductData);
+<<<<<<< HEAD
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+=======
+  }, [originalProductData]);
+>>>>>>> 9ce95d4ef73b3dcb87032c1b794c1ea6f78f456b
   const router = useRouter();
   const handleTabChange = (tab) => {
     setActiveTab(tab);

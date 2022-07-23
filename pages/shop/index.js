@@ -1,18 +1,25 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import ShopList from "../../components/shop";
 import ShopSideBar from "../../components/shop/sidebar";
 import { orderList } from "../../const";
 import useStore from "../../stores/zustandStore";
 import Cookies from "js-cookie";
 
-const Shop = ({ products, categories, brands }) => {
+const Shop = ({ products, categories, brands, m }) => {
   const userData = JSON.parse(Cookies.get("user") || "{}");
-  console.clear();
-  console.log("User Data", userData);
+
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
   const { brand, searchV } = router.query;
   console.log({ searchFilter });
+  useEffect(() => {
+    if (m == "success") {
+      toast.success("Il tuo ordine è stato ricevuto");
+    } else if (m == "failed") {
+      toast.error("pagamento fallito");
+    }
+  }, [m]);
   return (
     <div className=" pt-4 pb-[5em] md:px-5 lg:px-[4em]">
       <div
@@ -54,15 +61,19 @@ const Shop = ({ products, categories, brands }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(req) {
+  if (req) {
+    const { m } = req.query;
+  }
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
   const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
   const brands = await brandRes.json();
   const products = await res.json();
+
   const categories = await Catres.json();
   console.log({ products });
-  return { props: { products, categories, brands } };
+  return { props: { products, categories, brands, m } };
 }
 
 export default Shop;

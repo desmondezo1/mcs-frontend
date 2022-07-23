@@ -2,6 +2,8 @@ import Cok from 'cookie'
 
 
 export default async function Orders(req, res) {
+    const query = req.query;
+    const { userId } = query;
     let cook = Cok.parse(req.headers.cookie || "");
     let token = cook.token;
   
@@ -15,18 +17,16 @@ export default async function Orders(req, res) {
     }
   
       const resp = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}orders`,
+        `${process.env.NEXT_PUBLIC_API_URL}user/${userId}/orders/calculateShipping`,
         {
-            method: "POST",
-            body: req.body,
+            method: "GET",
             headers: {
-              // "Content-type": "application/json;charset=UTF-8",
+              "Content-type": "application/json;charset=UTF-8",
               'Authorization': `Bearer ${token}`,
             }
         }   
       );
         const data = await resp.json();
-        // console.log({data: data});
+        console.log(`${process.env.NEXT_PUBLIC_API_URL}user/${userId}/orders/calculateShipping`);
         res.send(data);
       }
-    

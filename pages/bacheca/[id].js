@@ -12,7 +12,8 @@ const Bacheca = ({ errorCode }) => {
   const setLogginState = useStore((state) => state.setLoggedInState);
   const logOutUser = () => {
     setLogginState(false);
-    Cookies.remove("user");
+    // Cookies.remove("user");
+    Cookies.remove('user', { path: ''})
     router.push("/accedi-registrati");
   };
 
