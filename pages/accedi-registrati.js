@@ -24,7 +24,8 @@ const Login = () => {
       toast.warning("el usuario ya esta conectado");
       router.push("/bacheca/" + JSON.parse(activeUser).id);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeUser]);
   const setLoginState = useStore((state) => state.setLoggedInState);
   const setUserId = useStore((state) => state.setUserId);
   const [login] = api.useLoginMutation();

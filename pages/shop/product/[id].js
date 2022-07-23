@@ -22,6 +22,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
 
   useEffect(() => {
     setProduct(originalProductData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const router = useRouter();
   const handleTabChange = (tab) => {
@@ -31,11 +32,6 @@ const Product = ({ errorCode, product: originalProductData }) => {
   const downloadPdf = (url) => {
     setActiveTab("pdf");
     router.push(url);
-    // console.log(url);
-    // fetch('/api/downloadPdf',{
-    //   method: 'POST',
-    //   body: JSON.stringify(url)
-    // })
   };
 
   const addToCart = (product) => {
@@ -54,9 +50,6 @@ const Product = ({ errorCode, product: originalProductData }) => {
   }
 
   function changeVariation(variant) {
-    console.clear();
-    console.log(variant);
-
     setProduct({
       ...originalProductData,
       ...variant,
