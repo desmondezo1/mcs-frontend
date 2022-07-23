@@ -47,11 +47,11 @@ export default async function axiosHttp(url, data, method, token){
     }
 
     let result = await ax;
-    if(result.data.status !== 200){
-        toast.error(result.data.desc);
-    }else{
-        toast.success(result.data.desc);
-    }
+    // if(result.data.status !== 200){
+    //     toast.error(result.data.desc);
+    // }else{
+    //     toast.success(result.data.desc);
+    // }
     return result.data.data;
 
 
