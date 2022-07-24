@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sidebar from "../../../components/sidebar";
 import Link from "next/link";
 import { initialState } from "../../../const/initialFomState";
+import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
 const Fatturazione = () => {
@@ -10,6 +11,7 @@ const Fatturazione = () => {
 
   const [APTSUITE, setAPTSUITE] = useState("Roma");
   const token = Cookies.get("token");
+  const router = useRouter();
 
   const activeUser = Cookies.get("user");
   const userId = JSON.parse(activeUser).id;
@@ -36,6 +38,7 @@ const Fatturazione = () => {
     })
       .then((res) => {
         res.json();
+        router.push("/bacheca/1");
       })
       .then((res) => console.log(res));
   }
