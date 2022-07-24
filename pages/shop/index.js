@@ -62,8 +62,9 @@ const Shop = ({ products, categories, brands, m }) => {
 };
 
 export async function getServerSideProps(req) {
-  if (req) {
-    const { m } = req.query;
+  let m = "";
+  if (req.query.m) {
+    m = req.query.m;
   }
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
@@ -72,7 +73,7 @@ export async function getServerSideProps(req) {
   const products = await res.json();
 
   const categories = await Catres.json();
-  console.log({ products });
+  console.log(m);
   return { props: { products, categories, brands, m } };
 }
 

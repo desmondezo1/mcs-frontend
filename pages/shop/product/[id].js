@@ -8,8 +8,12 @@ import Cart from "../../../components/cartList/cart";
 import Cok from "cookie";
 import { useRouter } from "next/router";
 import Error from "next/error";
+import digitToString from "../../../const/digitToString";
 
+// console.log(digitToString);
 const Product = ({ errorCode, product: originalProductData }) => {
+  // console.log("digit To String", );
+
   const dispatch = useDispatch();
   const [count, setCount] = useState(5);
 
@@ -22,12 +26,8 @@ const Product = ({ errorCode, product: originalProductData }) => {
 
   useEffect(() => {
     setProduct(originalProductData);
-<<<<<<< HEAD
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-=======
   }, [originalProductData]);
->>>>>>> 9ce95d4ef73b3dcb87032c1b794c1ea6f78f456b
   const router = useRouter();
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -61,10 +61,11 @@ const Product = ({ errorCode, product: originalProductData }) => {
   }
   const productionVariation = originalProductData.variation || [];
 
-  const variationList = productionVariation.map((variant) => {
+  const variationList = productionVariation.map((variant, index) => {
+    const position = digitToString(index + 1);
     return (
       <button onClick={() => changeVariation(variant)} key={variant.title}>
-        {variant.title}
+        {position} Variant
       </button>
     );
   });
@@ -112,9 +113,11 @@ const Product = ({ errorCode, product: originalProductData }) => {
               <div
                 style={{
                   position: "relative",
+                  flexFlow: "column",
                 }}
+                className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-3 py-1 cursor-pointer my-3"
               >
-                <div className="flex items-center justify-between w-fit border-1 border-black border-solid rounded-3xl px-3 py-1 cursor-pointer my-3">
+                <div className="flex items-center justify-between w-fit  border-solid rounded-3xl px-3  cursor-pointer my-1">
                   <button
                     className="text-sm pr-2"
                     onClick={() => setDropDownOpen((prev) => !prev)}
@@ -129,7 +132,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
                   <div
                     style={{
                       display: "flex",
-                      flexFlow: "column norwap",
+                      flexFlow: "column",
                     }}
                   >
                     {variationList}
