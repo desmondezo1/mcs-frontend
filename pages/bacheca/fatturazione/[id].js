@@ -1,38 +1,18 @@
 import { useState } from "react";
 import Sidebar from "../../../components/sidebar";
 import Link from "next/link";
+import { initialState } from "../../../const/initialFomState";
+import Cookies from "js-cookie";
 
 const Fatturazione = () => {
-  const initialState = {
-    first_name: "Desmond",
-    last_name: "Ezo-Ojile",
-    company_name: "MCS",
-    address1: "Lagos Nigeria",
-    address2: "",
-    city: "Ikeja",
-    state: "Lagos State",
-    post_code: "23456",
-    country: "Nigeria",
-    phone: 12345657689,
-    email: "desezo2@gmail.com",
-    tax_id_code: "234in42",
-    vat_number: "1233434",
-    unique_code: "234343",
-    pec: "2345465",
-    reference_person: "Mr Frank",
-    house_no: "3",
-    recipient_code: "34343",
-    fax: "Fax@fax",
-    cap: "no CAP",
-  };
   const [privateInput, setPrivateInput] = useState(true);
   const [state, setState] = useState(initialState);
 
-  const [CODICEUNIVOCO, setCODICEUNIVOCO] = useState("86334519757");
-  const [PEC, setPEC] = useState("info@diessofficial.com");
-
-  const [CODICEDESTINATARIO, setCODICEDESTINATARIO] = useState("Noah Ekere");
   const [APTSUITE, setAPTSUITE] = useState("Roma");
+  const token = Cookies.get("token");
+
+  const activeUser = Cookies.get("user");
+  const userId = JSON.parse(activeUser).id;
 
   const handlePrivateInput = (event) => {
     event.preventDefault();
@@ -45,7 +25,19 @@ const Fatturazione = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(state);
+
+    const formToRequest = { ...state, is_company: Number(privateInput) };
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${userId}/billing-address`, {
+      method: "POST",
+      body: formToRequest,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((res) => console.log(res));
   }
 
   return (
@@ -155,10 +147,9 @@ const Fatturazione = () => {
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                     type={"email"}
-                    onChange={(e) => {
-                      setPEC(e.target.value);
-                    }}
-                    value={PEC}
+                    onChange={onChange}
+                    value={state.pec}
+                    id="pec"
                   />
                 </div>
               </div>
@@ -183,10 +174,9 @@ const Fatturazione = () => {
                 <input
                   className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                   type={"text"}
-                  onChange={(e) => {
-                    setCODICEDESTINATARIO(e.target.value);
-                  }}
-                  value={CODICEDESTINATARIO}
+                  onChange={onChange}
+                  value={state.recipient_code}
+                  id="recipient_code"
                 />
               </div>
             )}
@@ -277,6 +267,7 @@ const Fatturazione = () => {
                 type={"text"}
                 onChange={onChange}
                 value={state.cap}
+                id="cap"
               />
             </div>
 
@@ -299,7 +290,8 @@ const Fatturazione = () => {
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"info@diessofficial.com"}
                 onChange={onChange}
-                value={state.cap}
+                value={state.fax}
+                id="fax"
               />
             </div>
             {/* <Link href="/bacheca/1"> */}
