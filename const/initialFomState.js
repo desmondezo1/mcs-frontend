@@ -21,3 +21,19 @@ export const initialState = {
   cap: "",
   is_company: 0,
 };
+
+export const initialStateForAzienda = {
+  first_name: "",
+  last_name: "",
+  tax_id_code: "",
+  email: "",
+  recipient_code: "",
+  country: "",
+  state: "",
+  house_no: "",
+  address1: "",
+  cap: "",
+  phone: "",
+  fax: "",
+  city: "",
+};
