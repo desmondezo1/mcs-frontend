@@ -105,6 +105,24 @@ export default function Home() {
           bottom: 0px;
           font-size: 0.8rem;
         }
+
+        @media (max-width: 760px) {
+          #sect0 {
+            flex-flow: column-reverse;
+            align-items: flex-start;
+          }
+          #sect0 > div {
+            margin: 10px 0;
+          }
+          #sect1 {
+            height: auto;
+            margin: 30px 0px;
+          }
+          #sect4 {
+            width: 100vw;
+            overflow: auto;
+          }
+        }
       `}</style>
       <main>
         <section className="d-flex" id={"sect0"}>
@@ -145,7 +163,16 @@ export default function Home() {
             </div>
 
             <div className={styles.distImageCard}>
-              <Image src={washingMachine} alt="" />
+              <div
+                style={{
+                  // padding: "10px",
+                  // background: "red",
+                  marginTop: "-27px",
+                }}
+              >
+                <Image src={washingMachine} alt="" />
+              </div>
+              {/* <WashingMachineSvg /> */}
               <div>
                 <Link href={"/category/macchinari"}>
                   <span className={"d-flex"}>
@@ -204,7 +231,7 @@ export default function Home() {
                 carta monouso.
               </div>
             </div>
-            <div className="row " style={{ marginBottom: 30 + "px" }}>
+            <div className="row" style={{ marginBottom: 30 + "px" }}>
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Priorità</span>
               </div>

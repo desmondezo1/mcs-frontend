@@ -57,7 +57,7 @@ export default function Washroom() {
             <Image src={LAVASCIUGA} alt="" />
             <div>
               <span className={"d-flex"}>
-                <p className="mr-1"> LAVASTOVIGLIE INDUSTRIALI </p>
+                <p className="mr-1"> LAVASTOVIGLIE INDUSTRIALIU </p>
                 {/* <Icon icon="cil:arrow-right"  style={{ fontSize: '1.5rem' }}/> */}
                 <Image src={arrowRight} height="14.4px" alt="arrow" />
               </span>
