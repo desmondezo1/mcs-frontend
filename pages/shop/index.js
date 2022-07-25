@@ -5,14 +5,16 @@ import ShopSideBar from "../../components/shop/sidebar";
 import { orderList } from "../../const";
 import useStore from "../../stores/zustandStore";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const Shop = ({ products, categories, brands, m }) => {
   const userData = JSON.parse(Cookies.get("user") || "{}");
 
+  console.log(m);
+
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
   const { brand, searchV } = router.query;
-  console.log({ searchFilter });
   useEffect(() => {
     if (m == "success") {
       toast.success("Il tuo ordine è stato ricevuto");
@@ -51,7 +53,6 @@ const Shop = ({ products, categories, brands, m }) => {
                   }
                 })
                 .map((product) => {
-                  console.log(product);
                   return <ShopList product={product} key={product.id} />;
                 })
             : "No products found"}
@@ -73,7 +74,6 @@ export async function getServerSideProps(req) {
   const products = await res.json();
 
   const categories = await Catres.json();
-  console.log(m);
   return { props: { products, categories, brands, m } };
 }
 
