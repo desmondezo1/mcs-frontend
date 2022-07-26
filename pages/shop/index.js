@@ -62,11 +62,11 @@ const Shop = ({ products, categories, brands, m }) => {
   );
 };
 
-export async function getServerSideProps(req) {
-  let m = "";
-  if (req.query.m) {
-    m = req.query.m;
-  }
+export async function getServerSideProps() {
+
+  // if (req) {
+  //   const { m } = req.query;
+  // }
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
   const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
@@ -74,7 +74,8 @@ export async function getServerSideProps(req) {
   const products = await res.json();
 
   const categories = await Catres.json();
-  return { props: { products, categories, brands, m } };
+  console.log({products});
+  return { props: { products, categories, brands } };
 }
 
 export default Shop;

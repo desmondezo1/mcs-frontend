@@ -10,7 +10,7 @@ export default function Document() {
           rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
           crosOrigin="anonymous"
-        />
+        /> 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -30,6 +30,7 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap"
           rel="stylesheet"
+          crossOrigin="true"
         />
         <link
           rel="apple-touch-icon"

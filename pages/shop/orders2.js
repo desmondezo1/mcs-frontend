@@ -71,11 +71,11 @@ export default function Orders() {
         // "Content-type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${token}`,
       },
+    }).then(r => r.json()).then(re => {
+      location.href = re.url;
     });
 
-    let link = await res.json();
-    console.log(link)
-    return link;
+   return;
 
   }
 

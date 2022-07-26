@@ -86,6 +86,7 @@ const Cart = () => {
                     key={index}
                     id={item.id}
                     name={item.name}
+                    photo={item.photo}
                     price={item.price}
                     quantity={item.quantity}
                     item={item}
