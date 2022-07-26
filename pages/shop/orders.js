@@ -35,7 +35,10 @@ export default function Orders() {
   }
 
   const handleProceedToOrders = async (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+    
     let token = Cookies.get("token");
     if (!privateInput) {
       console.log("freeshipping");
@@ -48,10 +51,10 @@ export default function Orders() {
         await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,
           {
-            method: "POST",
+            method: "PATCH",
             body: JSON.stringify(state),
             headers: {
-              // "Content-type": "application/x-www-form-urlencoded",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
             },
           }
@@ -64,6 +67,8 @@ export default function Orders() {
             } else {
               toast.info(res.desc);
             }
+          }).catch((error)=>{
+            toast.error(error)
           });
       }
     }

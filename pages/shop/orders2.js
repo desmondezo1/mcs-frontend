@@ -46,6 +46,10 @@ export default function Orders() {
       if(res.status == 200){
         toast.success(res.desc);
         let paymentlink = await  getPaymentLink(userData.id, res.data.id);
+        if (paymentlink.status == 200) {
+         toast.success("payment started");
+         window.location.href = paymentlink.url;
+        }
         console.log(paymentlink);
       } else {
         toast.info(res.desc);
