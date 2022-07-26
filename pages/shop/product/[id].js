@@ -209,7 +209,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
               className={`cursor-pointer text-sm w-full sm:w-fit ${
                 activeTab === "tab3" ? "text-gray-400" : "text-black"
               } flex items-center`}
-              onClick={() => handleTabChange("tab3")}
+              onClick={() => router.push("/private-policy")}
             >
               <span> SPEDIZIONE E RESO</span>
               <span className="ml-2">
