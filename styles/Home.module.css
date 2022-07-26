@@ -12,36 +12,35 @@
   width: 100% !important;
 }
 
-.arrow{
+.arrow {
   position: sticky;
   margin-top: 467px;
   bottom: 10px;
   cursor: pointer;
 }
 
-.distributorsSection{
+.distributorsSection {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 768px;
 }
 
-.distributorsSectionWrapper{
+.distributorsSectionWrapper {
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-gap: 20px;
   height: 431px;
- 
 }
 
-.distImageCard{
+.distImageCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 
-.distImageCard span{
+.distImageCard span {
   margin-top: 30px;
   border: 1px solid #000;
   border-radius: 20px;
@@ -49,12 +48,12 @@
   cursor: pointer;
 }
 
-.distImageCard span p{
+.distImageCard span p {
   font-size: 0.8rem;
-  margin-right: 10px!important;
+  margin-right: 10px !important;
 }
 
-.link_with_arrow{
+.link_with_arrow {
   margin-top: 30px;
   border: 1px solid #000;
   border-radius: 20px;
@@ -62,25 +61,25 @@
   cursor: pointer;
 }
 
-.partnersSection{
- height: 768px;
- border-top: 1px solid #000 ;
- border-bottom: 1px solid #000 ;
- display: flex;
- justify-content: center;
- align-items: center;
+.partnersSection {
+  height: 768px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.partnersSectionWrapper{
+.partnersSectionWrapper {
   width: 70%;
 }
 
-.name{
+.name {
   padding: 10px 0;
   border-bottom: 1px solid black;
 }
 
-.statsSection{
+.statsSection {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -89,57 +88,57 @@
   align-items: center;
 }
 
-.statLabel{
-  font-size: 0.9rem
+.statLabel {
+  font-size: 0.9rem;
 }
 
-.statsSectionWrapper{
+.statsSectionWrapper {
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-gap: 20px;
 }
 
-.statCircle{
+.statCircle {
   padding: 80px;
   border-radius: 50%;
   height: 217.82px;
   width: 217.82px;
-  background-color: #1E3F7F;
+  background-color: #1e3f7f;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 65.41px;
-  color: #F0F0F0;
+  color: #f0f0f0;
 }
 
-.stat{
+.stat {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 
-.statLinkNext{
+.statLinkNext {
   position: absolute;
   bottom: 40px;
 }
 
-.statLinkNext a{
+.statLinkNext a {
   /* padding: 2px 15px; */
   font-size: 0.8rem;
   display: flex;
   flex-direction: row;
 }
 
-.statLinkNext img{
-  padding-left: 10px!important;
+.statLinkNext img {
+  padding-left: 10px !important;
 }
 
-.statLabel{
+.statLabel {
   margin-top: 20px;
 }
 
-.mapSection{
+.mapSection {
   height: 768px;
   display: flex;
   align-items: center;
@@ -148,17 +147,17 @@
   border-bottom: 1px solid #000;
 }
 
-.mapSectionWrapper{
+.mapSectionWrapper {
   display: flex;
   width: 75%;
 }
 
-.contactForm{
+.contactForm {
   padding: 20px;
   margin: 20px 0;
 }
 
-.listStye{
+.listStye {
   list-style: none;
   margin-top: 30px;
 }
@@ -191,11 +190,33 @@
   grid-gap: 5% 1%;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 760px) {
   .second_container {
     grid-template-columns: 100%;
     height: auto;
     grid-template-rows: auto;
+  }
+  .statsSectionWrapper {
+    width: 100vw;
+    overflow: auto;
+  }
+  .distributorsSectionWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+  }
+  .partnersSection {
+    height: auto;
+    padding-top: 30px;
+  }
+  .partnersSectionWrapper {
+  }
+
+  .partnersSectionWrapper > div {
+    flex-flow: column nowrap;
+  }
+  .partnersSectionWrapper > div > div {
+    margin-bottom: 20px;
   }
 }
 

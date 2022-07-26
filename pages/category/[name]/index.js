@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import DynamicCategories from "../../../components/molecules/dynamicCategories";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
+export default function Category() {
+  const router = useRouter();
+  const [title, setTitle] = useState("");
 
-export default function Category(){
-    const router = useRouter();
-    const [title, setTitle] = useState("");
+  useEffect(() => {
+    const { name } = router.query;
+    const nameDecoded = decodeURIComponent(name);
+    setTitle(nameDecoded);
+  }, [router.query]);
 
-    useEffect(()=>{
-        const { name } = router.query;
-        const nameDecoded  = decodeURIComponent(name)
-        setTitle(nameDecoded)
-    },[router.query])
-
-    return (<>
-        <DynamicCategories title={title} />
-    
-    
-    </>)
+  console.log(title);
+  return (
+    <>
+      <DynamicCategories title={title} />
+    </>
+  );
 }

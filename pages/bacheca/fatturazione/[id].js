@@ -1,42 +1,54 @@
 import { useState } from "react";
 import Sidebar from "../../../components/sidebar";
 import Link from "next/link";
+import { initialState } from "../../../const/initialFomState";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Fatturazione = () => {
   const [privateInput, setPrivateInput] = useState(true);
+  const [state, setState] = useState(initialState);
 
-  const [Nome, setNome] = useState("Noah Ekere");
-  const [COGNOME, setCOGNOME] = useState("Osas");
-  const [CODICEFISCALE, setCODICEFISCALE] = useState("SSNNNGLKNAHLK32850");
-  const [RAGIONE, setRAGIONE] = useState("DLESS");
-  const [PATITAIVA, setPATITAIVA] = useState("86334519757");
-  const [CODICEUNIVOCO, setCODICEUNIVOCO] = useState("86334519757");
-  const [PEC, setPEC] = useState("info@diessofficial.com");
-  const [INDIRIZZOEMAIL, setINDIRIZZOEMAIL] = useState(
-    "info@diessofficial.com"
-  );
-  const [CODICEDESTINATARIO, setCODICEDESTINATARIO] = useState("Noah Ekere");
-  const [REGIONE, setREGIONE] = useState("Italia");
-  const [PROVINCA, setPROVINCA] = useState("Roma");
-  const [CITA, setCITA] = useState("Roma");
-  const [INDRIZZO, setINDRIZZO] = useState("Via Alberti Lamborghini");
   const [APTSUITE, setAPTSUITE] = useState("Roma");
-  const [NUMERO, setNUMERO] = useState(55);
-  const [CAP, setCAP] = useState(18775);
-  const [TELEFONO, setTELEFONO] = useState("333 446 2789");
-  const [FAX, setFAX] = useState("55");
+  const token = Cookies.get("token");
+  const router = useRouter();
+
+  const activeUser = Cookies.get("user");
+  const userId = JSON.parse(activeUser).id;
 
   const handlePrivateInput = (event) => {
     event.preventDefault();
     setPrivateInput(!privateInput);
   };
 
+  function onChange(e) {
+    setState((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const formToRequest = { ...state, is_company: Number(privateInput) };
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${userId}/billing-address`, {
+      method: "POST",
+      body: formToRequest,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        res.json();
+        router.push("/bacheca/1");
+      })
+      .then((res) => console.log(res));
+  }
+
   return (
     <div className=" pt-4 pb-[5em] md:px-5 lg:px-[5em]">
       <div className="flex flex-wrap  justify-between  px-4">
         <Sidebar />
         <div className="w-1/2 min-w-[250px] text-sm">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="top ">
               <label>
                 TIPO CLIENTE<span className="text-red-600">*</span>
@@ -47,7 +59,7 @@ const Fatturazione = () => {
                   className={`mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3 ${
                     privateInput && "bg-black text-white"
                   }`}
-                  type={"submit"}
+                  type={"button"}
                   value="PRIVATO"
                 />
                 <input
@@ -55,7 +67,7 @@ const Fatturazione = () => {
                   className={`mr-3 border-2 border-solid border-gray-700 rounded-3xl px-3 ${
                     !privateInput && "bg-black text-white"
                   }`}
-                  type={"submit"}
+                  type={"button"}
                   value="AZIENDA"
                 />
               </div>
@@ -67,10 +79,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setNome(e.target.value);
-                }}
-                value={Nome}
+                onChange={onChange}
+                id="first_name"
+                value={state.first_name}
               />
             </div>
 
@@ -81,10 +92,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setCOGNOME(e.target.value);
-                }}
-                value={COGNOME}
+                onChange={onChange}
+                value={state.last_name}
+                id="last_name"
               />
             </div>
 
@@ -95,10 +105,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-                value={CODICEFISCALE}
+                onChange={onChange}
+                value={state.tax_id_code}
+                id="tax_id_code"
               />
             </div>
             {!privateInput && (
@@ -108,10 +117,9 @@ const Fatturazione = () => {
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                     type={"text"}
-                    onChange={(e) => {
-                      setRAGIONE(e.target.value);
-                    }}
-                    value={RAGIONE}
+                    onChange={onChange}
+                    value={state.company_name}
+                    id="company_name"
                   />
                 </div>
 
@@ -120,10 +128,9 @@ const Fatturazione = () => {
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                     type={"text"}
-                    onChange={(e) => {
-                      setPATITAIVA(e.target.value);
-                    }}
-                    value={PATITAIVA}
+                    onChange={onChange}
+                    value={state.vat_number}
+                    id="vat_number"
                   />
                 </div>
 
@@ -132,10 +139,9 @@ const Fatturazione = () => {
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                     type={"text"}
-                    onChange={(e) => {
-                      setCODICEUNIVOCO(e.target.value);
-                    }}
-                    value={CODICEUNIVOCO}
+                    onChange={onChange}
+                    value={state.unique_code}
+                    id="unique_code"
                   />
                 </div>
 
@@ -144,10 +150,9 @@ const Fatturazione = () => {
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                     type={"email"}
-                    onChange={(e) => {
-                      setPEC(e.target.value);
-                    }}
-                    value={PEC}
+                    onChange={onChange}
+                    value={state.pec}
+                    id="pec"
                   />
                 </div>
               </div>
@@ -160,10 +165,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setINDIRIZZOEMAIL(e.target.value);
-                }}
-                value={INDIRIZZOEMAIL}
+                onChange={onChange}
+                value={state.email}
+                id="email"
               />
             </div>
 
@@ -173,10 +177,9 @@ const Fatturazione = () => {
                 <input
                   className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                   type={"text"}
-                  onChange={(e) => {
-                    setCODICEDESTINATARIO(e.target.value);
-                  }}
-                  value={CODICEDESTINATARIO}
+                  onChange={onChange}
+                  value={state.recipient_code}
+                  id="recipient_code"
                 />
               </div>
             )}
@@ -188,10 +191,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setREGIONE(e.target.value);
-                }}
-                value={REGIONE}
+                onChange={onChange}
+                id="country"
+                value={state.country}
               />
             </div>
 
@@ -202,10 +204,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setPROVINCA(e.target.value);
-                }}
-                value={PROVINCA}
+                onChange={onChange}
+                value={state.state}
+                id="state"
               />
             </div>
 
@@ -216,10 +217,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setCITA(e.target.value);
-                }}
-                value={CITA}
+                onChange={onChange}
+                value={state.city}
+                id="city"
               />
             </div>
 
@@ -230,10 +230,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setINDRIZZO(e.target.value);
-                }}
-                value={INDRIZZO}
+                onChange={onChange}
+                value={state.address1}
+                id="address1"
               />
             </div>
 
@@ -256,10 +255,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setNUMERO(e.target.value);
-                }}
-                value={NUMERO}
+                onChange={onChange}
+                id="house_no"
+                value={state.house_no}
               />
             </div>
 
@@ -270,10 +268,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setCAP(e.target.value);
-                }}
-                value={CAP}
+                onChange={onChange}
+                value={state.cap}
+                id="cap"
               />
             </div>
 
@@ -284,10 +281,9 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"text"}
-                onChange={(e) => {
-                  setTELEFONO(e.target.value);
-                }}
-                value={TELEFONO}
+                onChange={onChange}
+                value={state.phone}
+                id="phone"
               />
             </div>
 
@@ -296,19 +292,18 @@ const Fatturazione = () => {
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                 type={"info@diessofficial.com"}
-                onChange={(e) => {
-                  setFAX(e.target.value);
-                }}
-                value={FAX}
+                onChange={onChange}
+                value={state.fax}
+                id="fax"
               />
             </div>
-            <Link href="/bacheca/1">
-              <input
-                className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
-                type={"submit"}
-                value="SALVA"
-              />
-            </Link>
+            {/* <Link href="/bacheca/1"> */}
+            <input
+              className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
+              type={"submit"}
+              value="SALVA"
+            />
+            {/* </Link> */}
           </form>
         </div>
       </div>

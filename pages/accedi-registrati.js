@@ -8,6 +8,7 @@ import api from "../stores/StoreAPI";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import useStore from "../stores/zustandStore";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const LoginSchema = Yup.object().shape({
@@ -19,11 +20,14 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const activeUser = Cookies.get("user");
+  const isLoggedIn = useSelector((state) => state.loggedIn);
+
   useEffect(() => {
-    if (activeUser) {
+    if (isLoggedIn) {
       toast.warning("el usuario ya esta conectado");
       router.push("/bacheca/" + JSON.parse(activeUser).id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeUser]);
   const setLoginState = useStore((state) => state.setLoggedInState);
   const setUserId = useStore((state) => state.setUserId);

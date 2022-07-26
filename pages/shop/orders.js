@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import SpedizioneForm from "../../components/molecules/forms/spedizione";
 import useStore from "../../stores/zustandStore";
+import { initialState } from "../../const/initialFomState";
 
 export default function Orders() {
   const activeUser = JSON.parse(Cookies.get("user") || "{}");
@@ -23,34 +24,55 @@ export default function Orders() {
   const [privateInput, setPrivateInput] = useState(true);
   const [userData, setUserData] = useState("");
 
-  const handleProceedToOrders = async () => {
+  const [state, setState] = useState(initialState);
+
+  function onChange(e) {
+    console.log(e.target);
+    setState((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  const handleProceedToOrders = async (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    
     let token = Cookies.get("token");
-    if(!privateInput){
-      console.log('freeshipping');
-    }else{
+    if (!privateInput) {
+      console.log("freeshipping");
+    } else {
       let doc = document.getElementById("shippingDetails");
-      if(doc){
+      if (doc) {
         let formD = new FormData(doc);
-        formD.append('is_company', 0);
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,{
-          method:"POST",
-          body: formD,
-          headers: {
-            // "Content-type": "application/x-www-form-urlencoded",
-            Authorization: `Bearer ${token}`,
-          },
-        }).then(res => res.json()).then(res => {
-          if(res.status == 200){
-            toast.success(res.desc);
-            router.push("/shop/orders2");
-          }else{
-            toast.info(res.desc)
+        formD.append("is_company", 0);
+
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,
+          {
+            method: "PATCH",
+            body: JSON.stringify(state),
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
           }
-        })
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.status == 200) {
+              toast.success(res.desc);
+              router.push("/shop/orders2");
+            } else {
+              toast.info(res.desc);
+            }
+          }).catch((error)=>{
+            toast.error(error)
+          });
       }
     }
   };
-
 
   const totalCartPrice = () => {
     let total = 0;
@@ -139,8 +161,12 @@ export default function Orders() {
                 />
               </div>
               {privateInput ? (
-                <form id="shippingDetails">
-                  <SpedizioneForm user={userData} />
+                <form id="shippingDetails" onSubmit={handleProceedToOrders}>
+                  <SpedizioneForm
+                    user={userData}
+                    onChange={onChange}
+                    state={state}
+                  />
                 </form>
               ) : (
                 <div

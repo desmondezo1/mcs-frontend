@@ -45,11 +45,12 @@ export default function Orders() {
     }).then(res =>  res.json()).then(async res => {
       if(res.status == 200){
         toast.success(res.desc);
-        let paymentlink = await  getPaymentLink(userData.id, res.data.id); 
-        console.log({paymentlink})
-          if(paymentlink){
-            window.location.href = paymentlink.url;
-          }
+        let paymentlink = await  getPaymentLink(userData.id, res.data.id);
+        if (paymentlink.status == 200) {
+         toast.success("payment started");
+         window.location.href = paymentlink.url;
+        }
+        console.log(paymentlink);
       } else {
         toast.info(res.desc);
       }
