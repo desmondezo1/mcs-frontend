@@ -14,7 +14,7 @@ const Fatturazione = () => {
   const router = useRouter();
 
   const activeUser = Cookies.get("user");
-  const userId = JSON.parse(activeUser, "{}").id;
+  const userId = JSON.parse(activeUser || "{}").id;
 
   const handlePrivateInput = (event) => {
     event.preventDefault();
