@@ -109,6 +109,10 @@ export default function MepaHeader() {
               HeaderCss.navListConatiner
             }`}
             id="navbarText"
+            style={{
+              background: "black",
+              padding: "2em 0",
+            }}
           >
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
               <li className={` ${"nav-item"}`}>

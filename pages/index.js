@@ -125,7 +125,7 @@ export default function Home() {
         }
       `}</style>
       <main>
-        <section className="d-flex" id={"sect0"}>
+        <section className="d-flex p-2" id={"sect0"}>
           <div className="flex-grow-1">
             <Image alt="jumbotron" src={jumbotron} />
           </div>
@@ -163,13 +163,7 @@ export default function Home() {
             </div>
 
             <div className={styles.distImageCard}>
-              <div
-                style={{
-                  // padding: "10px",
-                  // background: "red",
-                  marginTop: "-27px",
-                }}
-              >
+              <div style={{}} id="weird_image_shi">
                 <Image src={washingMachine} alt="" />
               </div>
               {/* <WashingMachineSvg /> */}
@@ -218,7 +212,7 @@ export default function Home() {
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Chi Siamo</span>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-12">
                 MCS nasce nel 2004 dal desiderio di offrire soluzioni di qualità
                 per i servizi igienici attraverso distributori ed accessori di
                 ogni tipo. Profumatori ambientali, igienizzanti per i wc,
@@ -235,7 +229,7 @@ export default function Home() {
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Priorità</span>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-12">
                 Durante l' evoluzione dell' azienda e delle diverse tecnologie
                 MCS aggiorna di continuo il proprio staff garantendo sempre una
                 qualità impeccabile per il cliente. La nostra priorità è sempre
@@ -246,7 +240,7 @@ export default function Home() {
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Visione</span>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-12">
                 Proporsi come un partner affidabile e presente per i propri
                 clienti è la visione che contraddistingue la cultura aziendale
                 di MCS. Acquistare un prodotto MCS non vuol dire soltanto avere

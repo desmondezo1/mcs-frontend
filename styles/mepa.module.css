@@ -1,0 +1,15 @@
+@media (max-width: 760px) {
+  .mepaWrapper {
+    width: 100% !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-flow: column nowrap;
+    padding: 20px !important;
+  }
+  .mepaWrapper > span {
+    margin-left: 10px;
+  }
+  .textGeneralContainer > div {
+    width: 100%;
+  }
+}

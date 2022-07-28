@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import useStore from "../stores/zustandStore";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import LoginModule from "../styles/login.module.css";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -82,8 +83,12 @@ const Login = () => {
 
   return (
     <div className="py-[3em]">
-      <div className="flex items-center justify-between flex-wrap  px-4 mx-auto w-[98%] md:w-[95%] lg:w-4/5 ">
-        <div className="w-1/2 p-[3em] lg:border-r-gray-500 lg:border-r lg:boder-r-solid">
+      <div
+        className={`flex items-center justify-between flex-wrap  px-4 mx-auto w-[98%] md:w-[95%] lg:w-4/5 ${LoginModule.container}`}
+      >
+        <div
+          className={`w-1/2 p-[3em] lg:border-r-gray-500 lg:border-r lg:boder-r-solid ${LoginModule.mainFormContainer}`}
+        >
           <div className="inner w-[280px] lg:w-[350px]">
             <h2 className="border-b-[2px] w-fit border-gray-700 border-solid">
               ACCEDI
