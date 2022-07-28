@@ -218,6 +218,21 @@
   .partnersSectionWrapper > div > div {
     margin-bottom: 20px;
   }
+
+  .mapSection {
+    height: auto;
+    padding: 10px 5px;
+  }
+  .mapSectionWrapper {
+    width: 100%;
+    justify-content: center;
+    flex-flow: column;
+  }
+
+  .mapSectionMap iframe {
+    width: 100% !important;
+    margin-top: 20px;
+  }
 }
 
 .second_container > div {

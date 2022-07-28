@@ -116,7 +116,10 @@ export default function MepaHeader() {
                   <a
                     className={`${"active"} ${"nav-link"}`}
                     aria-current="page"
-                    style={{ background: "#fff", color: "#1E3F7F!important" }}
+                    style={{
+                      background: router.asPath === "/shop" && "#fff",
+                      color: router.asPath === "/shop" && "#1E3F7F !important",
+                    }}
                   >
                     SHOP
                   </a>
@@ -152,7 +155,13 @@ export default function MepaHeader() {
                     className={`${
                       router.asPath == "/mepa" ? "active" : ""
                     } ${"nav-link"}`}
-                    style={{ color: "#000" }}
+                    style={{
+                      background: router.asPath == "/mepa" && "#fff",
+                      color:
+                        router.asPath == "/mepa"
+                          ? "#1E3F7F !important"
+                          : "#000",
+                    }}
                   >
                     MEPA
                   </a>
