@@ -5,7 +5,7 @@ import { initialState } from "../../../const/initialFomState";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
-const Fatturazione = () => {
+export const Fatturazione = () => {
   const [privateInput, setPrivateInput] = useState(true);
   const [state, setState] = useState(initialState);
 
@@ -30,17 +30,18 @@ const Fatturazione = () => {
 
     const formToRequest = { ...state, is_company: Number(privateInput) };
     fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${userId}/billing-address`, {
-      method: "POST",
+      method: "PATCH",
       body: formToRequest,
       headers: {
+        "Content-type": "application/json;charset=UTF-8",
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
-        res.json();
-        router.push("/bacheca/1");
+        return res.json();
+        
       })
-      .then((res) => console.log(res));
+      .then((res) =>{ console.log(res); router.push("/bacheca/1");});
   }
 
   return (
