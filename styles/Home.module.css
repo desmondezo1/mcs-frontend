@@ -47,7 +47,23 @@
   padding: 2px 15px;
   cursor: pointer;
 }
+.distImageCard #weird_image_shi {
+  margin-top: 0px;
+}
 
+@media (max-width: 760px) {
+  .distImageCard #weird_image_shi {
+    margin-top: -27px;
+    height: 121% !important;
+    max-height: 200%;
+  }
+  .distributorsSection {
+    padding: 1em;
+  }
+  .partnersSectionWrapper {
+    width: 100%;
+  }
+}
 .distImageCard span p {
   font-size: 0.8rem;
   margin-right: 10px !important;
@@ -199,6 +215,7 @@
   .statsSectionWrapper {
     width: 100vw;
     overflow: auto;
+    padding: 10px;
   }
   .distributorsSectionWrapper {
     display: grid;
@@ -217,6 +234,36 @@
   }
   .partnersSectionWrapper > div > div {
     margin-bottom: 20px;
+  }
+
+  .mapSection {
+    height: auto;
+    padding: 10px 5px;
+  }
+  .mapSectionWrapper {
+    width: 100%;
+    justify-content: center;
+    flex-flow: column;
+  }
+
+  .mapSectionMap iframe {
+    width: 100% !important;
+    margin-top: 20px;
+  }
+
+  .statCircle {
+    height: 20px;
+    width: 20px;
+    font-size: 1em;
+    padding: 40px;
+  }
+  .statLabel {
+    font-size: 0.8em;
+    text-align: center;
+  }
+  .statsSection {
+    height: 50vh;
+    /* padding: 2em 0; */
   }
 }
 

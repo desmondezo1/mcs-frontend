@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import MepaStyle from "../styles/mepa.module.css";
 
 const Mepa = () => {
   return (
@@ -28,7 +29,7 @@ const Mepa = () => {
       `}
       </style>
       <div className="bg-[#1E3F7F] text-white py-9 h-[100vh] border-b border-solid">
-        <div className=" mepaWrapper">
+        <div className={`${MepaStyle.mepaWrapper} mepaWrapper`}>
           <div className="left min-w-fit">
             <h1 className="mepa-title">
               <span className="border-b border-gray-300 border-solid">
@@ -37,7 +38,7 @@ const Mepa = () => {
               </span>
             </h1>
           </div>
-          <div className="right">
+          <div className={`right ${MepaStyle.textGeneralContainer}`}>
             <div className="text-sm w-[650px] md:mt-0 mt-3 px-2 mx-auto">
               <p>
                 Il Mercato Elettronico della PA (MEPA) è uno strumento di

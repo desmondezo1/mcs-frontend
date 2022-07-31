@@ -124,6 +124,11 @@ export default function Header() {
             className={`${"collapse navbar-collapse end-0"} ${
               HeaderCss.navListConatiner
             }`}
+            style={{
+              background: "white",
+
+              zIndex: 1000,
+            }}
             id="navbarText"
           >
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">

@@ -125,7 +125,7 @@ export default function Home() {
         }
       `}</style>
       <main>
-        <section className="d-flex" id={"sect0"}>
+        <section className="d-flex p-2" id={"sect0"}>
           <div className="flex-grow-1">
             <Image alt="jumbotron" src={jumbotron} />
           </div>
@@ -163,13 +163,7 @@ export default function Home() {
             </div>
 
             <div className={styles.distImageCard}>
-              <div
-                style={{
-                  // padding: "10px",
-                  // background: "red",
-                  marginTop: "-27px",
-                }}
-              >
+              <div style={{}} id="weird_image_shi">
                 <Image src={washingMachine} alt="" />
               </div>
               {/* <WashingMachineSvg /> */}
@@ -218,7 +212,7 @@ export default function Home() {
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Chi Siamo</span>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-12">
                 MCS nasce nel 2004 dal desiderio di offrire soluzioni di qualità
                 per i servizi igienici attraverso distributori ed accessori di
                 ogni tipo. Profumatori ambientali, igienizzanti per i wc,
@@ -235,7 +229,7 @@ export default function Home() {
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Priorità</span>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-12">
                 Durante l' evoluzione dell' azienda e delle diverse tecnologie
                 MCS aggiorna di continuo il proprio staff garantendo sempre una
                 qualità impeccabile per il cliente. La nostra priorità è sempre
@@ -246,7 +240,7 @@ export default function Home() {
               <div className={`${"col-4"}`}>
                 <span className={`${styles.name}`}>Visione</span>
               </div>
-              <div className="col-8">
+              <div className="col-md-8 col-12">
                 Proporsi come un partner affidabile e presente per i propri
                 clienti è la visione che contraddistingue la cultura aziendale
                 di MCS. Acquistare un prodotto MCS non vuol dire soltanto avere
@@ -329,7 +323,7 @@ export default function Home() {
             <div
               className={`${
                 styles.mapSectionContactForm
-              } ${"col-6 position-relative"}`}
+              } ${"col-12 col-md-6 position-relative"}`}
             >
               <span className={`${styles.name} ${"conttati"}`}>Contattaci</span>
 
@@ -337,7 +331,7 @@ export default function Home() {
                 <textarea
                   height="417px"
                   width="425px"
-                  className="form-control"
+                  className="form-control mb-5 mb-md-0"
                   placeholder="Scrivici qui!"
                   id="exampleFormControlTextarea1"
                   rows="10"
@@ -357,7 +351,7 @@ export default function Home() {
               </span>
             </div>
 
-            <div className={`${styles.mapSectionMap} ${"col-6"}`}>
+            <div className={`${styles.mapSectionMap} ${"col-12 col-md-6"}`}>
               <span>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.768462533129!2d14.673311315293335!3d36.91979997992414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe93ea2e74cec0df!2zMzbCsDU1JzExLjMiTiAxNMKwNDAnMzEuOCJF!5e0!3m2!1sen!2sit!4v1652256563849!5m2!1sen!2sit"
