@@ -35,9 +35,17 @@ export default function Footer(){
                 </div>
                 <div className={FooterCss.linkContainer}>
                     <ul>
-                        <li>Termini e Condizioni</li>
+                        <li>
+                            <Link href={"/termsAndCondition"}>
+                                Termini e Condizioni
+                            </Link>
+                        </li>
                         <li>Reso Prodotti</li>
-                        <li>Privacy Policy</li>
+                        <li>
+                            <Link href={'/private-policy'}>
+                                Privacy Policy
+                            </Link>
+                        </li>
                         <li>Cookie Policy</li>
                     </ul>
                 </div>
@@ -52,22 +60,22 @@ export default function Footer(){
             <div className={`${FooterCss.socialsWrapper}`}>
                <div className={FooterCss.socialsContainer}>
                    <span style={{ display:"flex" }}>
-                         <a >ASSITENZA CLIENTI</a>
+                         <a href='https://www.google.com/search?q=0932642711&oq=0932642711&aqs=chrome..69i57.214j0j4&sourceid=chrome&ie=UTF-8' >ASSITENZA CLIENTI</a>
                          <Icon icon="carbon:arrow-up-right" style={{ fontSize: '1rem' }} />
                    </span>
                   
                     <span style={{ display:"flex" }}>
-                        <a >WHATSAPP</a>
+                        <a href='https://api.whatsapp.com/send?phone=393893154823&app=facebook&entry_point=page_cta&fbclid=IwAR2eZdAGsGyhou8Zzlc1_FU7Z7dOqyHdB6GPDWRBimwWoS553lbjgaRCUzg' >WHATSAPP</a>
                         <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1rem' }}/>
                     </span>
                     
                     <span style={{ display:"flex" }}>
-                        <a >FACEBOOK</a>
+                        <a href='https://web.facebook.com/people/Mcsgroupragusa/100083135592183/'>FACEBOOK</a>
                         <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1rem' }}/>
                     </span>
                     
                     <span style={{ display:"flex" }}>
-                        <a >INSTAGRAM</a>
+                        <a href='https://www.instagram.com/mcsgroup.ragusa/' >INSTAGRAM</a>
                         <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1rem' }}/>
                     </span>
                     
