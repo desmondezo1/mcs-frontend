@@ -107,10 +107,9 @@ export default function MepaHeader() {
           <div
             className={`${"collapse navbar-collapse end-0"} ${
               HeaderCss.navListConatiner
-            }`}
+            }  ${HeaderCss.mepaHeaderNavList}`}
             id="navbarText"
             style={{
-              background: "black",
               padding: "2em 0",
             }}
           >

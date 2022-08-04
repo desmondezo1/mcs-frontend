@@ -6,7 +6,7 @@ import jumbotron from "../public/images/Jumbotron.png";
 import downArrow from "../public/images/arrowdown.png";
 import toilet from "../public/images/toilet.png";
 import washingMachine from "../public/images/washingmachine.png";
-import houseImage from "../public/images/house.png";
+import houseImage from "../public/images/traveller.png";
 import window from "../public/images/window.png";
 import { Icon } from "@iconify/react";
 import CountUp from "react-countup";
@@ -163,7 +163,7 @@ export default function Home() {
             </div>
 
             <div className={styles.distImageCard}>
-              <div style={{}} id="weird_image_shi">
+              <div style={{}} className={styles.weird_image_shi}>
                 <Image src={washingMachine} alt="" />
               </div>
               {/* <WashingMachineSvg /> */}
@@ -308,7 +308,7 @@ export default function Home() {
             </div>
           </VisibilitySensor>
           <span className={`${styles.statLinkNext} ${styles.link_with_arrow}`}>
-            <Link href={"/partners"}>
+            <Link href={"/private-policy"}>
               <a>
                 SCOPRI I NOSTRI PARTNERS
                 {/* <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/> */}

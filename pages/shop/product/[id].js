@@ -285,14 +285,14 @@ export async function getServerSideProps({ req, params }) {
   let cook = Cok.parse(req.headers.cookie || "");
   let token = cook.token;
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+  // if (!token) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}product/${params?.id}`,

@@ -47,12 +47,12 @@
   padding: 2px 15px;
   cursor: pointer;
 }
-.distImageCard #weird_image_shi {
-  margin-top: 0px;
+.distImageCard .weird_image_shi {
+  margin-top: -9%;
 }
 
 @media (max-width: 760px) {
-  .distImageCard #weird_image_shi {
+  .distImageCard .weird_image_shi {
     margin-top: -27px;
     height: 121% !important;
     max-height: 200%;

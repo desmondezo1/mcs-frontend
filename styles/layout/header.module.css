@@ -23,6 +23,14 @@
   font-size: 0.85rem;
 }
 
+@media (max-width: 760px) {
+  .navListConatiner {
+    background-color: white;
+  }
+  .mepaHeaderNavList {
+    background: black;
+  }
+}
 .MepaNavListConatiner {
   font-size: 0.85rem;
 }
@@ -100,12 +108,16 @@
 
 .iconWrapper {
   padding-bottom: 20px;
-  margin: auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
 }
 
+@media (max-width: 760px) {
+  .iconWrapper {
+    margin: auto;
+  }
+}
 .iconWrapper .wishListIcon,
 .iconWrapper .cartIcon {
   width: fit-content;

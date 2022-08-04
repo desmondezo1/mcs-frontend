@@ -28,8 +28,8 @@ export default function Header() {
   useEffect(() => {
     if (router.asPath == "/mepa") {
       setBgColor({
-        background_color: "#1E3F7F!Important",
-        color: "#F0F0F0!important",
+        background_color: "#1E3F7F !Important",
+        color: "#F0F0F0 !important",
         headerBottomMargin: "0px",
       });
     }
@@ -125,8 +125,6 @@ export default function Header() {
               HeaderCss.navListConatiner
             }`}
             style={{
-              background: "white",
-
               zIndex: 1000,
             }}
             id="navbarText"
