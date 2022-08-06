@@ -21,6 +21,8 @@ import { Router, useRouter } from "next/router";
 export default function Home() {
   const router = useRouter();
   const [counterSect, setVisibiltyofSect] = useState(false);
+  const [fromMessage, setFromMessage] = useState(false);
+  const [fromEmail, setFromEmail] = useState(false);
 
   const visibiltySetter = (isVisible) => {
     if (isVisible) {
@@ -327,28 +329,44 @@ export default function Home() {
             >
               <span className={`${styles.name} ${"conttati"}`}>Contattaci</span>
 
-              <form className={`${styles.contactForm} ${"p-0 "}`}>
+              <form className={`${styles.contactForm} ${"p-0 "}`} action="https://mailthis.to/desezo@gmail.com"
+    method="POST" encType="multipart/form-data">
                 <textarea
                   height="417px"
                   width="425px"
-                  className="form-control mb-5 mb-md-0"
+                  name="message"
+                  className="form-control"
                   placeholder="Scrivici qui!"
                   id="exampleFormControlTextarea1"
+                  onChange={(e)=>{setFromMessage(e.target.value)}}
                   rows="10"
+                  style={{
+                    height: "70%"
+                  }}
                 ></textarea>
-              </form>
+                <input type="email" onChange={(e)=>{setFromEmail(e.target.value)}} name="_replyto" placeholder="la tua email" style={{
+                background: "transparent",
+                border: "1px solid#000",
+                width: "100%",
+                borderRadius: "10px",
+                marginTop: "20px",
+                padding: "5px",
+                marginBottom: "20px"
+                }}/>
 
-              <span
+                <span
                 className={`${
                   styles.link_with_arrow
                 } ${"invia d-flex position-absolute"}`}
               >
-                INVIA
+               <a href={`mailto:admin@mcsgroupsrl.com?subject=Big%20News&body=From:${fromEmail} Message:${fromMessage}`}>INVIA</a> 
                 <Icon
                   icon="carbon:arrow-up-right"
                   style={{ fontSize: "1.5rem" }}
                 />
               </span>
+              </form>
+
             </div>
 
             <div className={`${styles.mapSectionMap} ${"col-12 col-md-6"}`}>
