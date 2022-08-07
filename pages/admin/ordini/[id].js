@@ -3,10 +3,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import routeConfig from "../../../config/routeConfig";
 import NavHeader from "../../../components/molecules/NavHeader";
+import axios from "axios";
 import style from "../../../styles/table.module.css";
 import productCss from "../../../styles/prodotti/prodotti.module.css";
+import Cok from "cookie";
+import { useState } from "react";
 
-export default function OrdiniDetails(params) {
+
+
+export default function OrdiniDetails({order}) {
+    const [prd, setPrd] = useState(JSON.parse(order?.product_id));
+   
     return (<>
         <NavHeader>
       <div className={styles.overview_body_container}>
@@ -24,10 +31,10 @@ export default function OrdiniDetails(params) {
                                 marginLeft: "0px",
                                 paddingLeft: "0px"
                             }}>
-                                <li>Numero Ordine: 500</li>
-                                <li>Data: 7 Marzo 2022</li>
-                                <li>Indirizzo Email: designbynoah99@gmail.com</li>
-                                <li>Totale: €113.25</li>
+                                <li>Numero Ordine: {order?.id}</li>
+                                <li>Data: {order?.created_at}</li>
+                                <li>Indirizzo Email: {order?.email}</li>
+                                <li>Totale: €{order?.total_amount}</li>
                                 <li>Metodo di Pagamento: Carta di Credito</li>
                             </ul>
                         </div>
@@ -39,27 +46,24 @@ export default function OrdiniDetails(params) {
                                     fontSize: "0.9rem",
                                     fontWeight: "500"
                                 }}>Prodotti</th>
-                                <tr class={'proditemlist'} style={{
-                                    borderTop: "1px solid #999999",
-                                    borderBottom: "1px solid #999999",
-                                }}>
-                                    <td style={{
-                                        padding: "10px 0px"
-                                    }}>Sany Mayer 400 ml </td>
-                                    <td>€7,55</td>
-                                    <td>€37,75</td>
-                                </tr>
-                                <tr class={'proditemlist'} style={{
-                                    borderTop: "1px solid #999999",
-                                    borderBottom: "1px solid #999999",
-                                }}>
-                                    <td style={{
-                                        padding: "10px 0px"
-                                    }}>Sany Mayer 400 ml </td>
-                                    <td>€7,55</td>
-                                    <td>€37,75</td>
-                                </tr>
 
+                                {prd?.map((item, index) =>{
+                                    return(<>
+                                    
+                                <tr key={index} className={'proditemlist'} style={{
+                                    borderTop: "1px solid #999999",
+                                    borderBottom: "1px solid #999999",
+                                }}>
+                                    <td style={{
+                                        padding: "10px 0px"
+                                    }}>{order?.prd_details[index]?.title} </td>
+                                    <td>€{order?.prd_details[index]?.price} x {item?.qty}</td>
+                                    <td>€{order?.prd_details[index]?.price * item?.qty}</td>
+                                </tr>                                    
+                                    
+                                    
+                                    </>)
+                                })}
 
                                 <div style={{height: "20px"}}></div>
                                 <tr style={{
@@ -67,22 +71,22 @@ export default function OrdiniDetails(params) {
                                 }}>
                                     <td> </td>
                                     <td>Subtotale</td>
-                                    <td>€113.25</td>
+                                    <td>€{order?.sub_total}</td>
                                 </tr>
-                                <tr>
+                                {/* <tr>
                                     <td> </td>
                                     <td>Sconto</td>
                                     <td>€113.25</td>
-                                </tr>
-                                <tr>
+                                </tr> */}
+                                {/* <tr>
                                     <td> </td>
                                     <td>IVA (22%)</td>
-                                    <td>€113.25</td>
-                                </tr>
+                                    <td>€0</td>
+                                </tr> */}
                                 <tr>
                                     <td> </td>
                                     <td>Spedizione</td>
-                                    <td>€113.25</td>
+                                    <td>€{order?.delivery_charge}</td>
                                 </tr>
                                 <div style={{height:"20px"}}></div>
                                 <tr  style={{
@@ -94,7 +98,7 @@ export default function OrdiniDetails(params) {
                                         padding: "20px 0px",
                                         fontSize: "1.2rem"
                                     }}>Totale</td>
-                                    <td>€113.25</td>
+                                    <td>€{order?.total_amount}</td>
                                 </tr>
                             </table>
                         </div>
@@ -102,15 +106,11 @@ export default function OrdiniDetails(params) {
                         <div className={productCss.input}>
                             <ul>
                                 <li>Dati di Spedizione</li>
-                                <li>Noah Ekene Osas</li>
-                                <li>Via Alberti Lamborghini</li>
-                                <li>Via Alberti Lamborghini</li>
-                                <li>18775</li>
-                                <li>Roma</li>
-                                <li>Roma</li>
-                                <li>333 446 2789</li>
-                                <li>info@dlessofficial.com</li>
-                                <li>SSNNNGLKNAHLK32850</li>
+                                <li>{order?.first_name} {order?.last_name}</li>
+                                <li>{order?.address}</li>
+                                <li>{order?.phone}</li>
+                                <li>{order?.email}</li>
+                                <li>{order?.order_number}</li>
                             </ul>
                         
 
@@ -128,3 +128,37 @@ export default function OrdiniDetails(params) {
     
     </>)
 }
+
+export async function getServerSideProps({ req, res, params }) {
+    // let token = req.headers.Cookies || '';
+  
+    try {
+      let cook = Cok.parse(req.headers.cookie) || "";
+      let token = cook.token;
+      const orderUrl = `${routeConfig.getOrderDetails}/${params.id}`;
+      const axiosConfig = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      };
+  
+      let ax = await axios.get(orderUrl, axiosConfig);
+      let result = await ax;
+
+      let order ;
+      if (result.data.data) {
+        order = result.data.data;
+      }
+  
+      // Pass data to the page via props
+      return { props: { order } };
+    } catch (error) {
+      return {
+        props: {
+          order: {},
+        },
+      };
+    }
+  }
+  

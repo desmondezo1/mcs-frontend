@@ -117,7 +117,7 @@ function Index({ ordersData }) {
                   <TableMenuButton 
                   button1={null}
                   button2={null}
-                  viewcontent={{ text: 'VISUALIZZA DETTAGLI', url: `/`}}
+                  viewcontent={{ text: 'VISUALIZZA DETTAGLI', url: `ordini/${id}`}}
                   attiva={{ url:`${routeConfig.updateOrder}/${id}`, data: {status: 3}, method: "patch", text: " Shipped "}}
                   sospende={{url:`${routeConfig.updateOrder}/${id}`, data: {status: 1}, method: "patch", text: " Received "}}
                   shipped={{url:`${routeConfig.updateOrder}/${id}`, data: {status: 4}, method: "patch", text: " Pending "}}
