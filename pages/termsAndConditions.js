@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/Home.module.css";
-import { privatePolicy as ppList } from "../config/termsAndConditions";
+import { privatePolicy as ppList } from "../config/privatePolicy";
 
 function termsAndCondition(props) {
   const listDisp = ppList.map(({ header, desc }, index) => {
