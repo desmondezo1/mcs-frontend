@@ -1,87 +1,84 @@
-.footerWrapper{
-    display: flex;
-    flex-direction: column;
-
+.footerWrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-.linksWrapper{
-    display: flex;
-    flex-direction: row;
-    height: 394.84px;
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-    background: #1E3F7F;
-
+.linksWrapper {
+  display: flex;
+  flex-direction: row;
+  height: 394.84px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  background: #1e3f7f;
 }
 
-.linkContainer ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.linkContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.linkContainer ul li{
-    color: #F0F0F0;
+.linkContainer ul li {
+  color: #f0f0f0;
+  font-size: 1.2em;
 }
 
-.socialsWrapper{
-    height: 374px;
-    background-color: #F0F0F0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.socialsWrapper {
+  height: 374px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.socialsContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-
+.socialsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
 }
 
-.socialsContainer span{
-    border: 1px solid #000;
-    border-radius: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
+.socialsContainer span {
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
-.paymentLogo{
-    width: 100%;
-    padding: 20px 0;
-    background-color: #F0F0F0;
+.paymentLogo {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #f0f0f0;
 }
 
-.mcsYear{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mcsYear {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.paymentLogoWrapper{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+.paymentLogoWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
 @media (max-width: 920px) {
-    .socialsContainer {
-        height: 70%;
-      flex-direction: column;
-    }
-
-    .linksWrapper{
-        flex-direction: column;
-        align-items: flex-start;
-        padding-left: 30px;
-    }
-
-    .paymentLogoWrapper{
-        flex-direction: column;
-    }
+  .socialsContainer {
+    height: 70%;
+    flex-direction: column;
   }
-  
+
+  .linksWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 30px;
+  }
+
+  .paymentLogoWrapper {
+    flex-direction: column;
+  }
+}

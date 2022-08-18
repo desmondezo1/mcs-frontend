@@ -125,7 +125,7 @@ export default function Home() {
         }
       `}</style>
       <main>
-        <section className="d-flex p-2" id={"sect0"}>
+        <section className="d-flex py-2" id={"sect0"}>
           <div className="flex-grow-1">
             <Image alt="jumbotron" src={jumbotron} />
           </div>
@@ -308,7 +308,7 @@ export default function Home() {
             </div>
           </VisibilitySensor>
           <span className={`${styles.statLinkNext} ${styles.link_with_arrow}`}>
-            <Link href={"/private-policy"}>
+            <Link href={"/partners"}>
               <a>
                 SCOPRI I NOSTRI PARTNERS
                 {/* <Icon icon="carbon:arrow-up-right"  style={{ fontSize: '1.5rem' }}/> */}

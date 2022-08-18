@@ -31,8 +31,16 @@ export default function Footer() {
           </div>
           <div className={FooterCss.linkContainer}>
             <ul>
-              <li>Termini e Condizioni</li>
-              <li>Reso Prodotti</li>
+              <Link href="/private-policy#termini_e_condizioni">
+                <a>
+                  <li>Termini e Condizioni</li>
+                </a>
+              </Link>
+              <Link href="/private-policy#diritto_di_recesso">
+                <a>
+                  <li>Reso Prodotti</li>
+                </a>
+              </Link>
 
               <Link href="/private-policy">
                 <a>
@@ -44,7 +52,7 @@ export default function Footer() {
           </div>
           <div className={FooterCss.linkContainer}>
             <ul>
-              <Link href="/private-policy">
+              <Link href="/private-policy#restituzione_merce/resi">
                 <a>
                   <li>Spedizione</li>
                 </a>
