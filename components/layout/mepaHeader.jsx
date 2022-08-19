@@ -9,7 +9,8 @@ import { updateCartVisibility } from "../../stores/mySlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../cartList/cart";
 import { useEffect, useState } from "react";
-import WhiteLogo from "../compounds/MCSWhiteLogo";
+// import WhiteLogo from "../compounds/MCSWhiteLogo";
+import WhiteLogo from "../../images/icons/MepaHomeIcon";
 
 export default function MepaHeader() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export default function MepaHeader() {
     if (router.asPath == "/mepa") {
       setBgColor({
         background_color: "#1E3F7F!Important",
-        color: "#F0F0F0!important",
+        color: "#F0F0F0 !important",
         headerBottomMargin: "0px",
       });
     }
@@ -63,6 +64,10 @@ export default function MepaHeader() {
         }
         .icon-wrapper {
           margin-left: 5%;
+        }
+
+        .mepa_active {
+          color: black !important;
         }
       `}</style>
       <nav
@@ -156,14 +161,11 @@ export default function MepaHeader() {
                 <Link href="/mepa">
                   <a
                     className={`${
-                      router.asPath == "/mepa" ? "active" : ""
+                      router.asPath == "/mepa" ? "active mepa_active" : ""
                     } ${"nav-link"}`}
                     style={{
                       background: router.asPath == "/mepa" && "#fff",
-                      color:
-                        router.asPath == "/mepa"
-                          ? "#1E3F7F !important"
-                          : "#000",
+                      // router.asPath == "/mepa" ? "black !important" : "#000",
                     }}
                   >
                     MEPA

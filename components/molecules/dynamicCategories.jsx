@@ -86,12 +86,16 @@ export default function DynamicCategories({ title }) {
             <div className="washroomImages">
               {category?.children?.length > 0
                 ? category?.children.map((child, index) => {
+                    console.log(child);
+                    const image = "/prod/" + child?.image;
+
+                    console.log(image);
                     return (
                       <div
                         key={index}
                         className={`${styles.distImageCard} ${"imageCard"}`}
                       >
-                        <Image src={distributori} alt="" />
+                        <img src={image} alt="" />
                         <div>
                           <span
                             className={"d-flex"}

@@ -10,8 +10,6 @@ import { toast } from "react-toastify";
 const Shop = ({ products, categories, brands, m }) => {
   const userData = JSON.parse(Cookies.get("user") || "{}");
 
-  console.log(m);
-
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
   const { brand, searchV } = router.query;
@@ -63,19 +61,25 @@ const Shop = ({ products, categories, brands, m }) => {
 };
 
 export async function getServerSideProps() {
-
-  // if (req) {
-  //   const { m } = req.query;
-  // }
+  // try {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
+
   const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
   const brands = await brandRes.json();
   const products = await res.json();
 
   const categories = await Catres.json();
-  console.log({products});
+  console.log({ products });
   return { props: { products, categories, brands } };
+  // } catch (error) {
+  //   console.log(error);
+  //   return { props: { products: [{}], categories: [{}], brands: [{}] } };
+  // }
+
+  // if (req) {
+  //   const { m } = req.query;
+  // }
 }
 
 export default Shop;
