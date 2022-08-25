@@ -27,7 +27,7 @@ export default function Orders() {
   const [state, setState] = useState(initialState);
 
   function onChange(e) {
-    console.log(e.target);
+    console.log(e.target, "working");
     setState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -38,7 +38,7 @@ export default function Orders() {
     if (e) {
       e.preventDefault();
     }
-    
+
     let token = Cookies.get("token");
     if (!privateInput) {
       console.log("freeshipping");
@@ -54,7 +54,7 @@ export default function Orders() {
             method: "PATCH",
             body: JSON.stringify(state),
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
           }
@@ -67,8 +67,9 @@ export default function Orders() {
             } else {
               toast.info(res.desc);
             }
-          }).catch((error)=>{
-            toast.error(error)
+          })
+          .catch((error) => {
+            toast.error(error);
           });
       }
     }

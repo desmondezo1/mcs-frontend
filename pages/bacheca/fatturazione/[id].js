@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../../../components/sidebar";
 import Link from "next/link";
 import { initialState } from "../../../const/initialFomState";
@@ -16,6 +16,26 @@ export const Fatturazione = () => {
   const activeUser = Cookies.get("user");
   const userId = JSON.parse(activeUser || "{}").id;
 
+  useEffect(() => {
+    setState(initialState);
+
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setState({ ...res.data, address1: res.data.address });
+        // router.push("/bacheca/" + id);
+      });
+
+    console.log(initialState);
+  }, []);
   const handlePrivateInput = (event) => {
     event.preventDefault();
     setPrivateInput(!privateInput);
@@ -39,9 +59,10 @@ export const Fatturazione = () => {
     })
       .then((res) => {
         return res.json();
-        
       })
-      .then((res) =>{ console.log(res); router.push("/bacheca/1");});
+      .then((res) => {
+        router.push("/bacheca/" + userId);
+      });
   }
 
   return (

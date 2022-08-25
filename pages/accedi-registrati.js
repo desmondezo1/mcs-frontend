@@ -61,7 +61,7 @@ const Login = () => {
             Cookies.set("user", JSON.stringify(res?.user));
             setLoginState(true);
             setUserId(res?.user?.id);
-            toast.success("Inicio de sesión exitoso");
+            toast.success("login effettuato con successo");
             router.push(`bacheca/${res?.user?.id}`);
           })
           .catch((err) => {

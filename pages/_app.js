@@ -39,7 +39,7 @@ function RouterChecker() {
   if (!arr.includes(currentRoute)) {
     if (!isLoggedIn) {
       // router.push("/accedi-registrati");
-      toast.warning("Not Logged in");
+      // toast.warning("Not Logged in");
     }
   } else {
   }
@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }) {
       />
       <Provider store={store}>
         {router.asPath == "/mepa" ? <MepaHeader /> : <Header />}
-        <RouterChecker />
+        {/* <RouterChecker /> */}
         <NextNProgress />
         <Component {...pageProps} />
         <ToastContainer />

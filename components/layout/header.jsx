@@ -5,19 +5,28 @@ import LogoWhite from "../../public/images/logoWhite.svg";
 import HeaderCss from "../../styles/layout/header.module.css";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
-import { updateCartVisibility } from "../../stores/mySlice";
+import {
+  updateCartVisibility,
+  updateFavouriteList,
+} from "../../stores/mySlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../cartList/cart";
 import { useEffect, useState } from "react";
 import useStore from "../../stores/zustandStore";
 import WhiteLogo from "../compounds/MCSWhiteLogo";
+import Cookies from "js-cookie";
 
 export default function Header() {
+  const activeUser = JSON.parse(Cookies.get("user") || "{}");
+  const id = activeUser["id"];
+  const token = Cookies.get("token");
+
   const loggedIn = useStore((state) => state.loggedIn);
   const userId = useStore((state) => state.userId);
   const dispatch = useDispatch();
   const cartList = useSelector((state) => state.mySlice.cart);
   const openCart = useSelector((state) => state.mySlice.openCart);
+  const favourite = useSelector((state) => state.favouriteList);
   const [bgColor, setBgColor] = useState({
     background_color: "#F0F0F0!important",
     color: "#000",
@@ -33,6 +42,28 @@ export default function Header() {
         headerBottomMargin: "0px",
       });
     }
+
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res);
+
+          if (favourite.length === 0) {
+            res.data.forEach((data) => {
+              dispatch(updateFavouriteList(data));
+            });
+          }
+        }
+      });
   }, [router.asPath]);
   return (
     <>
@@ -214,7 +245,9 @@ export default function Header() {
               <Link href="/bacheca/desideri/1">
                 <a>
                   <div className={HeaderCss.wishListIcon}>
-                    <span className={HeaderCss.wishListCount}>5</span>
+                    <span className={HeaderCss.wishListCount}>
+                      favourite.length
+                    </span>
                     <Icon icon="bi:heart" />
                   </div>
                 </a>

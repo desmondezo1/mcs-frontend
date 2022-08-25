@@ -4,11 +4,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartList, updateCartVisibility } from "../../stores/mySlice";
+import {
+  updateCartList,
+  updateFavouriteList,
+  updateCartVisibility,
+} from "../../stores/mySlice";
 import Api from "../../stores/StoreAPI";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const ShopList = ({ product }) => {
+  const activeUser = JSON.parse(Cookies.get("user") || "{}");
+  const id = activeUser["id"];
+  const token = Cookies.get("token");
   const dispatch = useDispatch();
   // const addItemToCart = (prod) => {
   //  await fetch('/api/addToCart',{
@@ -82,18 +90,42 @@ const ShopList = ({ product }) => {
             <Icon icon="carbon:shopping-cart" />
           </span>
 
-          <Link href="#">
-            <a className="ml-2">
-              <img
-                src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
-                style={{ color: "black" }}
-                width={18}
-                height={18}
-                alt=""
-              />
-              <Icon icon="carbon:heart" color="red" />
-            </a>
-          </Link>
+          <button
+            className="ml-2"
+            onClick={() => {
+              console.log("Working");
+              fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`, {
+                method: "POST",
+                body: JSON.stringify({
+                  product_id: product?.id,
+                }),
+                headers: {
+                  "Content-type": "application/json;charset=UTF-8",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+                .then((res) => {
+                  return res.json();
+                })
+                .then((res) => {
+                  console.log(res);
+                  // if (res.status === 200) {
+                  //   res.data.forEach((data) => {
+                  dispatch(updateFavouriteList(product, product?.id));
+                  //   });
+                  // }
+                });
+            }}
+          >
+            <img
+              src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
+              style={{ color: "black" }}
+              width={18}
+              height={18}
+              alt=""
+            />
+            <Icon icon="carbon:heart" color="red" />
+          </button>
         </div>
       </div>
       {/* </Link> */}
