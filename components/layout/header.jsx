@@ -26,7 +26,9 @@ export default function Header() {
   const dispatch = useDispatch();
   const cartList = useSelector((state) => state.mySlice.cart);
   const openCart = useSelector((state) => state.mySlice.openCart);
-  const favourite = useSelector((state) => state.favouriteList);
+  const favourite = useSelector((state) => state.favouriteList) || [];
+
+  console.log(favourite);
   const [bgColor, setBgColor] = useState({
     background_color: "#F0F0F0!important",
     color: "#000",
@@ -246,7 +248,7 @@ export default function Header() {
                 <a>
                   <div className={HeaderCss.wishListIcon}>
                     <span className={HeaderCss.wishListCount}>
-                      favourite.length
+                      {favourite.length}
                     </span>
                     <Icon icon="bi:heart" />
                   </div>
