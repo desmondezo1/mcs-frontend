@@ -70,7 +70,6 @@ export async function getServerSideProps() {
   const products = await res.json();
 
   const categories = await Catres.json();
-  console.log({ products });
   return { props: { products, categories, brands } };
   // } catch (error) {
   //   console.log(error);

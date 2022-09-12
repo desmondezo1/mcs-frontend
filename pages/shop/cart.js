@@ -15,8 +15,10 @@ const Cart = () => {
   const userId = activeUser.id;
   const dispatch = useDispatch();
   const router = useRouter();
+
   const cartList = useSelector((state) => state.mySlice.cart);
 
+  console.log(cartList);
   const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
 
   const processCart = async () => {
@@ -120,7 +122,7 @@ const Cart = () => {
                 <span className="text-red-500">€0</span>
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
-                <span>IVA (0%)</span>
+                <span>IVA (22%)</span>
                 <span className="text-red-500">€0</span>
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
@@ -149,7 +151,7 @@ const Cart = () => {
                 className="bg-black text-white
             px-3 py-1 rounded-3xl"
               >
-                PROCEDI CON L'
+                PROCEDI CON L’ORDINE
               </span>
             </div>
           </section>

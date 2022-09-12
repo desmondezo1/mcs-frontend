@@ -7,13 +7,10 @@ export const privatePolicy = [
     header: "Prezzi Esposti",
     desc: "I prezzi dei prodotti e delle spedizioni si intendono IVA esclusa.",
   },
-  {
-    header: "Visione",
-    desc: "Proporsi come un partner affidabile e presente per i propri clienti è la visione che contraddistingue la cultura aziendale di MCS. Acquistare un prodotto MCS non vuol dire soltanto avere un buon rimedio, ma affidarsi soprattutto ad una consulenza professionale e trasparente in qualsiasi momento, contando su soluzioni immediate ed efficaci.",
-  },
+
   {
     header: "Fatturazione",
-    desc: "La normativa fiscale italiana equipara le vendite online alle vendite a distanza pertanto non vi è obbligo di emissione di scontrino fiscale e/o fattura poiché i ricavi vengono registrati in un apposito registro fiscale. Su specifica richiesta del cliente all’ indirizzo mcsgroupsrl@gmail.com e previo invio di tutti i dati richiesti dalla normativa fiscale vigente è possibile l’emissione della fattura fiscale.",
+    desc: "La normativa fiscale italiana equipara le vendite online alle vendite a distanza pertanto non vi è obbligo di emissione di scontrino fiscale e/o fattura poiché i ricavi vengono registrati in un apposito registro fiscale. Su specifica richiesta del cliente all’ indirizzo to e-commerce@mcsgroupsrl.com e previo invio di tutti i dati richiesti dalla normativa fiscale vigente è possibile l’emissione della fattura fiscale.",
   },
   {
     header: "Garanzia",
@@ -35,7 +32,7 @@ export const privatePolicy = [
   },
   {
     header: "",
-    desc: "• l’e-mail deve essere correttamente compilata e trasmessa a mcsgroupsrl@gmail.com entro 14 giorni dal ricevimento dei prodotti; <br />• i prodotti non devono essere stati utilizzati, lavati o danneggiati;   <br /> • i prodotti devono essere restituiti integri, non utilizzati e nella loro confezione originale;  <br /> • i prodotti resi devono essere inviati alla MCS Progetto Igiene di Amore Floreana in una sola",
+    desc: "• l’e-mail deve essere correttamente compilata e trasmessa a mcsgroupsrl@gmail.com entro 14 giorni dal ricevimento dei prodotti; • i prodotti non devono essere stati utilizzati, lavati o danneggiati;    • i prodotti devono essere restituiti integri, non utilizzati e nella loro confezione originale;   • i prodotti resi devono essere inviati alla MCS Progetto Igiene di Amore Floreana in una sola",
   },
   {
     header: "",

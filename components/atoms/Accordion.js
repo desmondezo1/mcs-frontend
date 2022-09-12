@@ -1,19 +1,35 @@
 import React, { useState } from "react";
 import style from "../../styles/atoms.module.css";
 import DownArrow from "../../images/icons/DownArrow";
-import useStore from '../../stores/zustandStore'
+import useStore from "../../stores/zustandStore";
 
 AccordionList.defaultProps = {
   id: "id",
   name: "Test Data",
   label: "List Content",
 };
-export function AccordionList({inputType="checkbox" , id, name, label, value}) {
-  const setSearchFilterValue = useStore(state =>  state.setSearchFilterValue);
+export function AccordionList({
+  inputType = "checkbox",
+  id,
+  name,
+  label,
+  value,
+}) {
+  const setSearchFilterValue = useStore((state) => state.setSearchFilterValue);
 
   return (
-    <div className={`${style.check_list} mb-[10px!important] mt-0 d-flex flex-row align-items-center`}>
-      <input type={inputType} id={id + Date.now()} value={value} onChange={(e)=>{setSearchFilterValue(label)}} name={name} />
+    <div
+      className={`${style.check_list} mb-[10px!important] mt-0 d-flex flex-row align-items-center`}
+    >
+      <input
+        type={inputType}
+        id={id + Date.now()}
+        value={value}
+        onChange={(e) => {
+          setSearchFilterValue(label);
+        }}
+        name={name}
+      />
       <label htmlFor={id + Date.now()}></label>
       <p>{label.substring(0, 25)}</p>
     </div>
@@ -24,12 +40,13 @@ Accordion.defaultProps = {
   name: "Accordion",
   listData: [],
 };
-function Accordion({ inputType="checkbox", name, listData, children }) {
+function Accordion({ inputType = "checkbox", name, listData, children }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className={style.accordion_container}>
-      <button type="button"
+      <button
+        type="button"
         className="d-flex flex-row align-items-center"
         onClick={() => setOpen((s) => !s)}
       >
@@ -43,7 +60,7 @@ function Accordion({ inputType="checkbox", name, listData, children }) {
             marginLeft: "20px",
           }}
         >
-          {name.substring(0,20)}
+          {name.substring(0, 20)}
         </p>
       </button>
       <div
@@ -55,7 +72,13 @@ function Accordion({ inputType="checkbox", name, listData, children }) {
           children?.length > 0 ? (
             <Accordion key={i} name={title} listData={children} />
           ) : (
-            <AccordionList  inputType={inputType} key={i} id={`${title}_${i}`} value={id} label={title.substring(0,25)} />
+            <AccordionList
+              inputType={inputType}
+              key={i}
+              id={`${title}_${i}`}
+              value={id}
+              label={title.substring(0, 25)}
+            />
           )
         )}
       </div>

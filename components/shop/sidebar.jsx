@@ -137,11 +137,12 @@ const ShopSidebar = ({ searchValue, categories, brands }) => {
                 />
               ) : (
                 <AccordionList
-                  inputType={"radio"}
+                  inputType={"checkbox"}
                   key={i}
                   id={`${title}_${i}`}
                   value={id}
                   label={title}
+                  searchTerm={searchTerm}
                 />
               )
             )}
@@ -174,7 +175,6 @@ const ShopSidebar = ({ searchValue, categories, brands }) => {
                         setSearchVal(name);
                       }}
                     >
-                      {" "}
                       {name}
                     </span>
                   );

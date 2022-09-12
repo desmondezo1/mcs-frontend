@@ -15,7 +15,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
   // console.log("digit To String", );
 
   const dispatch = useDispatch();
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(1);
 
   const [product, setProduct] = useState({});
   const [id, setId] = useState(3);
@@ -62,10 +62,11 @@ const Product = ({ errorCode, product: originalProductData }) => {
   const productionVariation = originalProductData.variation || [];
 
   const variationList = productionVariation.map((variant, index) => {
+    console.log(variant);
     const position = digitToString(index + 1);
     return (
       <button onClick={() => changeVariation(variant)} key={variant.title}>
-        {position} Variant
+        {variant.title} Variant
       </button>
     );
   });
@@ -306,7 +307,7 @@ export async function getServerSideProps({ req, params }) {
   );
 
   const errorCode = res.ok ? false : res.status;
-
+  console.log(res);
   const product = await res.json();
   console.log(product.data);
   return { props: { product: product.data, params, errorCode } };

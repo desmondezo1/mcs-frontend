@@ -31,7 +31,7 @@ const Cart = () => {
   return (
     <div
       style={{
-        zIndex: "1000",
+        zIndex: "10000",
       }}
     >
       {openCart === true ? (
@@ -46,11 +46,7 @@ const Cart = () => {
                   onClick={() => dispatch(updateCartVisibility(false))}
                 >
                   <span>
-                    {" "}
-                    <Icon
-                      icon="carbon:close"
-                      style={{ fontSize: "1.2rem" }}
-                    />{" "}
+                    <Icon icon="carbon:close" style={{ fontSize: "1.2rem" }} />
                   </span>
                   <span>CHIUDI</span>
                 </div>

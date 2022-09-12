@@ -329,8 +329,12 @@ export default function Home() {
             >
               <span className={`${styles.name} ${"conttati"}`}>Contattaci</span>
 
-              <form className={`${styles.contactForm} ${"p-0 "}`} action="https://mailthis.to/desezo@gmail.com"
-    method="POST" encType="multipart/form-data">
+              <form
+                className={`${styles.contactForm} ${"p-0 "}`}
+                action="https://mailthis.to/desezo@gmail.com"
+                method="POST"
+                encType="multipart/form-data"
+              >
                 <textarea
                   height="417px"
                   width="425px"
@@ -338,35 +342,48 @@ export default function Home() {
                   className="form-control"
                   placeholder="Scrivici qui!"
                   id="exampleFormControlTextarea1"
-                  onChange={(e)=>{setFromMessage(e.target.value)}}
+                  onChange={(e) => {
+                    setFromMessage(e.target.value);
+                  }}
                   rows="10"
                   style={{
-                    height: "70%"
+                    height: "70%",
                   }}
                 ></textarea>
-                <input type="email" onChange={(e)=>{setFromEmail(e.target.value)}} name="_replyto" placeholder="la tua email" style={{
-                background: "transparent",
-                border: "1px solid#000",
-                width: "100%",
-                borderRadius: "10px",
-                marginTop: "20px",
-                padding: "5px",
-                marginBottom: "20px"
-                }}/>
+                <input
+                  type="email"
+                  onChange={(e) => {
+                    setFromEmail(e.target.value);
+                  }}
+                  name="_replyto"
+                  placeholder="la tua email"
+                  style={{
+                    background: "transparent",
+                    border: "1px solid#000",
+                    width: "100%",
+                    borderRadius: "10px",
+                    marginTop: "20px",
+                    padding: "5px",
+                    marginBottom: "20px",
+                  }}
+                />
 
                 <span
-                className={`${
-                  styles.link_with_arrow
-                } ${"invia d-flex position-absolute"}`}
-              >
-               <a href={`mailto:admin@mcsgroupsrl.com?subject=Big%20News&body=From:${fromEmail} Message:${fromMessage}`}>INVIA</a> 
-                <Icon
-                  icon="carbon:arrow-up-right"
-                  style={{ fontSize: "1.5rem" }}
-                />
-              </span>
+                  className={`${
+                    styles.link_with_arrow
+                  } ${"invia d-flex position-absolute"}`}
+                >
+                  <a
+                    href={`mailto:admin@mcsgroupsrl.com?subject=Big%20News&body=From:${fromEmail} Message:${fromMessage}`}
+                  >
+                    INVIA
+                  </a>
+                  <Icon
+                    icon="carbon:arrow-up-right"
+                    style={{ fontSize: "1.5rem" }}
+                  />
+                </span>
               </form>
-
             </div>
 
             <div className={`${styles.mapSectionMap} ${"col-12 col-md-6"}`}>
@@ -378,17 +395,16 @@ export default function Home() {
                   style={{ border: "0" }}
                   allowFullScreen=""
                   loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
+                  referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </span>
               <span>
                 <ul className={styles.listStye}>
                   <li>
-                    {" "}
                     Strada Cento Pozzi km 1,2 C.da Buttino s.n.c. 97100, Ragusa
                     (RG), Italia.
                   </li>
-                  <li>Email: mcsprogettoigiene@gmail.com</li>
+                  <li>Email: e-commerce@mcsgroupsrl.com</li>
                   <li>Tel: 0932 642711</li>
                   <li>Cell: 3791979665 - 3395354321</li>
                 </ul>

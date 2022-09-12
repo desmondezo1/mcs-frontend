@@ -158,7 +158,7 @@ export default function Header() {
               HeaderCss.navListConatiner
             }`}
             style={{
-              zIndex: 1000,
+              zIndex: 999,
             }}
             id="navbarText"
           >

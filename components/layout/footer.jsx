@@ -64,7 +64,13 @@ export default function Footer() {
               </Link>
 
               <Link href="/#sect4">
-                <li>Contatti</li>
+                <li
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  Contatti
+                </li>
               </Link>
             </ul>
           </div>
@@ -73,7 +79,7 @@ export default function Footer() {
           <div className={FooterCss.socialsContainer}>
             <span style={{ display: "flex" }}>
               <a href="https://www.google.com/search?q=0932642711&oq=0932642711&aqs=chrome..69i57.214j0j4&sourceid=chrome&ie=UTF-8">
-                ASSITENZA CLIENTI
+                ASSISTENZA CLIENTI
               </a>
               <Icon icon="carbon:arrow-up-right" style={{ fontSize: "1rem" }} />
             </span>

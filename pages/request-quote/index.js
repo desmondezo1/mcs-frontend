@@ -154,7 +154,7 @@ export default function Washroom() {
           <div className={`${styles.distImageCard} ${"imageCard"}`}>
             <Link href={""}>
               <span style={{ display: "flex", marginTop: "10px" }}>
-                <a>ASSITENZA CLIENTI</a>
+                <a>ASSISTENZA CLIENTI</a>
                 <Icon
                   icon="carbon:arrow-up-right"
                   style={{ fontSize: "1rem" }}

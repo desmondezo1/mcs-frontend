@@ -144,7 +144,7 @@ export default function Privato({ user }) {
 
         <div className="flex items-center justify-between my-3">
           <label>
-            CITA<span className="text-red-600">*</span>
+            CITTÀ<span className="text-red-600">*</span>
           </label>
           <input
             className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
@@ -157,7 +157,7 @@ export default function Privato({ user }) {
 
         <div className="flex items-center justify-between my-3">
           <label>
-            INDRIZZO<span className="text-red-600">*</span>
+            INDIRIZZO<span className="text-red-600">*</span>
           </label>
           <input
             className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
@@ -169,7 +169,7 @@ export default function Privato({ user }) {
         </div>
 
         <div className="flex items-center justify-between my-3">
-          <label>APT, SUITE, UNITA ecc.</label>
+          <label>APT, SUITE, UNITÀ ecc.</label>
           <input
             className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
             type={"text"}
