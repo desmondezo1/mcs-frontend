@@ -7,12 +7,12 @@ import useStore from "../../stores/zustandStore";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-const Shop = ({ products, categories, brands, m }) => {
+const Shop = ({ products, categories, brands }) => {
   const userData = JSON.parse(Cookies.get("user") || "{}");
 
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
-  const { brand, searchV } = router.query;
+  const { brand, searchV , m} = router.query;
   useEffect(() => {
     if (m == "success") {
       toast.success("Il tuo ordine è stato ricevuto");
@@ -62,7 +62,7 @@ const Shop = ({ products, categories, brands, m }) => {
 
 export async function getServerSideProps({req}) {
   // try {
-  const { m } = req.query;
+  // const { m } = req.query;
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
 
@@ -71,7 +71,7 @@ export async function getServerSideProps({req}) {
   const products = await res.json();
 
   const categories = await Catres.json();
-  return { props: { products, categories, brands, m } };
+  return { props: { products, categories, brands } };
   // } catch (error) {
   //   console.log(error);
   //   return { props: { products: [{}], categories: [{}], brands: [{}] } };
