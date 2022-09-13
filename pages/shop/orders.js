@@ -59,6 +59,7 @@ export default function Orders() {
             },
           }
         )
+        .then((res)=>res.json())
           .then((res) => {
             console.log(res);
             if (res.status === 422) {
