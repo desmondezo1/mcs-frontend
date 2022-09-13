@@ -113,18 +113,17 @@ const ShopList = ({ product }) => {
                   return res.json();
                 })
                 .then((res) => {
-                  alert(JSON.stringify(res))
                   if (res.status === 401) {
                     toast.error("non autorizzato");
                     router.push("/accedi-registrati");
                   }
                   if (res.status === 200) {
+                    toast.success("aggiunto alla lista dei desideri");
                     dispatch(updateFavouriteList(product, product?.id));
-                    router.success("aggiunto alla lista dei desideri");
+                    // router.success("aggiunto alla lista dei desideri");
                   }
                 })
                 .catch((e) => {
-                  alert(JSON.stringify(e))
                   toast.error("Si è verificato un errore");
                 });
             }}
