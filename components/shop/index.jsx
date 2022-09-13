@@ -113,6 +113,7 @@ const ShopList = ({ product }) => {
                   return res.json();
                 })
                 .then((res) => {
+                  alert(JSON.stringify(res))
                   if (res.status === 401) {
                     toast.error("non autorizzato");
                     router.push("/accedi-registrati");
