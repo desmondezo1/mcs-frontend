@@ -3,8 +3,9 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 
 const Orders = ({ item }) => {
+  console.log(item);
   return (
-    <Link href="#">
+    <Link href={`/shop/product/${item?.id}`}>
       <div className="w-[200px] cursor-pointer">
         <Image
           alt="orders"
@@ -23,7 +24,7 @@ const Orders = ({ item }) => {
           </Link>
           <Link href="#">
             <a className="ml-2">
-              <Icon icon="il:heart" color="red" />
+              <Icon icon="il:heart" color="black" />
             </a>
           </Link>
         </div>

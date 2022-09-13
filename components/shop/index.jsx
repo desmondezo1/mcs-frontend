@@ -4,10 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import {
   updateCartList,
   updateFavouriteList,
   updateCartVisibility,
+  removeFavouriteList,
 } from "../../stores/mySlice";
 import Api from "../../stores/StoreAPI";
 import { toast } from "react-toastify";
@@ -18,15 +20,9 @@ const ShopList = ({ product }) => {
   const id = activeUser["id"];
   const token = Cookies.get("token");
   const dispatch = useDispatch();
-  // const addItemToCart = (prod) => {
-  //  await fetch('/api/addToCart',{
-  //    method: "POST",
-  //    body: JSON.stringify(prod)
-  //  })
-  //  .then(res => res.json())
-  //  .then(res => console.log({res}));
+  const router = useRouter();
 
-  // };
+  const { favouriteList } = useSelector((state) => state.mySlice);
 
   const addToCart = ({ id, title, price, photo }, quantity) => {
     dispatch(
@@ -54,6 +50,8 @@ const ShopList = ({ product }) => {
 
     toast.success("Artículo añadido al carrito");
   };
+
+  const inFav = favouriteList.find((d) => d.title === product?.title);
 
   return (
     <>
@@ -93,7 +91,13 @@ const ShopList = ({ product }) => {
           <button
             className="ml-2"
             onClick={() => {
-              console.log("Working");
+              if (!token) {
+                toast.error("non autorizzato");
+              }
+
+              if (inFav) {
+                return dispatch(removeFavouriteList(product));
+              }
               fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`, {
                 method: "POST",
                 body: JSON.stringify({
@@ -108,22 +112,42 @@ const ShopList = ({ product }) => {
                   return res.json();
                 })
                 .then((res) => {
-                  console.log(res);
-                  // if (res.status === 200) {
-                  //   res.data.forEach((data) => {
-                  dispatch(updateFavouriteList(product, product?.id));
-                  //   });
-                  // }
+                  if (res.status === 401) {
+                    toast.error("non autorizzato");
+                    router.push("/accedi-registrati");
+                  }
+                  if (res.status === 200) {
+                    dispatch(updateFavouriteList(product, product?.id));
+                    router.success("aggiunto alla lista dei desideri");
+                  }
+                })
+                .catch(() => {
+                  toast.error("Si è verificato un errore");
                 });
             }}
           >
-            <img
+            {/* <img
               src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
               style={{ color: "black" }}
               width={18}
               height={18}
               alt=""
-            />
+            /> */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-heart"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              strokeWidth="1"
+              stroke="currentColor"
+              fill={inFav ? "black" : "none"}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+            </svg>
             <Icon icon="carbon:heart" color="red" />
           </button>
         </div>

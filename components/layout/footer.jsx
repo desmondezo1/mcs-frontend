@@ -78,9 +78,7 @@ export default function Footer() {
         <div className={`${FooterCss.socialsWrapper}`}>
           <div className={FooterCss.socialsContainer}>
             <span style={{ display: "flex" }}>
-              <a href="https://www.google.com/search?q=0932642711&oq=0932642711&aqs=chrome..69i57.214j0j4&sourceid=chrome&ie=UTF-8">
-                ASSISTENZA CLIENTI
-              </a>
+              <a href="tel:0932642711">ASSISTENZA CLIENTI</a>
               <Icon icon="carbon:arrow-up-right" style={{ fontSize: "1rem" }} />
             </span>
 

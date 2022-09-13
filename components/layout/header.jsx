@@ -28,7 +28,6 @@ export default function Header() {
   const openCart = useSelector((state) => state.mySlice.openCart);
   const favourite = useSelector((state) => state.favouriteList) || [];
 
-  console.log(favourite);
   const [bgColor, setBgColor] = useState({
     background_color: "#F0F0F0!important",
     color: "#000",
@@ -57,8 +56,6 @@ export default function Header() {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
-
           if (favourite.length === 0) {
             res.data.forEach((data) => {
               dispatch(updateFavouriteList(data));

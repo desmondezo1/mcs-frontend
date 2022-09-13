@@ -59,8 +59,17 @@ export default function Orders() {
             },
           }
         )
-          .then((res) => res.json())
           .then((res) => {
+            console.log(res);
+            if (res.status === 422) {
+              toast.error(
+                "Si prega di compilare ogni campo e inviare di nuovo"
+              );
+            }
+            return res.json();
+          })
+          .then((res) => {
+            console.log(res);
             if (res.status == 200) {
               toast.success(res.desc);
               router.push("/shop/orders2");
@@ -69,6 +78,8 @@ export default function Orders() {
             }
           })
           .catch((error) => {
+            console.clear();
+            console.log(error);
             toast.error(error);
           });
       }
@@ -104,7 +115,7 @@ export default function Orders() {
   };
   useEffect(() => {
     getUser();
-  });
+  }, []);
 
   useEffect(() => {
     dispatch(updateTotalPrice(totalCartPrice()));
@@ -275,12 +286,12 @@ export default function Orders() {
                         handleProceedToOrders();
                       }}
                     >
-                      <span
+                      <button
                         className="bg-black text-white
                             px-3 py-1 rounded-3xl"
                       >
                         PROCEDI CON L'ORDINE
-                      </span>
+                      </button>
                     </div>
                   </section>
                 </div>

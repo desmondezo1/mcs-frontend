@@ -51,6 +51,14 @@ const mySlice = createSlice({
       }
     },
 
+    removeFavouriteList: (state, action) => {
+      state.favouriteList = state.favouriteList.filter((e) => {
+        return e.id != action.payload.id;
+      });
+
+      return state;
+    },
+
     increaseQuantity: (state, action) => {
       state.cart.forEach((item) => {
         if (item.id === action.payload.id) {
@@ -90,6 +98,7 @@ export const {
   updateTotalPrice,
   updateFavouriteList,
   updateCartVisibility,
+  removeFavouriteList,
 } = mySlice.actions;
 
 export default mySlice.reducer;

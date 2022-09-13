@@ -15,7 +15,8 @@ export function AccordionList({
   label,
   value,
 }) {
-  const setSearchFilterValue = useStore((state) => state.setSearchFilterValue);
+  const { setSearchFilterValue, removeSearchFilterValue, searchFilter } =
+    useStore((state) => state);
 
   return (
     <div
@@ -26,9 +27,15 @@ export function AccordionList({
         id={id + Date.now()}
         value={value}
         onChange={(e) => {
-          setSearchFilterValue(label);
+          if (searchFilter === label) {
+            removeSearchFilterValue();
+          }
+          if (e.target.checked) {
+            setSearchFilterValue(label);
+          }
         }}
         name={name}
+        checked={label === searchFilter}
       />
       <label htmlFor={id + Date.now()}></label>
       <p>{label.substring(0, 25)}</p>

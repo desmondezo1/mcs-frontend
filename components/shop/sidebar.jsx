@@ -94,6 +94,9 @@ const ShopSidebar = ({ searchValue, categories, brands }) => {
 
           .BrandList {
             margin: 10px 5px;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
           }
         `}
       </style>
@@ -165,18 +168,21 @@ const ShopSidebar = ({ searchValue, categories, brands }) => {
               <span className="BrandList" id="brandList">
                 {brands.map(({ id, name }, index) => {
                   return (
-                    <span
+                    <button
                       key={index}
                       className="BrandItem"
                       style={{
                         cursor: "pointer",
                       }}
                       onClick={() => {
-                        setSearchVal(name);
+                        if (searchFilterValue === name) {
+                          return setSearchFilterValue("");
+                        }
+                        setSearchFilterValue(name);
                       }}
                     >
                       {name}
-                    </span>
+                    </button>
                   );
                 })}
               </span>

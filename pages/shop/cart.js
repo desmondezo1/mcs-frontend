@@ -18,7 +18,6 @@ const Cart = () => {
 
   const cartList = useSelector((state) => state.mySlice.cart);
 
-  console.log(cartList);
   const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
 
   const processCart = async () => {

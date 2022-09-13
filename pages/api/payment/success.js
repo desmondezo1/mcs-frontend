@@ -1,5 +1,6 @@
 import FormData from "form-data";
-import Cok from 'cookie'
+import Cok from "cookie";
+import Router from "next/router";
 
 export default async function handler(req, res) {
   let cook = Cok.parse(req.headers.cookie || "");
@@ -10,6 +11,7 @@ export default async function handler(req, res) {
   formD.append("order_status", 3);
   formD.append("payment_status", 1);
 
+  console.log("sjd", transid, orderid);
   const resp = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}order/${orderid}`,
     {
@@ -25,31 +27,21 @@ export default async function handler(req, res) {
       return re.json();
     })
     .then((re) => {
-      console.log(re);
       if (re.status == 200) {
         return {
+          status: re.status,
           redirect: {
-            destination: "/",
+            destination: "/shop?m=success",
             permanent: false,
           },
         };
       }
     });
 
-    // return {
-    //   redirect: {
-    //     destination: "/",
-    //     permanent: false,
-    //   },
-    // };
+  if (resp.status === 200) {
+    res.redirect("/shop?m=success");
+  }
 
-
-    if (res) {
-      res.writeHead(200, {
-        Location: req.host+'/shop?m=success'
-      });
-      res.end();
-    }
-
-  // return res.status(200).json(resp);
+  console.log(resp);
+  return resp;
 }
