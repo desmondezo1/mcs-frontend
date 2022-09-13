@@ -43,6 +43,7 @@ export default function Orders() {
     let token = Cookies.get("token");
     if (!privateInput) {
       console.log("freeshipping");
+      router.push("/shop/orders2");
     } else {
       let doc = document.getElementById("shippingDetails");
       if (doc) {

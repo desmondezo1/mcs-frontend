@@ -92,7 +92,8 @@ const ShopList = ({ product }) => {
             className="ml-2"
             onClick={() => {
               if (!token) {
-                toast.error("non autorizzato");
+                toast.error("accesso non effettuato");
+                return;
               }
 
               if (inFav) {
@@ -117,11 +118,12 @@ const ShopList = ({ product }) => {
                     router.push("/accedi-registrati");
                   }
                   if (res.status === 200) {
+                    toast.success("aggiunto alla lista dei desideri");
                     dispatch(updateFavouriteList(product, product?.id));
-                    router.success("aggiunto alla lista dei desideri");
+                    // router.success("aggiunto alla lista dei desideri");
                   }
                 })
-                .catch(() => {
+                .catch((e) => {
                   toast.error("Si è verificato un errore");
                 });
             }}
