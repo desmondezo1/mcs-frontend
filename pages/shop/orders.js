@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import SpedizioneForm from "../../components/molecules/forms/spedizione";
 import useStore from "../../stores/zustandStore";
 import { initialState } from "../../const/initialFomState";
+import axios from "axios";
 
 export default function Orders() {
   const activeUser = JSON.parse(Cookies.get("user") || "{}");
@@ -48,17 +49,28 @@ export default function Orders() {
         let formD = new FormData(doc);
         formD.append("is_company", 0);
 
-        await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,
-          {
-            method: "PATCH",
-            body: JSON.stringify(state),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+        axios
+          .patch(
+            `${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,
+            state,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          // await fetch(
+          //   `${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,
+          //   {
+          //     method: "PATCH",
+          //     body: JSON.stringify(state),
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //       Authorization: `Bearer ${token}`,
+          //     },
+          //   }
+          // )
           .then((res) => {
             console.log(res);
             if (res.status === 422) {
@@ -66,6 +78,13 @@ export default function Orders() {
                 "Si prega di compilare ogni campo e inviare di nuovo"
               );
             }
+            if (res.status == 200) {
+              toast.success(res.desc);
+              router.push("/shop/orders2");
+            } else {
+              toast.info(res.desc);
+            }
+
             return res.json();
           })
           .then((res) => {
@@ -78,8 +97,14 @@ export default function Orders() {
             }
           })
           .catch((error) => {
-            console.clear();
+            // console.clear();
             console.log(error);
+
+            if (error?.response?.status === 422) {
+              toast.error(
+                "Si prega di compilare ogni campo e inviare di nuovo"
+              );
+            }
             toast.error(error);
           });
       }
@@ -263,7 +288,9 @@ export default function Orders() {
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>IVA (22%)</span>
-                        <span className="text-red-500">€0</span>
+                        <span className="text-red-500">
+                          €{totalCartPrice() * 0.22}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Spedizione</span>
@@ -275,7 +302,7 @@ export default function Orders() {
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Totale</span>
                         <span className="text-red-500">
-                          €{totalCartPrice()}
+                          €{totalCartPrice() + totalCartPrice() * 0.22}
                         </span>
                       </div>
                     </div>

@@ -9,7 +9,7 @@ import {
 
 const TableBody = ({ id, name, price, quantity, item, photo }) => {
   const dispatch = useDispatch();
-  console.log("photo", photo);
+  console.log("photo", item);
   return (
     <tr className="overflow-visible">
       <td>
@@ -22,7 +22,7 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
       </td>
       <td className="">
         <Image
-          src={!photo ? "/images/window.png" : photo}
+          src={item?.photo}
           alt="product"
           width={50}
           height={50}

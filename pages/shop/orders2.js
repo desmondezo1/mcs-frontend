@@ -29,11 +29,11 @@ export default function Orders() {
     let token = Cookies.get("token");
     let doc = document.getElementById("shippingDetails");
     let formD = new FormData(doc);
-    formD.append('user_id', userData.id)
-    formD.append('shipping_type', 1)
-    formD.append('delivery_charge', 0)
-    formD.append('status', 1)
-    formD.append('payment_method', 1)
+    formD.append("user_id", userData.id);
+    formD.append("shipping_type", 1);
+    formD.append("delivery_charge", 0);
+    formD.append("status", 1);
+    formD.append("payment_method", 1);
     // await calculateShipping();
     let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}orders`, {
       method: "POST",
@@ -42,28 +42,29 @@ export default function Orders() {
         // "Content-type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${token}`,
       },
-    }).then(res =>  res.json()).then(async res => {
-      if(res.status == 200){
-        toast.success(res.desc);
-        let paymentlink = await  getPaymentLink(userData.id, res.data.id);
-        if (paymentlink.status == 200) {
-         toast.success("payment started");
-         window.location.href = paymentlink.url;
+    })
+      .then((res) => res.json())
+      .then(async (res) => {
+        if (res.status == 200) {
+          toast.success(res.desc);
+          let paymentlink = await getPaymentLink(userData.id, res.data.id);
+          if (paymentlink.status == 200) {
+            toast.success("payment started");
+            window.location.href = paymentlink.url;
+          }
+          console.log(paymentlink);
+        } else {
+          toast.info(res.desc);
         }
-        console.log(paymentlink);
-      } else {
-        toast.info(res.desc);
-      }
-    });
-
+      });
   };
 
-  const getPaymentLink = async (userId, OrderId) =>{
+  const getPaymentLink = async (userId, OrderId) => {
     let token = Cookies.get("token");
     let formD = new FormData();
-    formD.append('user_id', userId);
-    formD.append('order_id', OrderId);
-    console.log(`${process.env.NEXT_PUBLIC_API_URL}checkout`)
+    formD.append("user_id", userId);
+    formD.append("order_id", OrderId);
+    console.log(`${process.env.NEXT_PUBLIC_API_URL}checkout`);
     let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}checkout`, {
       method: "POST",
       body: formD,
@@ -71,22 +72,26 @@ export default function Orders() {
         // "Content-type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${token}`,
       },
-    }).then(r => r.json()).then(re => {
-      location.href = re.url;
-    });
+    })
+      .then((r) => r.json())
+      .then((re) => {
+        location.href = re.url;
+      });
 
-   return;
+    return;
+  };
 
-  }
-
-  const calculateShipping = async () =>{
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}shipping?userId=${userData.id}`
-      ).then( val => {
-        val.json()
-      }).then(val => {
-        console.log({val2:val});
+  const calculateShipping = async () => {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_APP_URL}shipping?userId=${userData.id}`
+    )
+      .then((val) => {
+        val.json();
       })
-  }
+      .then((val) => {
+        console.log({ val2: val });
+      });
+  };
 
   const totalCartPrice = () => {
     let total = 0;
@@ -173,15 +178,14 @@ export default function Orders() {
                   type={"submit"}
                   value="AZIENDA"
                 />
-              </div><form id="shippingDetails">
-
-              {privateInput ? (
-                
-               
-                <Privato user={userData} />
-              ) : (
-                <Azienda user={userData} />
-              )}</form>
+              </div>
+              <form id="shippingDetails">
+                {privateInput ? (
+                  <Privato user={userData} />
+                ) : (
+                  <Azienda user={userData} />
+                )}
+              </form>
             </div>
           </div>
 
@@ -249,7 +253,9 @@ export default function Orders() {
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>IVA (22%)</span>
-                        <span className="text-red-500">€24.915</span>
+                        <span className="text-red-500">
+                          €{totalCartPrice() * 0.22}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Spedizione</span>
@@ -261,7 +267,7 @@ export default function Orders() {
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Totale</span>
                         <span className="text-red-500">
-                          €{totalCartPrice()}
+                          €{totalCartPrice() + totalCartPrice() * 0.22}
                         </span>
                       </div>
                     </div>

@@ -27,6 +27,9 @@ export default function Header() {
   const cartList = useSelector((state) => state.mySlice.cart);
   const openCart = useSelector((state) => state.mySlice.openCart);
   const favourite = useSelector((state) => state.favouriteList) || [];
+  const [favList, setFavList] = useState([]);
+  console.clear();
+  console.log(favourite);
 
   const [bgColor, setBgColor] = useState({
     background_color: "#F0F0F0!important",
@@ -56,10 +59,13 @@ export default function Header() {
       })
       .then((res) => {
         if (res.status === 200) {
+          const list = [];
           if (favourite.length === 0) {
             res.data.forEach((data) => {
+              list.push(data);
               dispatch(updateFavouriteList(data));
             });
+            setFavList(list);
           }
         }
       });
@@ -245,7 +251,7 @@ export default function Header() {
                 <a>
                   <div className={HeaderCss.wishListIcon}>
                     <span className={HeaderCss.wishListCount}>
-                      {favourite.length}
+                      {favList.length}
                     </span>
                     <Icon icon="bi:heart" />
                   </div>
