@@ -123,7 +123,8 @@ const ShopList = ({ product }) => {
                     router.success("aggiunto alla lista dei desideri");
                   }
                 })
-                .catch(() => {
+                .catch((e) => {
+                  alert(JSON.stringify(e))
                   toast.error("Si è verificato un errore");
                 });
             }}
