@@ -60,8 +60,9 @@ const Shop = ({ products, categories, brands, m }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({req}) {
   // try {
+  const { m } = req.query;
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
   const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
 
@@ -70,7 +71,7 @@ export async function getServerSideProps() {
   const products = await res.json();
 
   const categories = await Catres.json();
-  return { props: { products, categories, brands } };
+  return { props: { products, categories, brands, m } };
   // } catch (error) {
   //   console.log(error);
   //   return { props: { products: [{}], categories: [{}], brands: [{}] } };
