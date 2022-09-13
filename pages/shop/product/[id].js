@@ -228,6 +228,11 @@ const Product = ({ errorCode, product: originalProductData }) => {
             {activeTab === "tab2" && (
               <div className="tab_content_item">
                 <div className="infoWrapper d-flex w-100">
+                  <div className="itemLabel ">prezzo: </div>
+                  <div className="itemContent">{product?.price}</div>
+                </div>
+         
+                <div className="infoWrapper d-flex w-100">
                   <div className="itemLabel ">Peso: </div>
                   <div className="itemContent">{product?.weight}</div>
                 </div>
