@@ -92,7 +92,8 @@ const ShopList = ({ product }) => {
             className="ml-2"
             onClick={() => {
               if (!token) {
-                toast.error("non autorizzato");
+                toast.error("accesso non effettuato");
+                return;
               }
 
               if (inFav) {
