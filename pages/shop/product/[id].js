@@ -3,12 +3,19 @@ import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartList, updateCartVisibility } from "../../../stores/mySlice";
+import {
+  updateCartList,
+  updateCartVisibility,
+  updateFavouriteList,
+  removeFavouriteList,
+} from "../../../stores/mySlice";
 import Cart from "../../../components/cartList/cart";
 import Cok from "cookie";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import digitToString from "../../../const/digitToString";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 // console.log(digitToString);
 const Product = ({ errorCode, product: originalProductData }) => {
@@ -24,11 +31,18 @@ const Product = ({ errorCode, product: originalProductData }) => {
 
   const [dropDownOpen, setDropDownOpen] = useState(false);
 
+  const activeUser = JSON.parse(Cookies.get("user") || "{}");
+  const userId = activeUser["id"];
+  const token = Cookies.get("token");
+  const router = useRouter();
+
+  const { favouriteList } = useSelector((state) => state.mySlice);
+  const inFav = favouriteList.find((d) => d.title === product?.title);
+
   useEffect(() => {
     setProduct(originalProductData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalProductData]);
-  const router = useRouter();
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -62,15 +76,13 @@ const Product = ({ errorCode, product: originalProductData }) => {
   const productionVariation = originalProductData.variation || [];
 
   const variationList = productionVariation.map((variant, index) => {
-    console.log(variant);
     const position = digitToString(index + 1);
     return (
       <button onClick={() => changeVariation(variant)} key={variant.title}>
-        {variant.title} Variant
+        {variant.packaging} Variant
       </button>
     );
   });
-  console.log(variationList);
 
   return (
     <>
@@ -169,9 +181,86 @@ const Product = ({ errorCode, product: originalProductData }) => {
                     AGGIUNGI AL CARRELLO
                   </span>
                 </a>
-                <span className="border-1 border-black border-solid rounded-3xl px-4 py-1 cursor-pointer text-sm">
+                <button
+                  className="border-1 border-black border-solid rounded-3xl px-4 py-1 cursor-pointer text-sm"
+                  onClick={() => {
+                    if (!token) {
+                      toast.error("accesso non effettuato");
+                      return;
+                    }
+
+                    if (inFav) {
+                      return fetch(
+                        process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`,
+                        {
+                          method: "DELETE",
+                          body: JSON.stringify({
+                            product_id: product?.id,
+                          }),
+                          headers: {
+                            "Content-type": "application/json;charset=UTF-8",
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      )
+                        .then((res) => {
+                          return res.json();
+                        })
+                        .then((res) => {
+                          if (res.status === 401) {
+                            toast.error("non autorizzato");
+                            router.push("/accedi-registrati");
+                          }
+                          if (res.status === 200) {
+                            toast.success(
+                              "il prodotto è stato rimosso dalla lista dei desideri"
+                            );
+                            return dispatch(removeFavouriteList(product));
+                          }
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                          toast.error("Si è verificato un errore");
+                        });
+                    }
+
+                    fetch(
+                      process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`,
+                      {
+                        method: "POST",
+                        body: JSON.stringify({
+                          product_id: product?.id,
+                        }),
+                        headers: {
+                          "Content-type": "application/json;charset=UTF-8",
+                          Authorization: `Bearer ${token}`,
+                        },
+                      }
+                    )
+                      .then((res) => {
+                        return res.json();
+                      })
+                      .then((res) => {
+                        if (res.status === 401) {
+                          toast.error("non autorizzato");
+                          router.push("/accedi-registrati");
+                        }
+                        if (res.status === 200) {
+                          dispatch(updateFavouriteList(product, product?.id));
+                          toast.success("aggiunto alla lista dei desideri");
+                        }
+                      })
+                      .catch((e) => {
+                        console.log(e);
+                        toast.error("Si è verificato un errore");
+                      });
+                  }}
+                  style={{
+                    background: inFav ? "#0000002e" : "none",
+                  }}
+                >
                   AGGIUNGI ALLA LISTA DEI DESIDERI{" "}
-                </span>
+                </button>
               </div>
             </div>
           </div>
@@ -231,7 +320,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
                   <div className="itemLabel ">prezzo: </div>
                   <div className="itemContent">{product?.price}</div>
                 </div>
-         
+
                 <div className="infoWrapper d-flex w-100">
                   <div className="itemLabel ">Peso: </div>
                   <div className="itemContent">{product?.weight}</div>
@@ -288,32 +377,26 @@ const Product = ({ errorCode, product: originalProductData }) => {
 export default Product;
 
 export async function getServerSideProps({ req, params }) {
-  let cook = Cok.parse(req.headers.cookie || "");
-  let token = cook.token;
+  try {
+    let cook = Cok.parse(req.headers.cookie || "");
+    let token = cook.token;
 
-  // if (!token) {
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}product/${params?.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}product/${params?.id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  const errorCode = res.ok ? false : res.status;
-  console.log(res);
-  const product = await res.json();
-  console.log(product.data);
-  return { props: { product: product.data, params, errorCode } };
+    const errorCode = res.ok ? false : res.status;
+    const product = await res.json();
+    return { props: { product: product.data, params, errorCode } };
+  } catch (error) {
+    console.log(error);
+    return { props: { product: {}, params: {}, errorCode: 500 } };
+  }
 }

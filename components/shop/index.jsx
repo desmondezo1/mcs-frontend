@@ -97,7 +97,37 @@ const ShopList = ({ product }) => {
               }
 
               if (inFav) {
-                return dispatch(removeFavouriteList(product));
+                return fetch(
+                  process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`,
+                  {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                      product_id: product?.id,
+                    }),
+                    headers: {
+                      "Content-type": "application/json;charset=UTF-8",
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                )
+                  .then((res) => {
+                    return res.json();
+                  })
+                  .then((res) => {
+                    if (res.status === 401) {
+                      toast.error("non autorizzato");
+                      router.push("/accedi-registrati");
+                    }
+                    if (res.status === 200) {
+                      toast.success(
+                        "il prodotto è stato rimosso dalla lista dei desideri"
+                      );
+                      return dispatch(removeFavouriteList(product));
+                    }
+                  })
+                  .catch((e) => {
+                    toast.error("Si è verificato un errore");
+                  });
               }
               fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`, {
                 method: "POST",

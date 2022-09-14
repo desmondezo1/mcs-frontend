@@ -13,6 +13,8 @@ const Shop = ({ products, categories, brands, m }) => {
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
   const { brand, searchV } = router.query;
+
+  console.log(products);
   useEffect(() => {
     if (m == "success") {
       toast.success("Il tuo ordine è stato ricevuto");
