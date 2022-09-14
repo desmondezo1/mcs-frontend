@@ -66,7 +66,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
     const position = digitToString(index + 1);
     return (
       <button onClick={() => changeVariation(variant)} key={variant.title}>
-        {variant.title} Variant
+        {variant.title}
       </button>
     );
   });
