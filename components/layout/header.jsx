@@ -28,8 +28,6 @@ export default function Header() {
   const openCart = useSelector((state) => state.mySlice.openCart);
   const favourite = useSelector((state) => state.favouriteList) || [];
   const [favList, setFavList] = useState([]);
-  console.clear();
-  console.log(favourite);
 
   const [bgColor, setBgColor] = useState({
     background_color: "#F0F0F0!important",
