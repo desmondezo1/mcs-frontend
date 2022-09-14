@@ -61,17 +61,7 @@ export default function Orders() {
               },
             }
           )
-          // await fetch(
-          //   `${process.env.NEXT_PUBLIC_API_URL}user/${userData.id}/billing-address`,
-          //   {
-          //     method: "PATCH",
-          //     body: JSON.stringify(state),
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //       Authorization: `Bearer ${token}`,
-          //     },
-          //   }
-          // )
+
           .then((res) => {
             console.log(res);
             if (res.status === 422) {

@@ -12,7 +12,7 @@ const Shop = ({ products, categories, brands }) => {
 
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
-  const { brand, searchV , m} = router.query;
+  const { brand, searchV, m } = router.query;
   useEffect(() => {
     if (m == "success") {
       toast.success("Il tuo ordine è stato ricevuto");
@@ -60,7 +60,7 @@ const Shop = ({ products, categories, brands }) => {
   );
 };
 
-export async function getServerSideProps({req}) {
+export async function getServerSideProps({ req }) {
   // try {
   // const { m } = req.query;
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
