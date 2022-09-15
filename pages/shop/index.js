@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 
 const Shop = ({ products, categories, brands }) => {
   const userData = JSON.parse(Cookies.get("user") || "{}");
-
   const searchFilter = useStore((state) => state.searchFilter);
   const router = useRouter();
   const { brand, searchV, m } = router.query;
@@ -45,7 +44,8 @@ const Shop = ({ products, categories, brands }) => {
                   if (!searchFilter) {
                     return val;
                   } else if (
-                    val.title.toLowerCase().includes(searchFilter.toLowerCase())
+                    val.title.toLowerCase().includes(searchFilter.toLowerCase()) ||
+                    val?.brand.toLowerCase().includes(searchFilter.toLowerCase())
                   ) {
                     return val;
                   }

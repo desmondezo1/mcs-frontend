@@ -40,17 +40,18 @@ const Partners = ({ brands, errorCode }) => {
                 key={index}
                 className="box-item right border-black border-1 border-solid rounded-xl "
                 onClick={() => {
-                  showProducts(partner.name);
+                  showProducts(partner?.name);
                 }}
               >
-                {/* <Image 
-            src={partner.imageLink}
+                <Image 
+                style={{width: "100%", height: "100%", borderRaduis: "10px", cursor: "pointer"}}
+            src={partner?.photo}
             alt="partners"
             width={100}
             height={100}
             quality = {100}
-            /> */}
-                <span> {partner.name}</span>
+            />
+                {/* <span> {partner?.name}</span> */}
               </div>
             ))}
           </div>
