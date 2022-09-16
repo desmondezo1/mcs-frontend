@@ -1,21 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function SpedizioneForm({ user, onChange, state }) {
-  // console.log({user})
-  const [firstName, setFirstName] = useState(user?.first_name);
-  const [lastName, setLastName] = useState(user?.last_name);
-  const [taxCode, setTaxCode] = useState();
-  const [email, setEmail] = useState(user?.email);
-  const [recipientCode, setRecipientCode] = useState();
-  const [country, setCountry] = useState(user?.country);
-  const [province, setProvince] = useState(user?.state);
-  const [city, setCity] = useState(user?.city);
-  const [address, setAddress] = useState(user?.addresss);
+export default function SpedizioneForm({ user, onChange, state, setState }) {
   const [suite, setSuite] = useState();
-  const [houseNumber, setHouseNumber] = useState();
-  const [zip, setZip] = useState();
-  const [telephone, setTelephone] = useState(user?.phone);
-  const [fax, setFax] = useState();
+
+  useEffect(() => {
+    setState({ ...user, ...user?.billing });
+    setSuite(user.address);
+  }, [user]);
 
   return (
     <>

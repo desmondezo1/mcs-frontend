@@ -27,7 +27,7 @@ const Orders = ({ item }) => {
       <div className="w-[200px] cursor-pointer">
         <Image
           alt="orders"
-          src={item?.photo}
+          src={item?.photo?.image}
           width={200}
           height={200}
           quality={100}

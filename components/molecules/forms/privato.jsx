@@ -32,6 +32,9 @@ export default function Privato({ user }) {
 
     console.log(state);
   }
+  useEffect(() => {
+    setState({ ...user, ...user?.billing });
+  }, [user]);
   return (
     <>
       <style jsx>
@@ -136,9 +139,9 @@ export default function Privato({ user }) {
             className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
             type={"text"}
             onChange={(e) => {
-              setProvince(e.target.value);
+              onChange(e);
             }}
-            value={province}
+            value={state.state}
           />
         </div>
 

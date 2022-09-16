@@ -5,6 +5,9 @@ export default function Azienda({ user }) {
   const [suite, setSuite] = useState();
   const [state, setState] = useState(initialStateForAzienda);
 
+  useEffect(() => {
+    setState({ ...user, ...user?.billing });
+  }, []);
   function onChange(e) {
     setState((prev) => ({
       ...prev,

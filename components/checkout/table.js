@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   increaseQuantity,
@@ -9,6 +10,7 @@ import {
 
 const TableBody = ({ id, name, price, quantity, item, photo }) => {
   const dispatch = useDispatch();
+  React.useEffect(() => {}, []);
   console.log("photo", item);
   return (
     <tr className="overflow-visible">
@@ -55,4 +57,4 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
   );
 };
 
-export default TableBody;
+export default React.memo(TableBody);
