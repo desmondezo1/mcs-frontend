@@ -44,8 +44,12 @@ const Shop = ({ products, categories, brands }) => {
                   if (!searchFilter) {
                     return val;
                   } else if (
-                    val.title.toLowerCase().includes(searchFilter.toLowerCase()) ||
-                    val?.brand.toLowerCase().includes(searchFilter.toLowerCase())
+                    val.title
+                      .toLowerCase()
+                      .includes(searchFilter.toLowerCase()) ||
+                    val?.brand
+                      .toLowerCase()
+                      .includes(searchFilter.toLowerCase())
                   ) {
                     return val;
                   }
@@ -61,25 +65,20 @@ const Shop = ({ products, categories, brands }) => {
 };
 
 export async function getServerSideProps({ req }) {
-  // try {
-  // const { m } = req.query;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
-  const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
+    const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
 
-  const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
-  const brands = await brandRes.json();
-  const products = await res.json();
+    const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
+    const brands = await brandRes.json();
+    const products = await res.json();
 
-  const categories = await Catres.json();
-  return { props: { products, categories, brands } };
-  // } catch (error) {
-  //   console.log(error);
-  //   return { props: { products: [{}], categories: [{}], brands: [{}] } };
-  // }
-
-  // if (req) {
-  //   const { m } = req.query;
-  // }
+    const categories = await Catres.json();
+    return { props: { products, categories, brands } };
+  } catch (error) {
+    console.log(error);
+    return { props: { products: [], categories: [], brands: [] } };
+  }
 }
 
 export default Shop;
