@@ -32,6 +32,7 @@ export default function Orders() {
     formD.append("user_id", userData.id);
     formD.append("shipping_type", 1);
     formD.append("delivery_charge", 0);
+    formD.append("tax", totalCartPrice() * 0.22);
     formD.append("status", 1);
     formD.append("payment_method", 1);
     // await calculateShipping();
