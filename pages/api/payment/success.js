@@ -7,18 +7,24 @@ export default async function handler(req, res) {
   let token = cook.token;
   const query = req.query;
   const { transid, orderid } = query;
-  let formD = new FormData();
-  formD.append("order_status", 3);
-  formD.append("payment_status", 1);
+  // let formD = new FormData();
+  // formD.append("order_status", 4);
+  // formD.append("payment_status", 1);
+
+  let d4data = {
+    "order_status": 4,
+    "payment_status": 1
+  }
 
   console.log("sjd", transid, orderid);
   const resp = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}order/${orderid}`,
     {
       method: "PATCH",
-      body: formD,
+      body: JSON.stringify(d4data),
       headers: {
-        "Content-type": "application/json",
+        "Content-type": "application/json;charset=UTF-8",
+        // "Content-type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${token}`,
       },
     }
@@ -28,6 +34,7 @@ export default async function handler(req, res) {
     })
     .then((re) => {
       if (re.status == 200) {
+        console.log({re})
         return {
           status: re.status,
           redirect: {

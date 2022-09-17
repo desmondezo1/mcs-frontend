@@ -331,7 +331,7 @@ export default function Home() {
 
               <form
                 className={`${styles.contactForm} ${"p-0 "}`}
-                action="https://mailthis.to/desezo@gmail.com"
+                action="https://mailthis.to/e-commerce@mcsgroupsrl.com"
                 method="POST"
                 encType="multipart/form-data"
               >
@@ -374,7 +374,7 @@ export default function Home() {
                   } ${"invia d-flex position-absolute"}`}
                 >
                   <a
-                    href={`mailto:admin@mcsgroupsrl.com?subject=Big%20News&body=From:${fromEmail} Message:${fromMessage}`}
+                    href={`mailto:e-commerce@mcsgroupsrl.com?subject=Big%20News&body=From:${fromEmail} Message:${fromMessage}`}
                   >
                     INVIA
                   </a>
