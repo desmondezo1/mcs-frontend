@@ -4,8 +4,13 @@ import arrowRight from "../../public/images/arrow_right.svg";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
+
 
 export default function Washroom() {
+  const [fromMessage, setFromMessage] = useState(false);
+  const [fromEmail, setFromEmail] = useState(false);
+  const [fromPhone, setFromPhone] = useState(false);
   const router = useRouter();
   return (
     <>
@@ -126,21 +131,30 @@ export default function Washroom() {
                 placeholder="Scrivici qui!"
                 id="exampleFormControlTextarea1"
                 rows="10"
+                onChange={(e) => {
+                  setFromMessage(e.target.value);
+                }}
               ></textarea>
 
               <div className="input-wrapper">
                 <label htmlFor="email"> INDIRIZZO EMAIL </label>
-                <input type={"text"} name="email" />
+                <input type={"text"} name="email"  onChange={(e) => {
+                    setFromEmail(e.target.value);
+                  }}/>
               </div>
               <div className="input-wrapper">
                 <label htmlFor="telephone"> TELEFONO </label>
-                <input type={"text"} name="telephone" />
+                <input type={"text"} name="telephone" onChange={(e) => {
+                    setFromPhone(e.target.value);
+                  }}/>
               </div>
 
               <span
                 className={`${styles.link_with_arrow} ${"invia d-flex w-fit"}`}
               >
+                <a href={`mailto:e-commerce@mcsgroupsrl.com?subject=Big%20News&body=From:${fromEmail}, phone:${fromPhone} , Message:${fromMessage}`} >
                 INVIA
+                </a>
                 <Icon
                   icon="carbon:arrow-up-right"
                   style={{ fontSize: "1rem" }}
@@ -154,7 +168,7 @@ export default function Washroom() {
           <div className={`${styles.distImageCard} ${"imageCard"}`}>
             <Link href={""}>
               <span style={{ display: "flex", marginTop: "10px" }}>
-                <a>ASSISTENZA CLIENTI</a>
+                <a href="tel:0932642711">ASSISTENZA CLIENTI</a>
                 <Icon
                   icon="carbon:arrow-up-right"
                   style={{ fontSize: "1rem" }}
@@ -178,7 +192,7 @@ export default function Washroom() {
               </span>
             </Link>
 
-            <p className="mt-[20px]">Email: mcsprogettoigiene@gmail.com</p>
+            <p className="mt-[20px]">Email: e-commerce@mcsgroupsrl.com</p>
             <p>Tel: 0932 642711</p>
             <p>Cell: 3791979665 - 3395354321</p>
           </div>
