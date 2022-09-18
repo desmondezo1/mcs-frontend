@@ -156,7 +156,7 @@ const Register = () => {
               <span className="ml-2 text-sm">
                 Ho letto e accetto il{" "}
                 <a className="text-blue-500" href="#">
-                  tratetamento dei dati personali.*
+                trattamento dei dati personali.*
                 </a>
               </span>
               {touched.termsNconditions && (
