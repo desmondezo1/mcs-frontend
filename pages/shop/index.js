@@ -15,7 +15,6 @@ const Shop = ({ products, categories, brands, brand }) => {
   const router = useRouter();
   const [brandQuery, setBrandQuery] = useState("");
   const { searchV, m } = router.query;
-
   const setBrand = (brand) => {
     setSearchFilterValue(brand);
   };
@@ -81,7 +80,7 @@ export async function getServerSideProps(conext) {
     const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
     const brands = await brandRes.json();
     const products = await res.json();
-
+    
     const categories = await Catres.json();
     return { props: { products, categories, brands } };
   } catch (error) {

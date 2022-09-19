@@ -59,6 +59,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
         name: product?.title,
         price: product?.price,
         quantity: count,
+        weight: product?.weight,
       })
     );
   };
@@ -394,6 +395,7 @@ export async function getServerSideProps({ req, params }) {
 
     const errorCode = res.ok ? false : res.status;
     const product = await res.json();
+    console.log(product.data)
     return { props: { product: product.data, params, errorCode } };
   } catch (error) {
     console.log(error);

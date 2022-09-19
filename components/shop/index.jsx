@@ -24,7 +24,7 @@ const ShopList = ({ product }) => {
 
   const { favouriteList } = useSelector((state) => state.mySlice);
 
-  const addToCart = ({ id, title, price, photo }, quantity) => {
+  const addToCart = ({ id, title, price, photo, weight }, quantity) => {
     dispatch(
       updateCartList({
         id,
@@ -32,6 +32,7 @@ const ShopList = ({ product }) => {
         price,
         photo,
         quantity,
+        weight
       })
     );
 

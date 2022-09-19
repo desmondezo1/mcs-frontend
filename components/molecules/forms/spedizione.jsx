@@ -5,7 +5,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
 
   useEffect(() => {
     setState({ ...user, ...user?.billing });
-    setSuite(user.address);
+    setSuite(user?.address);
   }, [user]);
 
   return (
@@ -36,7 +36,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
           type={"text"}
           name="first_name"
-          value={state.first_name}
+          value={state?.first_name}
           onChange={onChange}
         />
       </div>
@@ -49,7 +49,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
           type={"text"}
           name="last_name"
-          value={state.last_name}
+          value={state?.last_name}
           onChange={onChange}
         />
       </div>
@@ -63,7 +63,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="tax_id_code"
           onChange={onChange}
-          value={state.tax_id_code}
+          value={state?.tax_id_code}
         />
       </div>
 
@@ -76,7 +76,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="email"
           onChange={onChange}
-          value={state.email}
+          value={state?.email}
         />
       </div>
 
@@ -87,7 +87,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="recipient_code"
           onChange={onChange}
-          value={state.recipient_code}
+          value={state?.recipient_code}
         />
       </div>
 
@@ -100,7 +100,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="country"
           onChange={onChange}
-          value={state.country}
+          value={state?.country}
         />
       </div>
 
@@ -115,7 +115,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           onChange={(e) => {
             onChange(e);
           }}
-          value={state.state}
+          value={state?.state}
         />
       </div>
 
@@ -128,7 +128,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="city"
           onChange={onChange}
-          value={state.city}
+          value={state?.city}
         />
       </div>
 
@@ -141,7 +141,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="address1"
           onChange={onChange}
-          value={state.address1}
+          value={state?.address1}
         />
       </div>
 
@@ -152,7 +152,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="suite"
           onChange={(e) => {
-            setSuite(e.target.value);
+            setSuite(e?.target?.value);
           }}
           value={suite}
         />
@@ -167,7 +167,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           onChange={onChange}
           name="house_no"
-          value={state.house_no}
+          value={state?.house_no}
         />
       </div>
 
@@ -180,7 +180,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           type={"text"}
           name="cap"
           onChange={onChange}
-          value={state.cap}
+          value={state?.cap}
         />
       </div>
 
@@ -193,7 +193,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
           type={"text"}
           onChange={onChange}
-          value={state.phone}
+          value={state?.phone}
         />
       </div>
 
@@ -204,7 +204,7 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
           type={"info@diessofficial.com"}
           onChange={onChange}
-          value={state.fax}
+          value={state?.fax}
         />
       </div>
 

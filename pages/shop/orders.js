@@ -22,6 +22,9 @@ export default function Orders() {
   const router = useRouter();
   const cartList = useSelector((state) => state.mySlice.cart);
   const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
+  const shippingCost = useStore((state) => state.shippingCost);
+  const doorDelivery = useStore((state) => state.doorDelivery);
+  const setDoorDelivery = useStore((state) => state.setDoorDelivery);
   const [privateInput, setPrivateInput] = useState(true);
   const [userData, setUserData] = useState("");
 
@@ -43,8 +46,10 @@ export default function Orders() {
     let token = Cookies.get("token");
     if (!privateInput) {
       console.log("freeshipping");
+      setDoorDelivery(false);
       router.push("/shop/orders2");
     } else {
+      setDoorDelivery(true);
       let doc = document.getElementById("shippingDetails");
       if (doc) {
         let formD = new FormData(doc);
@@ -131,6 +136,7 @@ export default function Orders() {
   };
   useEffect(() => {
     getUser();
+    setDoorDelivery(true);
   }, []);
 
   useEffect(() => {
@@ -140,6 +146,7 @@ export default function Orders() {
   const handlePrivateInput = (event) => {
     event.preventDefault();
     setPrivateInput(!privateInput);
+    setDoorDelivery(!privateInput)
   };
 
   return (
@@ -285,8 +292,8 @@ export default function Orders() {
                         </span>
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
-                        <span>Spedizione</span>
-                        <span className="text-red-500">€0</span>
+                        <span>Spedizione </span>
+                        <span className="text-red-500">€{!doorDelivery? "0": shippingCost}</span>
                       </div>
                     </div>
 
@@ -294,7 +301,7 @@ export default function Orders() {
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Totale</span>
                         <span className="text-red-500">
-                          €{totalCartPrice() + totalCartPrice() * 0.22}
+                       €{parseFloat((doorDelivery?+shippingCost:0) + totalCartPrice() + (totalCartPrice() * 0.22)).toFixed(2)}
                         </span>
                       </div>
                     </div>
