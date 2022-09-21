@@ -57,7 +57,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
       updateCartList({
         id: product?.id,
         name: product?.title,
-        price: product?.price,
+        price:  activeUser?.role === 3 ? product?.offer_price: product?.price,
         quantity: count,
         weight: product?.weight,
       })
@@ -80,7 +80,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
     const position = digitToString(index + 1);
     return (
       <button onClick={() => changeVariation(variant)} key={variant.title}>
-        {variant.title}
+        {variant.packaging}
       </button>
     );
   });
