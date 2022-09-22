@@ -1,20 +1,37 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import ShopList from "../../components/shop";
 import ShopSideBar from "../../components/shop/sidebar";
 import { orderList } from "../../const";
 import useStore from "../../stores/zustandStore";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import { useState } from "react";
 
-const Shop = ({ products, categories, brands, brand }) => {
+const Shop = ({ productss, categories, brands, brand }) => {
   const userData = JSON.parse(Cookies.get("user") || "{}");
+  const [products, setProductss] = useState([]);
+
   const searchFilter = useStore((state) => state.searchFilter);
   const setSearchFilterValue = useStore((state) => state.setSearchFilterValue);
   const router = useRouter();
   const [brandQuery, setBrandQuery] = useState("");
   const { searchV, m } = router.query;
+
+  console.log(productss);
+  useEffect(() => {
+    if (productss.length > 0) {
+      const p = productss.map((data) => {
+        if (Number(userData.role) >= 3) {
+          return {
+            ...data,
+            price: data.offer_price,
+          };
+        }
+        return data;
+      });
+      setProductss(p);
+    }
+  }, []);
 
   const setBrand = (brand) => {
     setSearchFilterValue(brand);
@@ -57,7 +74,12 @@ const Shop = ({ products, categories, brands, brand }) => {
                       .includes(searchFilter.toLowerCase()) ||
                     val?.brand
                       .toLowerCase()
-                      .includes(searchFilter.toLowerCase())
+                      .includes(searchFilter.toLowerCase()) ||
+                    val?.category.find((x) =>
+                      x?.title
+                        .toLowerCase()
+                        .includes(searchFilter.toLowerCase())
+                    )
                   ) {
                     return val;
                   }
@@ -83,10 +105,12 @@ export async function getServerSideProps(conext) {
     const products = await res.json();
 
     const categories = await Catres.json();
-    return { props: { products, categories, brands } };
+    return { props: { productss: products, categories, brands, brand } };
   } catch (error) {
     console.log(error);
-    return { props: { products: [], categories: [], brands: [] } };
+    return {
+      props: { productss: [], categories: [], brands: [], brand: null },
+    };
   }
 }
 
