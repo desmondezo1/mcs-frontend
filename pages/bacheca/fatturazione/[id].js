@@ -146,7 +146,7 @@ export const Fatturazione = () => {
                 </div>
 
                 <div className="flex items-center justify-between my-3">
-                  <label>PATITA IVA</label>
+                  <label>Partita IVA</label>
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
                     type={"text"}

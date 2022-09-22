@@ -57,8 +57,9 @@ const Product = ({ errorCode, product: originalProductData }) => {
       updateCartList({
         id: product?.id,
         name: product?.title,
-        price: product?.price,
+        price:  activeUser?.role === 3 ? product?.offer_price: product?.price,
         quantity: count,
+        weight: product?.weight,
       })
     );
   };
@@ -79,7 +80,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
     const position = digitToString(index + 1);
     return (
       <button onClick={() => changeVariation(variant)} key={variant.title}>
-        {variant.title}
+        {variant.packaging}
       </button>
     );
   });
@@ -394,6 +395,7 @@ export async function getServerSideProps({ req, params }) {
 
     const errorCode = res.ok ? false : res.status;
     const product = await res.json();
+    console.log(product.data)
     return { props: { product: product.data, params, errorCode } };
   } catch (error) {
     console.log(error);

@@ -18,7 +18,7 @@ const Desideri = ({ errorCode, orders, id }) => {
             ? orders?.map((wishlist, index) => (
                 <Orders item={wishlist} key={index} />
               ))
-            : "No WishList fonund"}
+            : "Nessuna lista dei desideri trovata"}
         </div>
       </div>
     </div>

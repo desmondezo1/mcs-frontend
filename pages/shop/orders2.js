@@ -22,7 +22,10 @@ export default function Orders() {
   const router = useRouter();
   const cartList = useSelector((state) => state.mySlice.cart);
   const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
+  const doorDelivery = useStore((state) => state.doorDelivery);
   const [privateInput, setPrivateInput] = useState(true);
+  const shippingCost = useStore((state) => state.shippingCost);
+
   const [userData, setUserData] = useState("");
 
   const handleProceedToOrders = async () => {
@@ -30,8 +33,15 @@ export default function Orders() {
     let doc = document.getElementById("shippingDetails");
     let formD = new FormData(doc);
     formD.append("user_id", userData.id);
-    formD.append("shipping_type", 1);
-    formD.append("delivery_charge", 0);
+    
+    if (doorDelivery) {
+      formD.append("delivery_charge", shippingCost);
+      formD.append("shipping_type", 2);
+    }else{
+       formD.append("delivery_charge", 0);
+       formD.append("shipping_type", 1);
+    }
+   
     formD.append("tax", totalCartPrice() * 0.22);
     formD.append("status", 1);
     formD.append("payment_method", 1);
@@ -82,17 +92,6 @@ export default function Orders() {
     return;
   };
 
-  const calculateShipping = async () => {
-    await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL}shipping?userId=${userData.id}`
-    )
-      .then((val) => {
-        val.json();
-      })
-      .then((val) => {
-        console.log({ val2: val });
-      });
-  };
 
   const totalCartPrice = () => {
     let total = 0;
@@ -260,7 +259,7 @@ export default function Orders() {
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Spedizione</span>
-                        <span className="text-red-500">€0</span>
+                        <span className="text-red-500">€{!doorDelivery? "0": shippingCost}</span>
                       </div>
                     </div>
 
@@ -268,7 +267,7 @@ export default function Orders() {
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>Totale</span>
                         <span className="text-red-500">
-                          €{totalCartPrice() + totalCartPrice() * 0.22}
+                          {parseFloat((doorDelivery?+shippingCost:0) + totalCartPrice() + (totalCartPrice() * 0.22)).toFixed(2)}
                         </span>
                       </div>
                     </div>

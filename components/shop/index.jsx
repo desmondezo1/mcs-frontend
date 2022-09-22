@@ -16,7 +16,9 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 const ShopList = ({ product }) => {
+  console.log({product})
   const activeUser = JSON.parse(Cookies.get("user") || "{}");
+  console.log({activeUser})
   const id = activeUser["id"];
   const token = Cookies.get("token");
   const dispatch = useDispatch();
@@ -24,14 +26,15 @@ const ShopList = ({ product }) => {
 
   const { favouriteList } = useSelector((state) => state.mySlice);
 
-  const addToCart = ({ id, title, price, photo }, quantity) => {
+  const addToCart = ({ id, title, price, offer_price, photo, weight }, quantity) => {
     dispatch(
       updateCartList({
         id,
         name: title,
-        price,
+        price: activeUser?.role === 3 ? offer_price: price,
         photo,
         quantity,
+        weight
       })
     );
 
@@ -41,7 +44,7 @@ const ShopList = ({ product }) => {
       body: JSON.stringify({
         id,
         title,
-        price,
+        price:  activeUser?.role === 3 ? offer_price: price,
         quantity,
       }),
     })
@@ -77,7 +80,7 @@ const ShopList = ({ product }) => {
           />
         </Link>
         <p className="sm:w-[170px] my-2 text-sm">{product?.title}</p>
-        <p className="text-sm text-red-600">€{product?.price}</p>
+        <p className="text-sm text-red-600">€{activeUser?.role === 3 ? product?.offer_price: product?.price}</p>
 
         <div className="icons flex items-center mt-2">
           <span

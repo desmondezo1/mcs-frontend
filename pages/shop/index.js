@@ -17,7 +17,6 @@ const Shop = ({ productss, categories, brands, brand }) => {
   const [brandQuery, setBrandQuery] = useState("");
   const { searchV, m } = router.query;
 
-  console.log(productss);
   useEffect(() => {
     if (productss.length > 0) {
       const p = productss.map((data) => {

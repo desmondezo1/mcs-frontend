@@ -8,14 +8,17 @@ import TableBody from "../../components/checkout/table";
 import { useRouter } from "next/router";
 import useStore from "../../stores/zustandStore";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const Cart = () => {
   const activeUser = JSON.parse(Cookies.get("user") || "{}");
-  // const userId = useStore((state) => state.userId);
+  const shippingCost = useStore((state) => state.shippingCost);
+  const setShippingCost = useStore((state) => state.setShippingCost);
   const userId = activeUser.id;
   const dispatch = useDispatch();
+  const doorDelivery = useStore((state) => state.doorDelivery);
   const router = useRouter();
-
+  const [shippingPrice, setShippingPrice] = useState(0);
   const cartList = useSelector((state) => state.mySlice.cart);
 
   const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
@@ -55,8 +58,25 @@ const Cart = () => {
     return total;
   };
 
+  const calculateShipping = () => {
+    let total = 0;
+    cartList.forEach((item) => {
+      total += +item?.weight;
+    });
+    return total;
+  }
+
   useEffect(() => {
     dispatch(updateTotalPrice(totalCartPrice()));
+  });
+
+  useEffect(() =>{
+    let total = calculateShipping();
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`).then((res)=>{
+      console.log(res.data)
+      setShippingPrice( +res.data.data)
+      setShippingCost(+res.data.data)
+    });
   });
 
   useEffect(() => {
@@ -126,7 +146,7 @@ const Cart = () => {
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Spedizione</span>
-                <span className="text-red-500">€0</span>
+                <span className="text-red-500">€{!doorDelivery? "0": shippingPrice}</span>
               </div>
             </div>
 
@@ -134,7 +154,7 @@ const Cart = () => {
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Totale</span>
                 <span className="text-red-500">
-                  €{totalCartPrice() + totalCartPrice() * 0.22}
+                  €{parseFloat((doorDelivery?+shippingCost:0) + totalCartPrice() + (totalCartPrice() * 0.22)).toFixed(2) }
                 </span>
               </div>
             </div>

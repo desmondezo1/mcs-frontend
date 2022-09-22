@@ -57,7 +57,7 @@ const Sidebar = () => {
                   "/bacheca/desideri/1"
                 )}`}
               >
-                LISTA DEI DESIDERI
+                Lista Dei Desideri
               </a>
             </Link>
           </li>
@@ -79,7 +79,7 @@ const Sidebar = () => {
                   "/bacheca/fatturazione/1"
                 )}`}
               >
-                Dati di Fatturazione e DETTAGLI ACCOUNT
+                Dati di Fatturazione e Dettagli Account
               </a>
             </Link>
           </li>
