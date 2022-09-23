@@ -166,7 +166,7 @@ const ShopSidebar = ({ searchValue, categories, brands }) => {
               ""
             ) : (
               <span className="BrandList" id="brandList">
-                {brands.map(({ id, name }, index) => {
+                {brands?.map(({ id, name }, index) => {
                   return (
                     <button
                       key={index}

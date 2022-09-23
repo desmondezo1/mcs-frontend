@@ -61,7 +61,7 @@ const Cart = () => {
   const calculateShipping = () => {
     let total = 0;
     cartList.forEach((item) => {
-      total += +item?.weight;
+      total = +item?.weight * item?.quantity;
     });
     return total;
   }

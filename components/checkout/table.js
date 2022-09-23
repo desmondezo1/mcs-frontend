@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import axios from "axios";
 import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,9 +8,26 @@ import {
   decreaseQuantity,
   removeCartList,
 } from "../../stores/mySlice";
+import useStore from "../../stores/zustandStore";
+
 
 const TableBody = ({ id, name, price, quantity, item, photo }) => {
   const dispatch = useDispatch();
+  const shippingCost = useStore((state) => state.shippingCost);
+  const setShippingCost = useStore((state) => state.setShippingCost);
+  const cartList = useSelector((state) => state.mySlice.cart);
+
+  const calculateShipping = () => {
+    let total = 0;
+    cartList.forEach((item) => {
+      total += +item?.weight * item?.quantity;
+    });
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`).then((res)=>{
+    console.log(res.data)
+    setShippingCost(+res.data.data)
+  });
+  };
+  
   React.useEffect(() => {}, []);
   console.log("photo", item);
   return (
@@ -40,13 +58,13 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
               icon="carbon:subtract"
               width="20"
               height="20"
-              onClick={() => dispatch(decreaseQuantity(item))}
+              onClick={() => {dispatch(decreaseQuantity(item)); calculateShipping();}}
             />
           </span>
           <span className="px-3 text-sm">{quantity}</span>
           <span
             className=" cursor-pointer hover:bg-gray-200 rounded-[50%]"
-            onClick={() => dispatch(increaseQuantity(item))}
+            onClick={() => {dispatch(increaseQuantity(item)); calculateShipping();}}
           >
             <Icon icon="carbon:add" width="20" height="20" />
           </span>

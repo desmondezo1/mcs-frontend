@@ -95,14 +95,17 @@ const Shop = ({ productss, categories, brands, brand }) => {
 
 export async function getServerSideProps(conext) {
   try {
-    const { brand } = conext.query;
+    let { brand } = conext.query;
+    if(!brand){
+      brand= null;
+    }
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}products`);
     const Catres = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}categories`);
 
     const brandRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}brands`);
     const brands = await brandRes.json();
     const products = await res.json();
-
+    
     const categories = await Catres.json();
     return {
       props: { productss: products, categories, brands, brand: brand || null },
