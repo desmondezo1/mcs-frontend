@@ -10,8 +10,8 @@ import {
 } from "../../stores/mySlice";
 import useStore from "../../stores/zustandStore";
 
-
 const TableBody = ({ id, name, price, quantity, item, photo }) => {
+  console.log(photo, item);
   const dispatch = useDispatch();
   const shippingCost = useStore((state) => state.shippingCost);
   const setShippingCost = useStore((state) => state.setShippingCost);
@@ -22,12 +22,14 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
     cartList.forEach((item) => {
       total += +item?.weight * item?.quantity;
     });
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`).then((res)=>{
-    console.log(res.data)
-    setShippingCost(+res.data.data)
-  });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`)
+      .then((res) => {
+        console.log(res.data);
+        setShippingCost(+res.data.data);
+      });
   };
-  
+
   React.useEffect(() => {}, []);
   console.log("photo", item);
   return (
@@ -42,7 +44,7 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
       </td>
       <td className="">
         <Image
-          src={item?.photo}
+          src={item?.images[0].image}
           alt="product"
           width={50}
           height={50}
@@ -58,13 +60,19 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
               icon="carbon:subtract"
               width="20"
               height="20"
-              onClick={() => {dispatch(decreaseQuantity(item)); calculateShipping();}}
+              onClick={() => {
+                dispatch(decreaseQuantity(item));
+                calculateShipping();
+              }}
             />
           </span>
           <span className="px-3 text-sm">{quantity}</span>
           <span
             className=" cursor-pointer hover:bg-gray-200 rounded-[50%]"
-            onClick={() => {dispatch(increaseQuantity(item)); calculateShipping();}}
+            onClick={() => {
+              dispatch(increaseQuantity(item));
+              calculateShipping();
+            }}
           >
             <Icon icon="carbon:add" width="20" height="20" />
           </span>

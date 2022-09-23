@@ -39,11 +39,18 @@ const Product = ({ errorCode, product: originalProductData }) => {
   const { favouriteList } = useSelector((state) => state.mySlice);
   const inFav = favouriteList.find((d) => d.title === product?.title);
 
+  console.log(originalProductData);
   useEffect(() => {
     if (Number(activeUser?.role) >= 3) {
+      const variation = originalProductData?.variation?.map((data) => ({
+        ...data,
+        price: data.offer_price,
+      }));
+
       setProduct({
         ...originalProductData,
         price: originalProductData.offer_price,
+        variation: variation,
       });
     } else {
       setProduct(originalProductData);
@@ -58,11 +65,11 @@ const Product = ({ errorCode, product: originalProductData }) => {
     router.push(url);
   };
 
-  console.log(product);
-
+  console.log("Original Image", originalProductData);
   const addToCart = (product) => {
     dispatch(
       updateCartList({
+        ...originalProductData,
         id: product?.id,
         name: product?.title,
         price: activeUser?.role === 3 ? product?.offer_price : product?.price,
@@ -77,9 +84,13 @@ const Product = ({ errorCode, product: originalProductData }) => {
   }
 
   function changeVariation(variant) {
+    console.log("Changing variant : ", variant);
     setProduct({
       ...originalProductData,
-      ...variant,
+      weight: variant?.weight,
+      volume: variant?.volume,
+      price:
+        Number(activeUser?.role) >= 3 ? variant?.offer_price : variant.price,
     });
   }
   const productionVariation = originalProductData.variation || [];

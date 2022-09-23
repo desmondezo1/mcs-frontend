@@ -34,7 +34,6 @@ const Cart = () => {
       item.product_id = item.id;
     });
 
-    console.log({ list });
     await fetch("/api/addToCart", {
       method: "POST",
       body: JSON.stringify(list),
@@ -64,19 +63,21 @@ const Cart = () => {
       total = +item?.weight * item?.quantity;
     });
     return total;
-  }
+  };
 
   useEffect(() => {
     dispatch(updateTotalPrice(totalCartPrice()));
   });
 
-  useEffect(() =>{
+  useEffect(() => {
     let total = calculateShipping();
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`).then((res)=>{
-      console.log(res.data)
-      setShippingPrice( +res.data.data)
-      setShippingCost(+res.data.data)
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`)
+      .then((res) => {
+        console.log(res.data);
+        setShippingPrice(+res.data.data);
+        setShippingCost(+res.data.data);
+      });
   });
 
   useEffect(() => {
@@ -146,7 +147,9 @@ const Cart = () => {
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Spedizione</span>
-                <span className="text-red-500">€{!doorDelivery? "0": shippingPrice}</span>
+                <span className="text-red-500">
+                  €{!doorDelivery ? "0" : shippingPrice}
+                </span>
               </div>
             </div>
 
@@ -154,7 +157,12 @@ const Cart = () => {
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Totale</span>
                 <span className="text-red-500">
-                  €{parseFloat((doorDelivery?+shippingCost:0) + totalCartPrice() + (totalCartPrice() * 0.22)).toFixed(2) }
+                  €
+                  {parseFloat(
+                    (doorDelivery ? +shippingCost : 0) +
+                      totalCartPrice() +
+                      totalCartPrice() * 0.22
+                  ).toFixed(2)}
                 </span>
               </div>
             </div>
