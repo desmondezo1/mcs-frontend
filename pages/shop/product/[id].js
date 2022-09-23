@@ -40,8 +40,14 @@ const Product = ({ errorCode, product: originalProductData }) => {
   const inFav = favouriteList.find((d) => d.title === product?.title);
 
   useEffect(() => {
-    setProduct(originalProductData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (Number(activeUser?.role) >= 3) {
+      setProduct({
+        ...originalProductData,
+        price: originalProductData.offer_price,
+      });
+    } else {
+      setProduct(originalProductData);
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalProductData]);
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -52,12 +58,14 @@ const Product = ({ errorCode, product: originalProductData }) => {
     router.push(url);
   };
 
+  console.log(product);
+
   const addToCart = (product) => {
     dispatch(
       updateCartList({
         id: product?.id,
         name: product?.title,
-        price:  activeUser?.role === 3 ? product?.offer_price: product?.price,
+        price: activeUser?.role === 3 ? product?.offer_price : product?.price,
         quantity: count,
         weight: product?.weight,
       })
@@ -356,11 +364,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
                 <div className="infoWrapper d-flex w-100">
                   <div className="itemLabel">Confezione: </div>
                   <div className="itemContent flex-grow-3">
-                    {product &&
-                      product.variation &&
-                      product?.variation.map((item) => {
-                        return item.packaging + ", ";
-                      })}
+                    {product && product?.volume}
                   </div>
                 </div>
               </div>
@@ -395,7 +399,7 @@ export async function getServerSideProps({ req, params }) {
 
     const errorCode = res.ok ? false : res.status;
     const product = await res.json();
-    console.log(product.data)
+    console.log(product.data);
     return { props: { product: product.data, params, errorCode } };
   } catch (error) {
     console.log(error);

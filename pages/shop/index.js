@@ -104,11 +104,13 @@ export async function getServerSideProps(conext) {
     const products = await res.json();
 
     const categories = await Catres.json();
-    return { props: { productss: products, categories, brands, brand } };
+    return {
+      props: { productss: products, categories, brands, brand: brand || null },
+    };
   } catch (error) {
     console.log(error);
     return {
-      props: { productss: [], categories: [], brands: [], brand: null },
+      props: { productss: [], categories: [], brands: [], brand: [] },
     };
   }
 }
