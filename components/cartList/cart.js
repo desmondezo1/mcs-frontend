@@ -89,7 +89,7 @@ const Cart = () => {
                     </p>
                   </Link>
                   <Link href="/shop/cart">
-                    <p className=" bg-black text-white rounded-3xl px-2 text-center py-1 my-1">
+                    <p className=" bg-black text-white rounded-3xl px-2 text-center py-1 my-1 cursor-pointer">
                       PAGAMENTO
                     </p>
                   </Link>

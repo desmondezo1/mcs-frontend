@@ -60,6 +60,13 @@ const Product = ({ errorCode, product: originalProductData }) => {
     setActiveTab(tab);
   };
 
+  const selectedVariant = (selection) => {
+    if(product?.packaging === selection){
+      return true;
+    }
+    return false;
+  }
+
   const downloadPdf = (url) => {
     setActiveTab("pdf");
     router.push(url);
@@ -89,6 +96,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
       ...originalProductData,
       weight: variant?.weight,
       volume: variant?.volume,
+      packaging: variant?.packaging,
       price:
         Number(activeUser?.role) >= 3 ? variant?.offer_price : variant.price,
     });
@@ -98,8 +106,11 @@ const Product = ({ errorCode, product: originalProductData }) => {
   const variationList = productionVariation.map((variant, index) => {
     const position = digitToString(index + 1);
     return (
-      <button onClick={() => changeVariation(variant)} key={variant.title}>
+      <button onClick={() => {changeVariation(variant);}} key={variant.packaging} style={{display: "flex"}}>
         {variant.packaging}
+          <span>
+            {selectedVariant(variant?.packaging) ? <Icon icon="akar-icons:check" width="20" height="20" /> : ""}
+          </span>
       </button>
     );
   });
@@ -337,7 +348,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
             {activeTab === "tab2" && (
               <div className="tab_content_item">
                 <div className="infoWrapper d-flex w-100">
-                  <div className="itemLabel ">prezzo: </div>
+                  <div className="itemLabel ">Prezzo: </div>
                   <div className="itemContent">{product?.price}</div>
                 </div>
 

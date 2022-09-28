@@ -22,6 +22,7 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
     cartList.forEach((item) => {
       total += +item?.weight * item?.quantity;
     });
+    console.log({total});
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`)
       .then((res) => {
@@ -44,7 +45,7 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
       </td>
       <td className="">
         <Image
-          src={item?.images[0].image}
+          src={!item?.photo? item?.images[0].image: item?.photo}
           alt="product"
           width={50}
           height={50}

@@ -62,14 +62,14 @@ const mySlice = createSlice({
     increaseQuantity: (state, action) => {
       state.cart.forEach((item) => {
         if (item.id === action.payload.id) {
-          item.quantity++;
+          ++item.quantity;
         }
       });
     },
     decreaseQuantity: (state, action) => {
       state.cart.forEach((item) => {
         if (item.id === action.payload.id) {
-          item.quantity--;
+          --item.quantity;
         }
       });
     },

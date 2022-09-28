@@ -38,7 +38,7 @@ export function AccordionList({
         checked={label === searchFilter}
       />
       <label htmlFor={id + Date.now()}></label>
-      <p>{label.substring(0, 25)}</p>
+      <p>{label.toUpperCase().substring(0, 25)}</p>
     </div>
   );
 }
@@ -67,7 +67,7 @@ function Accordion({ inputType = "checkbox", name, listData, children }) {
             marginLeft: "20px",
           }}
         >
-          {name.substring(0, 20)}
+          {name.toUpperCase().substring(0, 20)}
         </p>
       </button>
       <div
