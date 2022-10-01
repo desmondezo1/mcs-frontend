@@ -7,6 +7,7 @@ const initialState = {
   totalPrice: 0,
   checkoutList: [],
   favouriteList: [],
+  totalWeight: 0,
 };
 
 const mySlice = createSlice({
@@ -62,17 +63,27 @@ const mySlice = createSlice({
     increaseQuantity: (state, action) => {
       state.cart.forEach((item) => {
         if (item.id === action.payload.id) {
-          ++item.quantity;
+          item.quantity = item.quantity + 1;
         }
+        state.totalWeight=0;
+        state.totalWeight += item.quantity * item.weight;
       });
     },
     decreaseQuantity: (state, action) => {
       state.cart.forEach((item) => {
         if (item.id === action.payload.id) {
-          --item.quantity;
+          item.quantity = item.quantity - 1 ;
         }
+        state.totalWeight =0;
+        state.totalWeight += item.quantity * item.weight;
       });
     },
+    calculateWeight: (state, action) => {
+      state.cart.forEach((item) => {
+        state.totalWeight += item.quantity * item.weight;
+      })
+   },
+
     updateTotalPrice: (state, action) => {
       state.totalPrice = action.payload;
     },
@@ -93,6 +104,7 @@ export const {
   increaseQuantity,
   closeCart,
   decreaseQuantity,
+  calculateWeight,
   removeCartList,
   updateCheckoutList,
   updateTotalPrice,

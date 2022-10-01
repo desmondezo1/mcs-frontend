@@ -202,6 +202,7 @@ export default function Orders() {
                     onChange={onChange}
                     state={state}
                     setState={setState}
+                    submitBtn={false}
                   />
                 </form>
               ) : (

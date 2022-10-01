@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { initialStateForAzienda } from "../../../const/initialFomState";
 
-export default function Azienda({ user }) {
+export default function Azienda({ user, submitBtn=true }) {
   const [suite, setSuite] = useState();
   const [state, setState] = useState(initialStateForAzienda);
 
@@ -217,12 +217,13 @@ export default function Azienda({ user }) {
             id="fax"
           />
         </div>
-
-        <input
-          className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
-          type={"submit"}
-          value="SALVA"
-        />
+            {!submitBtn?"":(
+              <input
+                className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
+                type={"submit"}
+                value="SALVA"
+              />
+            )}
       </form>
     </>
   );

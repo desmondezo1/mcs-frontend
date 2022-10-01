@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import useStore from "../../stores/zustandStore";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {
+  calculateWeight,
+} from "../../stores/mySlice";
 
 const Cart = () => {
   const activeUser = JSON.parse(Cookies.get("user") || "{}");
@@ -20,8 +23,7 @@ const Cart = () => {
   const router = useRouter();
   const [shippingPrice, setShippingPrice] = useState(0);
   const cartList = useSelector((state) => state.mySlice.cart);
-
-  const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
+  const totalWeight = useSelector((state) => state.mySlice.totalWeight);
 
   const processCart = async () => {
     let list = [];
@@ -57,20 +59,16 @@ const Cart = () => {
     return total;
   };
 
-  const calculateShipping = () => {
-    let total = 0;
-    cartList.forEach((item) => {
-      total = +item?.weight * item?.quantity;
-    });
-    return total;
-  };
-
   useEffect(() => {
     dispatch(updateTotalPrice(totalCartPrice()));
   });
 
   useEffect(() => {
-    let total = calculateShipping();
+    calculateWeight();
+    let total = 0;
+    if(totalWeight){
+      total = totalWeight;
+    }
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`)
       .then((res) => {

@@ -1,28 +1,36 @@
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   increaseQuantity,
   decreaseQuantity,
   removeCartList,
+  calculateWeight,
 } from "../../stores/mySlice";
 import useStore from "../../stores/zustandStore";
 
 const TableBody = ({ id, name, price, quantity, item, photo }) => {
-  console.log(photo, item);
   const dispatch = useDispatch();
+  const [weight, setWeight] = useState(0)
   const shippingCost = useStore((state) => state.shippingCost);
   const setShippingCost = useStore((state) => state.setShippingCost);
   const cartList = useSelector((state) => state.mySlice.cart);
+  const totalWeight = useSelector((state) => state.mySlice.totalWeight);
+  // const calculateWeight = useSelector((state) => state.mySlice.calculateWeight);
 
   const calculateShipping = () => {
+
+    calculateWeight();
     let total = 0;
-    cartList.forEach((item) => {
-      total += +item?.weight * item?.quantity;
-    });
-    console.log({total});
+    // cartList.forEach((item) => {
+    //   total += +item?.weight * item?.quantity;
+    // });
+    if(total != totalWeight){
+      total = totalWeight;
+    }
+    // console.log({totalWeight}, {weight})
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`)
       .then((res) => {
@@ -31,8 +39,17 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
       });
   };
 
+  useEffect(()=>{
+    console.log({useef: totalWeight})
+    setWeight(totalWeight)
+
+    calculateShipping();
+
+  },[totalWeight])
+
+  console.log({totalWeight})
+
   React.useEffect(() => {}, []);
-  console.log("photo", item);
   return (
     <tr className="overflow-visible">
       <td>

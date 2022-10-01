@@ -181,9 +181,9 @@ export default function Orders() {
               </div>
               <form id="shippingDetails">
                 {privateInput ? (
-                  <Privato user={userData} />
+                  <Privato user={userData} submitBtn={false} />
                 ) : (
-                  <Azienda user={userData} />
+                  <Azienda user={userData} submitBtn={false}/>
                 )}
               </form>
             </div>

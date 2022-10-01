@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function SpedizioneForm({ user, onChange, state, setState }) {
+export default function SpedizioneForm({ user, onChange, state, setState, submitBtn=true}) {
   const [suite, setSuite] = useState();
 
   useEffect(() => {
@@ -207,12 +207,14 @@ export default function SpedizioneForm({ user, onChange, state, setState }) {
           value={state?.fax}
         />
       </div>
+          {!submitBtn?"":(
+        <input
+          className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
+          type={"submit"}
+          value="SALVA"
+        />
+          )}
 
-      <input
-        className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
-        type={"submit"}
-        value="SALVA"
-      />
 
       {/* </form> */}
     </>

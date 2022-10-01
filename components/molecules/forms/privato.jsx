@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { initialStateForAzienda } from "../../../const/initialFomState";
 
-export default function Privato({ user }) {
+export default function Privato({ user, submitBtn=true }) {
   // console.log({user})
   const [firstName, setFirstName] = useState(user?.first_name);
   const [lastName, setLastName] = useState(user?.last_name);
@@ -136,6 +136,7 @@ export default function Privato({ user }) {
             PROVINCA<span className="text-red-600">*</span>
           </label>
           <input
+            id="state"
             className="w-100 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
             type={"text"}
             onChange={(e) => {
@@ -232,12 +233,13 @@ export default function Privato({ user }) {
             id="fax"
           />
         </div>
-
-        <input
-          className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
-          type={"submit"}
-          value="SALVA"
-        />
+            {!submitBtn?"":(
+              <input
+                className="float-right bg-black text-white py-1 px-3 text-sm rounded-3xl"
+                type={"submit"}
+                value="SALVA"
+              />
+            )}
       </form>
     </>
   );
