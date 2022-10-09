@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 const Spedizione = () => {
   const [state, setState] = useState(initialState);
-  const [APTSUITE, setAPTSUITE] = useState("Roma");
+  const [APTSUITE, setAPTSUITE] = useState("");
   const token = Cookies.get("token");
 
   const activeUser = JSON.parse(Cookies.get("user") || "{}");
@@ -18,7 +18,7 @@ const Spedizione = () => {
   useEffect(() => {
     setState(initialState);
 
-    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}`, {
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/billing-address`, {
       method: "GET",
       headers: {
         "Content-type": "application/json;charset=UTF-8",
@@ -32,8 +32,9 @@ const Spedizione = () => {
         setState((prev) => ({
           ...prev,
           ...res.data,
-          address1: res.data.address,
+          address1: res.data?.address1,
         }));
+        setAPTSUITE(res.data?.aptsuite);
         // router.push("/bacheca/" + id);
       });
   }, []);
@@ -44,7 +45,7 @@ const Spedizione = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const formToRequest = { ...state, is_company: Number(0) };
+    const formToRequest = { ...state, aptsuite: APTSUITE, is_company: Number(0) };
 
     fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/billing-address`, {
       method: "PATCH",
@@ -143,7 +144,7 @@ const Spedizione = () => {
               <label>PEC</label>
               <input
                 className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
-                type={"email"}
+                type={"text"}
                 onChange={onChange}
                 value={state.pec}
                 id="pec"

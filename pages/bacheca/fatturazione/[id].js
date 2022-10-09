@@ -9,7 +9,7 @@ export const Fatturazione = () => {
   const [privateInput, setPrivateInput] = useState(true);
   const [state, setState] = useState(initialState);
 
-  const [APTSUITE, setAPTSUITE] = useState("Roma");
+  const [APTSUITE, setAPTSUITE] = useState("");
   const token = Cookies.get("token");
   const router = useRouter();
 
@@ -19,7 +19,7 @@ export const Fatturazione = () => {
   useEffect(() => {
     setState(initialState);
 
-    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${userId}`, {
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${userId}/billing-address`, {
       method: "GET",
       headers: {
         "Content-type": "application/json;charset=UTF-8",
@@ -30,8 +30,9 @@ export const Fatturazione = () => {
         return res.json();
       })
       .then((res) => {
-        setState({ ...res.data, address1: res.data.address });
+        setState({ ...res.data, address1: res.data.address1 });
         // router.push("/bacheca/" + id);
+        setAPTSUITE(res.data?.aptsuite);
       });
 
     console.log(initialState);
@@ -171,7 +172,7 @@ export const Fatturazione = () => {
                   <label>PEC</label>
                   <input
                     className="w-3/4 bg-transparent border-2 border-solid border-gray-700 rounded-3xl px-3"
-                    type={"email"}
+                    type={"text"}
                     onChange={onChange}
                     value={state.pec}
                     id="pec"

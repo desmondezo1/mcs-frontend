@@ -200,6 +200,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
                   <Icon icon="carbon:add" width="30" height="30" />
                 </span>
               </div>
+              €{product?.price} (+IVA)
               <div
                 className="flex flex-wrap items-center justify-between mt-auto"
                 onClick={() => addToCart(product)}
@@ -349,7 +350,7 @@ const Product = ({ errorCode, product: originalProductData }) => {
               <div className="tab_content_item">
                 <div className="infoWrapper d-flex w-100">
                   <div className="itemLabel ">Prezzo: </div>
-                  <div className="itemContent">{product?.price}</div>
+                  <div className="itemContent">€{product?.price} (+IVA)</div>
                 </div>
 
                 <div className="infoWrapper d-flex w-100">
