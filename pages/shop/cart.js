@@ -141,7 +141,7 @@ const Cart = () => {
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>IVA (22%)</span>
-                <span className="text-red-500">€{totalCartPrice() * 0.22}</span>
+                <span className="text-red-500">€{totalCartPrice().toFixed(2) * 0.22}</span>
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Spedizione</span>
