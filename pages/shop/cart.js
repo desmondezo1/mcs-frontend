@@ -67,6 +67,7 @@ const Cart = () => {
   useEffect(() => {
     calculateWeight();
     let total = 0;
+    console.log({totalWeight})
     if(totalWeight){
       total = totalWeight;
     }
