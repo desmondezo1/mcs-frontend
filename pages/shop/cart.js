@@ -24,7 +24,7 @@ const Cart = () => {
   const [shippingPrice, setShippingPrice] = useState(0);
   const cartList = useSelector((state) => state.mySlice.cart);
   const totalWeight = useSelector((state) => state.mySlice.totalWeight);
-  const totalPrice = useSelector((state) => state.mySlice.totalPrice);
+  // const totalPrice = useSelector((state) => state.mySlice.totalPrice);
 
   const processCart = async () => {
     let list = [];

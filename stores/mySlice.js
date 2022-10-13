@@ -85,10 +85,10 @@ const mySlice = createSlice({
    },
 
     updateTotalPrice: (state, action) => {
-      state.cart.forEach((item) => {
-        state.totalPrice += item.quantity * item.price;
-      })
-      // state.totalPrice = action.payload;
+      // state.cart.forEach((item) => {
+      //   state.totalPrice += item.quantity * item.price;
+      // })
+      state.totalPrice = action.payload;
     },
     updateCheckoutList(state, action) {
       state.checkoutList.push({ ...action.payload });
