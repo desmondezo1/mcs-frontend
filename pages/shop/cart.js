@@ -135,7 +135,7 @@ const Cart = () => {
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Subtotale</span>
                 {/* <span className="text-red-500">€{(totalCartPrice()).toFixed(2)}</span> */}
-                <span className="text-red-500">€{(totalPrice).toFixed(2)}</span>
+                <span className="text-red-500">€{totalPrice}</span>
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Sconto</span>
