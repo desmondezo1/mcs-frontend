@@ -24,6 +24,7 @@ const Cart = () => {
   const [shippingPrice, setShippingPrice] = useState(0);
   const cartList = useSelector((state) => state.mySlice.cart);
   const totalWeight = useSelector((state) => state.mySlice.totalWeight);
+  const totalPrice = useSelector((state) => state.mySlice.totalPrice);
 
   const processCart = async () => {
     let list = [];
@@ -133,7 +134,8 @@ const Cart = () => {
             <div className="border-b-2 border-gray-400 border-solid text-sm py-3">
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Subtotale</span>
-                <span className="text-red-500">€{(totalCartPrice()).toFixed(2)}</span>
+                {/* <span className="text-red-500">€{(totalCartPrice()).toFixed(2)}</span> */}
+                <span className="text-red-500">€{(totalPrice).toFixed(2)}</span>
               </div>
               <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                 <span>Sconto</span>

@@ -106,6 +106,7 @@ export const {
   decreaseQuantity,
   calculateWeight,
   removeCartList,
+  totalPrice,
   updateCheckoutList,
   updateTotalPrice,
   updateFavouriteList,
