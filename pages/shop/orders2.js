@@ -147,6 +147,15 @@ export default function Orders() {
             grid-template-columns: 50% 50%;
             width: 80%;
           }
+
+          @media only screen and (max-width: 768px) {
+            .ordersContainer {
+              display: grid;
+              grid-gap: 30px;
+              grid-template-columns: 100%;
+              width: 80%;
+            }
+          }
         `}
       </style>
       <div className="OrdersWrapper">
@@ -195,7 +204,7 @@ export default function Orders() {
                 ..
                 ..
                 .. */}
-          <div className="cartItemsWrapper">
+          <div className="cartItemsWrapper"  style={{overflow: "auto"}}>
             <div className=" table py-8">
               {cartList.length > 0 ? (
                 <div className="m-auto w-[95%] md:w-[90%] lg:w-100">
@@ -254,7 +263,7 @@ export default function Orders() {
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
                         <span>IVA (22%)</span>
                         <span className="text-red-500">
-                          €{totalCartPrice() * 0.22}
+                          €{(totalCartPrice() * 0.22).toFixed(2)}
                         </span>
                       </div>
                       <div className="flex items-center justify-between w-1/2 ml-auto py-1">
