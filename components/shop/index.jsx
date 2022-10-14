@@ -51,7 +51,7 @@ const ShopList = ({ product }) => {
       .then((res) => res.json())
       .then((res) => console.log({ res }));
 
-    toast.success("Artículo añadido al carrito");
+    toast.success("Articolo aggiunto al carrello");
   };
 
   const inFav = favouriteList.find((d) => d.title === product?.title);
