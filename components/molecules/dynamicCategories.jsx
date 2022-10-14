@@ -67,6 +67,7 @@ export default function DynamicCategories({ title }) {
               grid-template-columns: auto;
               width: 80%;
               height: auto;
+              grid-gap: 1%
             }
 
             .washroomImages {
