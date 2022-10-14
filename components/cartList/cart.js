@@ -77,7 +77,7 @@ const Cart = () => {
               <div className="mt-auto p-3 border-t border-gray-400 border-solid">
                 <div className="flex items-center justify-between text-sm my-4">
                   <span>SUBTOTALE:</span>
-                  <span className="text-red-500">€{totalCartPrice()}</span>
+                  <span className="text-red-500">€{(totalCartPrice()).toFixed(2)}</span>
                 </div>
                 <div className="buttons text-sm">
                   <Link href="/shop/cart">
