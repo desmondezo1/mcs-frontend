@@ -55,8 +55,9 @@ export default function MepaHeader() {
           if (favourite.length === 0) {
             res.data.forEach((data) => {
               list.push(data);
-              dispatch(updateFavouriteList(data));
+            
             });
+            
             setFavList(list);
           }
         }
