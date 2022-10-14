@@ -166,7 +166,7 @@ export default function Washroom() {
 
         <div className="washroomImages">
           <div className={`${styles.distImageCard} ${"imageCard"}`}>
-            <Link href={""}>
+            
               <span style={{ display: "flex", marginTop: "10px" }}>
                 <a href="tel:0932642711">ASSISTENZA CLIENTI</a>
                 <Icon
@@ -174,9 +174,9 @@ export default function Washroom() {
                   style={{ fontSize: "1rem" }}
                 />
               </span>
-            </Link>
+            
 
-            <Link href={""}>
+            
               <span style={{ display: "flex", marginTop: "10px" }}>
                 <a
                   target="_blank"
@@ -190,7 +190,7 @@ export default function Washroom() {
                   style={{ fontSize: "1rem" }}
                 />
               </span>
-            </Link>
+            
 
             <p className="mt-[20px]">Email: e-commerce@mcsgroupsrl.com</p>
             <p>Tel: 0932 642711</p>
