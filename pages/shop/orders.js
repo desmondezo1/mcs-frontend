@@ -23,10 +23,10 @@ export default function Orders() {
   const cartList = useSelector((state) => state.mySlice.cart);
   const totalPrice = useSelector((state) => state.mySlice.totalCartPrice);
   const shippingCost = useStore((state) => state.shippingCost);
-  const setShippingCost = useStore((state) => state.setShippingCost);
+  // const setShippingCost = useStore((state) => state.setShippingCost);
   const doorDelivery = useStore((state) => state.doorDelivery);
   const setDoorDelivery = useStore((state) => state.setDoorDelivery);
-  const totalWeight = useSelector((state) => state.mySlice.totalWeight);
+  // const totalWeight = useSelector((state) => state.mySlice.totalWeight);
 
   const [privateInput, setPrivateInput] = useState(true);
   const [userData, setUserData] = useState("");
@@ -117,32 +117,6 @@ export default function Orders() {
     });
     return total;
   };
-
-// -- total weight -- //
-  useEffect(() => {
-    let totalW = 0;
-    cartList.forEach((item) => {
-      totalW += +item.weight * +item.quantity;
-    });
-
-    console.log({totalW})
-
-    calculateWeight();
-    let total = 0;
-    // console.log({totalWeight})
-    if(totalWeight){
-      total = totalWeight;
-    }
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${totalW}`)
-      .then((res) => {
-        console.log("ship->",res.data);
-        // setShippingPrice(+res.data.data);
-        setShippingCost(+res.data.data);
-      });
-  });
-
-// --- total weight --- //
 
 
 

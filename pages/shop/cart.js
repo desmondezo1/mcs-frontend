@@ -72,7 +72,7 @@ const Cart = () => {
 
     calculateWeight();
     let total = 0;
-    console.log({totalWeight})
+    console.log({totalW})
     if(totalWeight){
       total = totalWeight;
     }
