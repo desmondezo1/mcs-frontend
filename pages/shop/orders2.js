@@ -25,6 +25,7 @@ export default function Orders() {
   const doorDelivery = useStore((state) => state.doorDelivery);
   const [privateInput, setPrivateInput] = useState(true);
   const shippingCost = useStore((state) => state.shippingCost);
+  const setShippingCost = useStore((state) => state.setShippingCost);
 
   const [userData, setUserData] = useState("");
 
@@ -91,6 +92,21 @@ export default function Orders() {
 
     return;
   };
+
+
+  useEffect(() => {
+    let totalW = 0;
+    cartList.forEach((item) => {
+      totalW += +item.weight * +item.quantity;
+    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${totalW}`)
+      .then((res) => {
+        console.log("ship->",res.data);
+        setShippingCost(+res.data.data);
+      });
+  });
+
 
 
   const totalCartPrice = () => {
