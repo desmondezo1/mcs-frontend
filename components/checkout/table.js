@@ -70,7 +70,7 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
         />
       </td>
       <td>{name}</td>
-      <td className=" text-red-500">{`€${price}`} </td>
+      <td className=" text-red-500">{`€${(price).toFixed(2)}`} </td>
       <td className="">
         <div className="flex items-center justify-between w-fit border-1 border-gray-400 border-solid rounded-3xl px-[0.1em] m-auto  my-2">
           <span className="text-sm cursor-pointer hover:bg-gray-200 rounded-[50%]">
@@ -96,7 +96,7 @@ const TableBody = ({ id, name, price, quantity, item, photo }) => {
           </span>
         </div>
       </td>
-      <td className="text-red-500">{`€${price * quantity}`} </td>
+      <td className="text-red-500">{`€${(price * quantity).toFixed(2)}`} </td>
     </tr>
   );
 };
