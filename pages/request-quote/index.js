@@ -113,6 +113,15 @@ export default function Washroom() {
           .filler {
             height: 100px;
           }
+
+          @media only screen and (max-width: 768px) {
+            .washroomWrapper {
+            display: grid;
+            grid-template-columns: 100%;
+            width: 80%;
+            height: auto;
+          }
+          }
         `}
       </style>
       <div className="washroomWrapper mx-auto my-auto mt-[100px]">

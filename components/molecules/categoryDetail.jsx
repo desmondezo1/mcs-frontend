@@ -48,6 +48,15 @@ export default function CategoryDetail({ category }) {
           img {
             min-height: 290px;
           }
+          @media only screen and (max-width: 768px) {
+            .washroomWrapper {
+              display: grid;
+              grid-template-columns: 100%;
+              width: 80%;
+              grid-gap: 6%;
+              height: auto;
+            }
+          }
         `}
       </style>
 

@@ -60,6 +60,24 @@ export default function DynamicCategories({ title }) {
             margin-right: 20px;
             justify-content: unset;
           }
+
+          @media only screen and (max-width: 768px) {
+            .washroomWrapper {
+              display: grid;
+              grid-template-columns: auto;
+              width: 80%;
+              height: auto;
+            }
+
+            .washroomImages {
+              display: flex;
+              flex-direction: column;
+            }
+
+            .imageCard {
+              margin-bottom: 30px;
+            }
+          }
         `}
       </style>
 
