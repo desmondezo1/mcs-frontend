@@ -20,6 +20,7 @@ export default function Privato({ user, submitBtn=true }) {
 
   const [state, setState] = useState(initialStateForAzienda);
 
+
   function onChange(e) {
     setState((prev) => ({
       ...prev,
@@ -34,6 +35,7 @@ export default function Privato({ user, submitBtn=true }) {
   }
   useEffect(() => {
     setState({ ...user, ...user?.billing });
+    setSuite(user?.billing?.aptsuite);
   }, [user]);
   return (
     <>

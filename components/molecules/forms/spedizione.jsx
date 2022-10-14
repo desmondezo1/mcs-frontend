@@ -5,7 +5,7 @@ export default function SpedizioneForm({ user, onChange, state, setState, submit
 
   useEffect(() => {
     setState({ ...user, ...user?.billing });
-    setSuite(user?.address);
+    setSuite(user?.billing?.aptsuite);
   }, [user]);
 
   return (

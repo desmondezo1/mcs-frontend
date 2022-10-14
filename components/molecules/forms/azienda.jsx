@@ -7,6 +7,7 @@ export default function Azienda({ user, submitBtn=true }) {
 
   useEffect(() => {
     setState({ ...user, ...user?.billing });
+    setSuite(user?.billing?.aptsuite);
   }, []);
   function onChange(e) {
     setState((prev) => ({
