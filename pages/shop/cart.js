@@ -79,7 +79,7 @@ const Cart = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${totalW}`)
       .then((res) => {
-        console.log(res.data);
+        console.log("ship->",res.data);
         setShippingPrice(+res.data.data);
         setShippingCost(+res.data.data);
       });
