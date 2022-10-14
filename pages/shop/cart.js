@@ -65,6 +65,11 @@ const Cart = () => {
   });
 
   useEffect(() => {
+    let totalW = 0;
+    cartList.forEach((item) => {
+      totalW += item.weight * item.quantity;
+    });
+
     calculateWeight();
     let total = 0;
     console.log({totalWeight})
@@ -72,13 +77,13 @@ const Cart = () => {
       total = totalWeight;
     }
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${total}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}calculateShipping/${totalW}`)
       .then((res) => {
         console.log(res.data);
         setShippingPrice(+res.data.data);
         setShippingCost(+res.data.data);
       });
-  });
+  },[cartList, setShippingCost, totalWeight]);
 
   useEffect(() => {
     if (!userId) {
