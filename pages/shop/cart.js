@@ -67,7 +67,7 @@ const Cart = () => {
   useEffect(() => {
     let totalW = 0;
     cartList.forEach((item) => {
-      totalW += item.weight * item.quantity;
+      totalW += +item.weight * +item.quantity;
     });
 
     calculateWeight();
