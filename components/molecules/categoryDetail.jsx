@@ -53,8 +53,12 @@ export default function CategoryDetail({ category }) {
               display: grid;
               grid-template-columns: 100%;
               width: 80%;
-              grid-gap: 6%;
+          
              
+            }
+
+            .backBtn{
+              display: none;
             }
           }
         `}

@@ -74,6 +74,10 @@ export default function DynamicCategories({ title }) {
               flex-direction: column;
             }
 
+            .backBtn{
+              display: none!important;
+            }
+
             .imageCard {
               margin-bottom: 30px;
             }
@@ -138,11 +142,11 @@ export default function DynamicCategories({ title }) {
           </>
         )}
 
-        <span
+        <span 
           onClick={() => {
             router.back();
           }}
-          className={"d-flex align-item-center"}
+          className={"d-flex align-item-center backBtn"}
           style={{
             alignItems: "center",
             position: "absolute",
