@@ -9,13 +9,20 @@ import { updateCartVisibility } from "../../stores/mySlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../cartList/cart";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 // import WhiteLogo from "../compounds/MCSWhiteLogo";
 import WhiteLogo from "../../images/icons/MepaHomeIcon";
 
 export default function MepaHeader() {
+  const activeUser = JSON.parse(Cookies.get("user") || "{}");
+  const id = activeUser["id"];
+  const token = Cookies.get("token");
+
   const dispatch = useDispatch();
   const cartList = useSelector((state) => state.mySlice.cart);
   const openCart = useSelector((state) => state.mySlice.openCart);
+  const favourite = useSelector((state) => state.favouriteList) || [];
+  const [favList, setFavList] = useState([]);
   const [bgColor, setBgColor] = useState({
     background_color: "#F0F0F0!important",
     color: "#000",
@@ -31,6 +38,30 @@ export default function MepaHeader() {
         headerBottomMargin: "0px",
       });
     }
+
+    fetch(process.env.NEXT_PUBLIC_APP_URL + `user/${id}/wishlist`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          const list = [];
+          if (favourite.length === 0) {
+            res.data.forEach((data) => {
+              list.push(data);
+              dispatch(updateFavouriteList(data));
+            });
+            setFavList(list);
+          }
+        }
+      })
+      .catch(console.log);
   }, [router.asPath]);
   return (
     <>
@@ -204,7 +235,7 @@ export default function MepaHeader() {
               <Link href="/bacheca/desideri/1">
                 <a>
                   <div className={HeaderCss.wishListIcon}>
-                    <span className={HeaderCss.wishListCount}>5</span>
+                    <span className={HeaderCss.wishListCount}>{favList.length}</span>
                     <Icon icon="bi:heart" />
                   </div>
                 </a>
