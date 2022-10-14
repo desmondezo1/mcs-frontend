@@ -83,7 +83,7 @@ const Cart = () => {
         setShippingPrice(+res.data.data);
         setShippingCost(+res.data.data);
       });
-  },[cartList, setShippingCost, totalWeight]);
+  });
 
   useEffect(() => {
     if (!userId) {
